@@ -18,7 +18,7 @@ services:
         networks: ["net"]
 
         ports:
-            # - "80:80"
+            - "80:80"
             - "443:443"
 
     LetsencryptCompanion:
@@ -33,6 +33,7 @@ services:
 
         environment:
             - DEFAULT_EMAIL
+            - NGINX_PROXY_CONTAINER
 
         depends_on: ["NginxProxy"]
         restart: "on-failure"
