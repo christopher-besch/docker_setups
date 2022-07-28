@@ -7,7 +7,7 @@ services:
         image: "mariadb:10.7.4"
         
         volumes:
-            - "NCMariaDB:/media/drive2/nextcloud/nc_maria_db"
+          - "/media/drive2/nextcloud/nc_maria_db:/var/lib/mysql"
 
         environment:
             - MYSQL_ROOT_PASSWORD
@@ -23,7 +23,7 @@ services:
         image: "nextcloud:24.0.3"
 
         volumes: 
-          - "NCData:/media/drive2/nextcloud/nc_data"
+          - "/media/drive2/nextcloud/nc_data:/var/www/html"
 
         environment:
             - LETSENCRYPT_HOST
@@ -41,10 +41,6 @@ services:
         depends_on:
             - "NCDatabase"
         networks: ["net", "common"]
-
-volumes:
-    NCMariaDB:
-    NCData:
 
 networks:
     net:
