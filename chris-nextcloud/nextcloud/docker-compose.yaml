@@ -1,0 +1,54 @@
+# based on https://linuxhandbook.com/install-nextcloud-docker
+version: "3.7"
+
+services:
+
+    NCDatabase:
+        image: "mariadb:10.7.4"
+        
+        volumes:
+            - "NCMariaDB:/var/lib/mysql"
+
+        environment:
+            - MYSQL_ROOT_PASSWORD
+            - MYSQL_RANDOM_ROOT_PASSWORD
+            - MYSQL_DATABASE
+            - MYSQL_USER
+            - MYSQL_PASSWORD
+
+        restart: "on-failure"
+        networks: ["common"]
+
+    NCFrontend:
+        image: "nextcloud:24.0.3"
+
+        volumes: 
+          - "NCData:/var/www/html"
+
+        environment:
+            - LETSENCRYPT_HOST
+            - VIRTUAL_HOST
+            - TRUSTED_PROXIES
+            - OVERWRITEPROTOCOL
+            - MYSQL_DATABASE
+            - MYSQL_USER
+            - MYSQL_PASSWORD
+            - MYSQL_HOST
+            - NEXTCLOUD_TRUSTED_DOMAINS
+            - NEXTCLOUD_ADMIN_USER
+            - NEXTCLOUD_ADMIN_PASSWORD
+
+        depends_on:
+            - "NCDatabase"
+        networks: ["net", "common"]
+
+volumes:
+    NCMariaDB:
+    NCData:
+
+networks:
+    net:
+        external: true
+    common:
+        internal: true
+
