@@ -33,7 +33,7 @@ services:
 
         environment:
             - DEFAULT_EMAIL
-            - NGINX_PROXY_CONTAINER
+            - NGINX_PROXY_CONTAINER=NginxProxy
 
         depends_on: ["NginxProxy"]
         restart: "on-failure"

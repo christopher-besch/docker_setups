@@ -10,10 +10,10 @@ services:
           - "/media/drive2/nextcloud/nc_maria_db:/var/lib/mysql"
 
         environment:
-            - MYSQL_ROOT_PASSWORD
-            - MYSQL_RANDOM_ROOT_PASSWORD
-            - MYSQL_DATABASE
-            - MYSQL_USER
+            - MYSQL_RANDOM_ROOT_PASSWORD=1
+            # - MYSQL_ROOT_PASSWORD
+            - MYSQL_DATABASE=NC
+            - MYSQL_USER=nextcloud
             - MYSQL_PASSWORD
 
         restart: "on-failure"
@@ -26,17 +26,15 @@ services:
           - "/media/drive2/nextcloud/nc_data:/var/www/html"
 
         environment:
-            - LETSENCRYPT_HOST
-            - VIRTUAL_HOST
+            - LETSENCRYPT_HOST=${DOMAIN}
+            - VIRTUAL_HOST=${DOMAIN}
             - TRUSTED_PROXIES
             - OVERWRITEPROTOCOL
-            - MYSQL_DATABASE
-            - MYSQL_USER
+            - MYSQL_DATABASE=NC
+            - MYSQL_USER=nextcloud
             - MYSQL_PASSWORD
-            - MYSQL_HOST
-            - NEXTCLOUD_TRUSTED_DOMAINS
-            - NEXTCLOUD_ADMIN_USER
-            - NEXTCLOUD_ADMIN_PASSWORD
+            - MYSQL_HOST=NCDatabase
+            - NEXTCLOUD_TRUSTED_DOMAINS=${DOMAIN}
 
         depends_on:
             - "NCDatabase"
