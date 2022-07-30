@@ -9,3 +9,6 @@
 ### in `/etc/davfs2/secrets`
 `/media/chris_nextcloud chris PASSWD`
 
+### Commands
+`sudo docker exec -ti --user www-data nextcloud_NCFrontend_1 /var/www/html/occ files:scan --all`
+
