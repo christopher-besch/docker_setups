@@ -7,7 +7,7 @@ services:
         image: "mariadb:10.7.4"
         
         volumes:
-          - "/media/drive2/nextcloud/nc_maria_db:/var/lib/mysql"
+          - "${NC_PATH}/nc_maria_db:/var/lib/mysql"
 
         environment:
             - MYSQL_RANDOM_ROOT_PASSWORD=1
@@ -23,7 +23,7 @@ services:
         image: "nextcloud:24.0.3"
 
         volumes: 
-          - "/media/drive2/nextcloud/nc_data:/var/www/html"
+          - "${NC_PATH}/nc_data:/var/www/html"
 
         environment:
             - LETSENCRYPT_HOST=${DOMAIN}
