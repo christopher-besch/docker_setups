@@ -1,6 +1,6 @@
 FROM debian:latest
 
-RUN apt-get update && apt-get install -y cron bash git python3 python3-pip
+RUN apt-get update && apt-get install -y cron bash git python3 python3-pip borgbackup
 RUN pip3 install PyGithub
 
 # configure git

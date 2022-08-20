@@ -11,8 +11,9 @@ services:
       - "${BACKUP_CONFIGS}:/var/lib/git_backup/configs:ro"
     
     environment:
-      - "GITHUB_USERNAME"
-      - "GITHUB_PASSWORD"
+      - GITHUB_USERNAME
+      - GITHUB_PASSWORD
+      - TZ=Europe/Berlin
 
     restart: "on-failure"
 
