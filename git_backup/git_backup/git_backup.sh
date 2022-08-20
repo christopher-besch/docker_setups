@@ -63,7 +63,7 @@ do
     if [ -n "$CUR_DIR" ]; then
         backup_repo $CUR_DIR
     fi
-# only load all repos when GIT_USERNAME given
+# only load all repos when GITHUB_USERNAME given
 done < <(cat \
     /var/lib/git_backup/configs/other_repos.conf \
     <([ -z ${GITHUB_USERNAME+x} ] || \
