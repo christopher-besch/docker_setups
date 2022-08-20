@@ -1,8 +1,8 @@
 import os
 from github import Github
 
-username = os.environ["GIT_USERNAME"]
-password = os.environ["GIT_PASSWORD"]
+username = os.environ["GITHUB_USERNAME"]
+password = os.environ["GITHUB_PASSWORD"]
 g = Github(username, password)
 
 user = g.get_user()

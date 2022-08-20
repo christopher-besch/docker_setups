@@ -9,6 +9,10 @@ services:
       - "${BACKUP_REPO}:/var/lib/git_backup/repo"
       - "${BACKUP_TEMP}:/var/lib/git_backup/temp"
       - "${BACKUP_CONFIGS}:/var/lib/git_backup/configs:ro"
+    
+    environment:
+      - "GITHUB_USERNAME"
+      - "GITHUB_PASSWORD"
 
     restart: "on-failure"
 
