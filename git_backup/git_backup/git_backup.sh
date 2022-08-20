@@ -77,12 +77,13 @@ backup_all_repos() {
 }
 
 create_borg_backup() {
+    export BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK=yes
     borg check $BORG_REPO
     echo "creating borg backup"
     borg create -error --compression zstd,22 "${BORG_REPO}::git_backup_{now}" $TEMP_DIR
 
     echo "pruning borg repo"
-    borg prune --keep-last --keep-montly $BORG_REPO
+    borg prune --keep-last 1 --keep-monthly 1 $BORG_REPO
 
     echo "compacting borg repo"
     borg compact $BORG_REPO
