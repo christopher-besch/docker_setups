@@ -2,19 +2,19 @@ version: "3.9"
 
 services:
 
-  git_backup:
-    image: "chrisbesch/git_backup"
+    git_backup:
+        image: "chrisbesch/git_backup"
 
-    volumes:
-      - "${BACKUP_REPO}:/var/lib/git_backup/repo"
-      - "${BACKUP_TEMP}:/var/lib/git_backup/temp"
-      - "${BACKUP_CONFIGS}:/var/lib/git_backup/configs:ro"
-    
-    environment:
-      - GITHUB_USERNAME
-      - GITHUB_PASSWORD
-      - TZ
-      - CRON_TIME
+        volumes:
+            - "${BACKUP_REPO}:/var/lib/git_backup/repo"
+            - "${BACKUP_TEMP}:/var/lib/git_backup/temp"
+            - "${BACKUP_CONFIGS}:/var/lib/git_backup/configs:ro"
+        
+        environment:
+            - GITHUB_USERNAME
+            - GITHUB_PASSWORD
+            - TZ
+            - CRON_TIME
 
-    restart: "always"
+        restart: "always"
 

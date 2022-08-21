@@ -1,52 +1,41 @@
-# based on https://linuxhandbook.com/nginx-reverse-proxy-docker
-version: "3.3"
+# from https://github.com/nginx-proxy/acme-companion/blob/main/docs/Docker-Compose.md
+version: "3.7"
 
 services:
-
-    NginxProxy:
-        image: "jwilder/nginx-proxy:latest"
-
-        volumes:
-            - "NPhtml:/usr/share/nginx/html"
-            - "NPdhparam:/etc/nginx/dhparam"
-            - "NPvhost:/etc/nginx/vhost.d"
-            - "NPcerts:/etc/nginx/certs:ro"
-            - "/var/run/docker.sock:/tmp/docker.sock:ro"
-            - "./client_max_upload_size.conf:/etc/nginx/conf.d/client_max_upload_size.conf:ro"
-
-        restart: "always"
-        networks: ["net"]
-
+    nginx_proxy:
+        image: nginxproxy/nginx-proxy
         ports:
             - "80:80"
             - "443:443"
-
-    LetsencryptCompanion:
-        image: "jrcs/letsencrypt-nginx-proxy-companion:latest"
-
         volumes:
-            - "LCacme:/etc/acme.sh"
-            - "NPvhost:/etc/nginx/vhost.d"
-            - "NPcerts:/etc/nginx/certs"
-            - "NPhtml:/usr/share/nginx/html"
-            - "/var/run/docker.sock:/var/run/docker.sock:ro"
-
-        environment:
-            - DEFAULT_EMAIL
-            - NGINX_PROXY_CONTAINER=NginxProxy
-
-        depends_on: ["NginxProxy"]
-        restart: "always"
+            - conf:/etc/nginx/conf.d
+            - vhost:/etc/nginx/vhost.d
+            - html:/usr/share/nginx/html
+            - certs:/etc/nginx/certs:ro
+            - /var/run/docker.sock:/tmp/docker.sock:ro
         networks: ["net"]
 
+    acme_companion:
+        image: nginxproxy/acme-companion
+        environment:
+            - DEFAULT_EMAIL
+        volumes_from:
+            - nginx_proxy
+        volumes:
+            - certs:/etc/nginx/certs:rw
+            - acme:/etc/acme.sh
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+        networks: ["net"]
 
 volumes:
-    NPhtml:
-    NPdhparam:
-    NPvhost:
-    NPcerts:
-    LCacme:
+    conf:
+    vhost:
+    html:
+    certs:
+    acme:
 
+# used to connect to frontend
 networks:
     net:
         external: true
+
