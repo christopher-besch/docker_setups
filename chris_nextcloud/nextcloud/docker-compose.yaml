@@ -16,7 +16,7 @@ services:
             - MYSQL_USER=nextcloud
             - MYSQL_PASSWORD
 
-        restart: "on-failure"
+        restart: "always"
         networks: ["common"]
 
     NCFrontend:
@@ -38,6 +38,7 @@ services:
 
         depends_on:
             - "NCDatabase"
+        restart: "always"
         networks: ["net", "common"]
 
 networks:

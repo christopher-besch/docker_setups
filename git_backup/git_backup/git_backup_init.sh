@@ -17,9 +17,15 @@ https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com
 EOF
 fi
 
+# redirect output to stdout and stderr of cron process -> usable docker logs
+echo "$CRON_TIME" '/bin/bash /var/lib/git_backup/git_backup.sh > /proc/$(cat /var/run/crond.pid)/fd/1 2>/proc/$(cat /var/run/crond.pid)/fd/2' > /etc/cron.d/crontab
+chmod 0644 /etc/cron.d/crontab
+crontab /etc/cron.d/crontab
+
 echo "starting cron at $(date)" >> $LOG
 # start the action
-# cron -f
+cron -f
 
-bash /var/lib/git_backup/git_backup.sh
+# for debugging
+# bash /var/lib/git_backup/git_backup.sh
 

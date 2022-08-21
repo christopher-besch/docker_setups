@@ -35,8 +35,10 @@ pull_repo() {
     echo "pulling $1 if required"
     pushd "$TEMP_DIR/$1" >/dev/null
 
-    # check if pull is necessary -> cleaner logs
-    git remote update
+    if ! git remote update; then
+        echo "error fetching upstream of $1" >> $LOG
+    fi
+    # check if pull is actually necessary -> cleaner logs
     if git status -uno | grep -P '^Your branch is behind '; then
         echo "pulling $1"
         if git pull --all; then
@@ -61,8 +63,7 @@ backup_repo() {
 
 backup_all_repos() {
     echo "starting backup at $(date)" >> $LOG
-    while IFS="" read -r CUR_DIR || [ -n "$CUR_DIR" ]
-    do
+    while IFS="" read -r CUR_DIR || [ -n "$CUR_DIR" ]; do
         # only lines with content
         if [ -n "$CUR_DIR" ]; then
             backup_repo $CUR_DIR
@@ -73,12 +74,16 @@ backup_all_repos() {
         <([ -z ${GITHUB_USERNAME+x} ] || \
         python3 $GIT_BACKUP_DIR/get_repos.py))
     echo "backup complete at $(date)" >> $LOG
-    echo >> $LOG
 }
 
 create_borg_backup() {
     export BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK=yes
-    borg check $BORG_REPO
+    if ! borg check $BORG_REPO; then
+        echo "borg backup repo invalid" >> $LOG
+        exit 1
+    fi
+    echo >> $LOG
+
     echo "creating borg backup"
     borg create -error --compression zstd,22 "${BORG_REPO}::git_backup_{now}" $TEMP_DIR
 

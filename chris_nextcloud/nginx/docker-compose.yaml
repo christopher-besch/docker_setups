@@ -14,7 +14,7 @@ services:
             - "/var/run/docker.sock:/tmp/docker.sock:ro"
             - "./client_max_upload_size.conf:/etc/nginx/conf.d/client_max_upload_size.conf:ro"
 
-        restart: "on-failure"
+        restart: "always"
         networks: ["net"]
 
         ports:
@@ -36,7 +36,7 @@ services:
             - NGINX_PROXY_CONTAINER=NginxProxy
 
         depends_on: ["NginxProxy"]
-        restart: "on-failure"
+        restart: "always"
         networks: ["net"]
 
 

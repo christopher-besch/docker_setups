@@ -1,3 +1,0 @@
-# redirect output to stdout and stderr
-0 3 * * * /bin/bash /var/lib/git_backup/git_backup.sh > /proc/$(cat /var/run/crond.pid)/fd/1 2>/proc/$(cat /var/run/crond.pid)/fd/2
-

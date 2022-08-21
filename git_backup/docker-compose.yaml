@@ -13,7 +13,8 @@ services:
     environment:
       - GITHUB_USERNAME
       - GITHUB_PASSWORD
-      - TZ=Europe/Berlin
+      - TZ
+      - CRON_TIME
 
-    restart: "on-failure"
+    restart: "always"
 
