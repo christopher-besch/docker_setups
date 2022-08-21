@@ -3,7 +3,7 @@ version: "3.7"
 
 services:
 
-    nc_database:
+    NCDatabase:
         image: "mariadb:10.7.4"
         
         volumes:
@@ -19,7 +19,7 @@ services:
         restart: "always"
         networks: ["common"]
 
-    nc_frontend:
+    NCFrontend:
         image: "nextcloud:24.0.3"
 
         volumes: 
@@ -33,11 +33,11 @@ services:
             - MYSQL_DATABASE=NC
             - MYSQL_USER=nextcloud
             - MYSQL_PASSWORD
-            - MYSQL_HOST=nc_database
+            - MYSQL_HOST=NCDatabase
             - NEXTCLOUD_TRUSTED_DOMAINS=${DOMAIN}
 
         depends_on:
-            - "nc_database"
+            - "NCDatabase"
         restart: "always"
         networks: ["net", "common"]
 

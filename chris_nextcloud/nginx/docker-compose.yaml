@@ -2,7 +2,7 @@
 version: "2"
 
 services:
-    nginx_proxy:
+    NginxProxy:
         image: nginxproxy/nginx-proxy
         ports:
             - "80:80"
@@ -16,12 +16,12 @@ services:
         restart: "always"
         networks: ["net"]
 
-    acme_companion:
+    AcmeCompanion:
         image: nginxproxy/acme-companion
         environment:
             - DEFAULT_EMAIL
         volumes_from:
-            - nginx_proxy
+            - NginxProxy
         volumes:
             - certs:/etc/nginx/certs:rw
             - acme:/etc/acme.sh
