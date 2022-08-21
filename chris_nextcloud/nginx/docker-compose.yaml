@@ -1,5 +1,5 @@
 # from https://github.com/nginx-proxy/acme-companion/blob/main/docs/Docker-Compose.md
-version: "3.7"
+version: "2"
 
 services:
     nginx_proxy:
