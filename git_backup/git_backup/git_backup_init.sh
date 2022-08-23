@@ -6,7 +6,8 @@
 set -euo pipefail
 IFS=$' \n\t'
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-LOG="/var/lib/git_backup/temp/git_backup.log"
+GIT_BACKUP_DIR="/var/lib/git_backup"
+LOG="$GIT_BACKUP_DIR/temp/git_backup.log"
 
 echo "running git_backup_init.sh"
 
@@ -18,11 +19,10 @@ EOF
 fi
 
 echo "init at $(date)" >> $LOG
-
 # call script when receiving SIGHUP
 # set -e exits script after trap
 set +e
-trap 'bash /var/lib/git_backup/git_backup.sh || echo "trap script failed"' HUP
+trap 'bash "$GIT_BACKUP_DIR/git_backup.sh" || echo "git_backup.sh failed"' HUP
 
 # await SIGHUP
 while :; do

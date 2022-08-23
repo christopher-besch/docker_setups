@@ -61,18 +61,30 @@ backup_repo() {
     fi
 }
 
+# write all to be backed up repos to file in $TEMP_DIR
+get_all_repos() {
+    # cleanup
+    echo '' > $TEMP_DIR/all_repos.conf
+    # only load other repos when other_repos.conf exists
+    if [ -f $GIT_BACKUP_DIR/other_repos.conf ]; then
+        cat $GIT_BACKUP_DIR/other_repos.conf >> $TEMP_DIR/all_repos.conf
+    fi
+    # only load all repos when GITHUB_USERNAME given
+    if [ ! -z ${GITHUB_USERNAME+x} ]; then
+        python3 $GIT_BACKUP_DIR/get_repos.py >> $TEMP_DIR/all_repos.conf
+    fi
+}
+
 backup_all_repos() {
     echo "starting backup at $(date)" >> $LOG
+
+    get_all_repos
     while IFS="" read -r CUR_DIR || [ -n "$CUR_DIR" ]; do
         # only lines with content
         if [ -n "$CUR_DIR" ]; then
             backup_repo $CUR_DIR
         fi
-    # only load all repos when GITHUB_USERNAME given
-    done < <(cat \
-        $CONFIGS_DIR/other_repos.conf \
-        <([ -z ${GITHUB_USERNAME+x} ] || \
-        python3 $GIT_BACKUP_DIR/get_repos.py))
+    done < $TEMP_DIR/all_repos.conf
     echo "backup complete at $(date)" >> $LOG
 }
 
