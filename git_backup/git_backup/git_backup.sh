@@ -80,7 +80,7 @@ create_borg_backup() {
     export BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK=yes
     if ! borg check $BORG_REPO; then
         echo "borg backup repo invalid" >> $LOG
-        exit 1
+        return
     fi
     echo >> $LOG
 

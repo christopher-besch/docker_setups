@@ -13,8 +13,17 @@ services:
         environment:
             - GITHUB_USERNAME
             - GITHUB_PASSWORD
-            - TZ
             - CRON_TIME
+
+        restart: "always"
+
+    docker_cron:
+        image: "chrisbesch/docker_cron"
+
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock:rw"
+        environment:
+            - TZ=Europe/Berlin
 
         restart: "always"
 

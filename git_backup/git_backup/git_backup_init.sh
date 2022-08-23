@@ -17,14 +17,15 @@ https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com
 EOF
 fi
 
-# redirect output to stdout and stderr of cron process -> usable docker logs
-echo "$CRON_TIME" '/bin/bash /var/lib/git_backup/git_backup.sh > /proc/$(cat /var/run/crond.pid)/fd/1 2>/proc/$(cat /var/run/crond.pid)/fd/2' > /etc/cron.d/crontab
-crontab /etc/cron.d/crontab
+echo "init at $(date)" >> $LOG
 
-echo "starting cron at $(date)" >> $LOG
-# start the action
-cron -f
+# call script when receiving SIGHUP
+# set -e exits script after trap
+set +e
+trap 'bash /var/lib/git_backup/git_backup.sh || echo "trap script failed"' HUP
 
-# for debugging
-# bash /var/lib/git_backup/git_backup.sh
+# await SIGHUP
+while :; do
+    sleep 10 & wait ${!}
+done
 
