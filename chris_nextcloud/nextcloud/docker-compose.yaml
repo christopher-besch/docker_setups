@@ -15,8 +15,13 @@ services:
             - MYSQL_DATABASE=NC
             - MYSQL_USER=nextcloud
             - MYSQL_PASSWORD
+            # stop when backup is being made
+            - CRON_TIME=${BACKUP_CRON}
+            # SIGTERM
+            - CRON_SIGNAL=0xf
 
-        restart: "always"
+        # accept SIGTERM
+        restart: "unless-stopped"
         networks: ["common"]
 
     NCFrontend:
@@ -35,11 +40,33 @@ services:
             - MYSQL_PASSWORD
             - MYSQL_HOST=NCDatabase
             - NEXTCLOUD_TRUSTED_DOMAINS=${DOMAIN}
+            # stop when backup is being made
+            - CRON_TIME=${BACKUP_CRON}
+            # SIGTERM
+            - CRON_SIGNAL=0xf
 
         depends_on:
             - "NCDatabase"
-        restart: "always"
+        # accept SIGTERM
+        restart: "unless-stopped"
         networks: ["net", "common"]
+
+    BorgBackup:
+        image: chrisbesch/borg_backup
+        build: ./borg_backup
+        environment:
+            - CRON_TIME=${BACKUP_CRON}
+            - BACKUP_ORIGIN=${NC_PATH}
+            - BORG_REPO
+            - BORG_COMPRESSION
+            - BORG_PREFIX
+      
+    DockerCron:
+        image: chrisbesch/docker_cron
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock:rw"
+        environment:
+            - TZ=Europe/Berlin
 
 networks:
     net:
