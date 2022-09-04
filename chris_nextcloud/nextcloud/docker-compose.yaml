@@ -5,6 +5,7 @@ services:
 
     NCDatabase:
         image: "mariadb:10.7.4"
+        container_name: "NCDatabase_${NAME}"
         
         volumes:
           - "${NC_PATH}/nc_maria_db:/var/lib/mysql"
@@ -15,10 +16,6 @@ services:
             - MYSQL_DATABASE=NC
             - MYSQL_USER=nextcloud
             - MYSQL_PASSWORD
-            # stop when backup is being made
-            - CRON_TIME=${BACKUP_CRON}
-            # SIGTERM
-            - CRON_SIGNAL=0xf
 
         # accept SIGTERM
         restart: "unless-stopped"
@@ -26,6 +23,7 @@ services:
 
     NCFrontend:
         image: "nextcloud:24.0.3"
+        container_name: "NCFrontend_${NAME}"
 
         volumes: 
           - "${NC_PATH}/nc_data:/var/www/html"
@@ -40,10 +38,6 @@ services:
             - MYSQL_PASSWORD
             - MYSQL_HOST=NCDatabase
             - NEXTCLOUD_TRUSTED_DOMAINS=${DOMAIN}
-            # stop when backup is being made
-            - CRON_TIME=${BACKUP_CRON}
-            # SIGTERM
-            - CRON_SIGNAL=0xf
 
         depends_on:
             - "NCDatabase"
@@ -53,16 +47,22 @@ services:
 
     BorgBackup:
         image: chrisbesch/borg_backup
-        build: ./borg_backup
+        container_name: "BorgBackup_${NAME}"
+        volumes:
+            # needs to be able to start and stop other containers
+            - "/var/run/docker.sock:/var/run/docker.sock:rw"
+            - "$BORG_REPO:/var/lib/borg_backup/repo"
+            - "$NC_PATH:/var/lib/borg_backup/origin:r"
         environment:
             - CRON_TIME=${BACKUP_CRON}
-            - BACKUP_ORIGIN=${NC_PATH}
-            - BORG_REPO
             - BORG_COMPRESSION
-            - BORG_PREFIX
+            - BORG_PREFIX=$NAME
+            # stop these containers before backup
+            - "CONTAINERS=NCDatabase_${NAME} NCFrontend_${NAME}"
       
     DockerCron:
         image: chrisbesch/docker_cron
+        container_name: "DockerCron_${NAME}"
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock:rw"
         environment:

@@ -2,7 +2,7 @@
 FROM ubuntu:latest
 
 RUN apt-get update && \
-    apt-get install -y bash borgbackup
+    apt-get install -y bash borgbackup docker.io
 
 # copy scripts
 COPY ./borg_backup_init.sh ./borg_backup.sh /var/lib/borg_backup/
