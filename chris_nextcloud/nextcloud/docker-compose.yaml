@@ -16,6 +16,7 @@ services:
             - MYSQL_DATABASE=NC
             - MYSQL_USER=nextcloud
             - MYSQL_PASSWORD
+            - MARIADB_AUTO_UPGRADE=true
 
         # accept docker stop
         restart: "unless-stopped"
