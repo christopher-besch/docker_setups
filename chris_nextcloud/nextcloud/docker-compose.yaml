@@ -48,7 +48,7 @@ services:
     DockerBorgBackup:
         image: chrisbesch/docker_borg_backup
         volumes:
-            - "$NC_PATH:/origin:r"
+            - "$NC_PATH:/origin:ro"
             - "$BORG_REPO:/repo"
             # needs to be able to start and stop other containers
             - "/var/run/docker.sock:/var/run/docker.sock:rw"
