@@ -4,9 +4,9 @@ version: "3.7"
 services:
 
     NCDatabase:
-        image: "mariadb:10.7.4"
+        image: "mariadb:10.9.2"
         container_name: "NCDatabase_${NAME}"
-        
+
         volumes:
           - "${NC_PATH}/nc_maria_db:/var/lib/mysql"
 
@@ -23,10 +23,10 @@ services:
         networks: ["common"]
 
     NCFrontend:
-        image: "nextcloud:24.0.3"
+        image: "nextcloud:24.0.4"
         container_name: "NCFrontend_${NAME}"
 
-        volumes: 
+        volumes:
           - "${NC_PATH}/nc_data:/var/www/html"
 
         environment:
@@ -61,7 +61,7 @@ services:
             - PRUNE_CFG
             # stop these containers before backup
             - "CONTAINERS=NCDatabase_${NAME} NCFrontend_${NAME}"
-      
+
     DockerCron:
         image: chrisbesch/docker_cron
         volumes:
