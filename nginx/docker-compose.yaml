@@ -12,6 +12,7 @@ services:
             - vhost:/etc/nginx/vhost.d
             - html:/usr/share/nginx/html
             - certs:/etc/nginx/certs:ro
+            - ./my_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
             - /var/run/docker.sock:/tmp/docker.sock:ro
         restart: "always"
         networks: ["net"]
