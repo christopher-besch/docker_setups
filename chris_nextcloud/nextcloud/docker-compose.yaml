@@ -54,6 +54,7 @@ services:
             # needs to be able to start and stop other containers
             - "/var/run/docker.sock:/var/run/docker.sock:rw"
         environment:
+            - TZ=Europe/Berlin
             - CRON_TIME=${BACKUP_CRON}
             - BORG_COMPRESSION
             - BORG_PREFIX=$NAME
