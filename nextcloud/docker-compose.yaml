@@ -8,7 +8,7 @@ services:
         container_name: "NCDatabase_${NAME}"
 
         volumes:
-          - "${NC_PATH}/nc_maria_db:/var/lib/mysql"
+            - "${NC_PATH}/nc_maria_db:/var/lib/mysql"
 
         environment:
             - MYSQL_RANDOM_ROOT_PASSWORD=1
@@ -27,7 +27,7 @@ services:
         container_name: "NCFrontend_${NAME}"
 
         volumes:
-          - "${NC_PATH}/nc_data:/var/www/html"
+            - "${NC_PATH}/nc_data:/var/www/html"
 
         environment:
             - LETSENCRYPT_HOST=${DOMAIN}
@@ -61,13 +61,6 @@ services:
             - PRUNE_CFG
             # stop these containers before backup
             - "CONTAINERS=NCDatabase_${NAME} NCFrontend_${NAME}"
-
-    DockerCron:
-        image: chrisbesch/docker_cron
-        volumes:
-            - "/var/run/docker.sock:/var/run/docker.sock:rw"
-        environment:
-            - TZ=Europe/Berlin
 
 networks:
     net:
