@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+    BorgClient:
+        image: chrisbesch/docker_borg_client
+        volumes:
+            - "./priv_key:/var/lib/borg_client/priv_key:ro"
+            # all subdirs in /var/lib/borg_client/repos get pulled from the server
+            - "$NC_REPO:/var/lib/borg_client/repos/nextcloud"
+            - "$TD_REPO:/var/lib/borg_client/repos/tandoor"
+        environment:
+            - BORG_SERVER
+            - PORT
+            - PASSPHRASE
+
+            # see https://borgbackup.readthedocs.io/en/stable/internals/data-structures.html?highlight=compression#compression
+            - BORG_COMPRESSION
+            # see: https://borgbackup.readthedocs.io/en/stable/usage/prune.html
+            # leave empty to not prune
+            # make sure that this matches or exceeds the servers settings
+            # otherwise the client would delete and recreate the same archive over and over
+            - PRUNE_CFG
+
