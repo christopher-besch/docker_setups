@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+    BorgServer:
+        image: chrisbesch/docker_borg_server
+        volumes:
+            # all repos shall be mounted into subdirs of /var/lib/borg_server/repos
+            - "$NC_REPO:/var/lib/borg_server/repos/nextcloud"
+            - "$TD_REPO:/var/lib/borg_server/repos/tandoor"
+            - "./authorized_keys:/var/lib/borg_server/authorized_keys:ro"
+        ports:
+            - "42069:22"
+
