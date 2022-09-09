@@ -22,4 +22,6 @@ services:
             - PRUNE_CFG
             # borg on server already creates an origin directory
             - DEL_ORIGIN_DIR=true
+            - TZ=Europe/Berlin
+            - CRON_TIME
 
