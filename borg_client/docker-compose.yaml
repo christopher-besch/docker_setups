@@ -20,4 +20,6 @@ services:
             # make sure that this matches or exceeds the servers settings
             # otherwise the client would delete and recreate the same archive over and over
             - PRUNE_CFG
+            # borg on server already creates an origin directory
+            - DEL_ORIGIN_DIR=true
 
