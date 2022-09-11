@@ -2,8 +2,8 @@ version: "3.9"
 
 services:
 
-    git_backup:
-        image: "chrisbesch/git_backup"
+    GitBackup:
+        image: "chrisbesch/docker_git_backup"
 
         volumes:
             - "${BACKUP_REPO}:/var/lib/git_backup/repo"
@@ -19,14 +19,3 @@ services:
             - TZ=Europe/Berlin
 
         restart: "always"
-
-    docker_cron:
-        image: "chrisbesch/docker_cron"
-
-        volumes:
-            - "/var/run/docker.sock:/var/run/docker.sock:rw"
-        environment:
-            - TZ=Europe/Berlin
-
-        restart: "always"
-
