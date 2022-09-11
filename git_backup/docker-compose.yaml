@@ -13,7 +13,10 @@ services:
         environment:
             - GITHUB_USERNAME
             - GITHUB_PASSWORD
+            - BORG_COMPRESSION
+            - PRUNE_CFG
             - CRON_TIME
+            - TZ=Europe/Berlin
 
         restart: "always"
 

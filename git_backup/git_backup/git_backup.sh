@@ -97,10 +97,14 @@ create_borg_backup() {
     echo >> $LOG
 
     echo "creating borg backup"
-    borg create -error --compression zstd,22 "${BORG_REPO}::git_backup_{now}" $TEMP_DIR
+    borg create -error --compression $BORG_COMPRESSION "${BORG_REPO}::git_backup_{now}" $TEMP_DIR
 
-    echo "pruning borg repo"
-    borg prune --keep-last 1 --keep-monthly 1 $BORG_REPO
+    if [ ! -z ${PRUNE_CFG+x} ]; then
+        echo "running: borg prune $PRUNE_CFG $BORG_REPO"
+        borg prune $PRUNE_CFG $BORG_REPO
+    else
+        echo "PRUNE_CFG not defined"
+    fi
 
     echo "compacting borg repo"
     borg compact $BORG_REPO
