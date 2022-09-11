@@ -9,5 +9,5 @@ services:
             - "$NC_REPO:/var/lib/borg_server/repos/nextcloud"
             - "$TD_REPO:/var/lib/borg_server/repos/tandoor"
         ports:
-            - "42069:22"
+            - "$PORT:22"
 
