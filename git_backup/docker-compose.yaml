@@ -7,7 +7,7 @@ services:
 
         volumes:
             - "${BACKUP_REPO}:/var/lib/git_backup/repo"
-            - "${BACKUP_TEMP}:/var/lib/git_backup/temp"
+            - "${BACKUP_TEMP}:/origin"
             - "./other_repos.conf:/var/lib/git_backup/other_repos.conf:ro"
         
         environment:
