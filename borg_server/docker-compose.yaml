@@ -6,8 +6,9 @@ services:
         volumes:
             - "./authorized_keys:/var/lib/borg_server/authorized_keys:ro"
             # all repos shall be mounted into subdirs of /var/lib/borg_server/repos
-            - "$NC_REPO:/var/lib/borg_server/repos/nextcloud"
-            - "$TD_REPO:/var/lib/borg_server/repos/tandoor"
+            - "$NC_REPO:/var/lib/borg_server/repos/nextcloud_backup"
+            - "$TD_REPO:/var/lib/borg_server/repos/tandoor_backup"
+            - "$GIT_REPO:/var/lib/borg_server/repos/git_backup"
         ports:
             - "$PORT:22"
 
