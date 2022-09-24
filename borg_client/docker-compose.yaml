@@ -27,4 +27,5 @@ services:
             - DEL_ORIGIN_DIR=true
             - TZ=Europe/Berlin
             - CRON_TIME
+        restart: "always"
 
