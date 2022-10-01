@@ -11,5 +11,7 @@ services:
             - "$GIT_REPO:/var/lib/borg_server/repos/git_backup"
         ports:
             - "$PORT:22"
+        environment:
+            - TZ=Europe/Berlin
         restart: "always"
 

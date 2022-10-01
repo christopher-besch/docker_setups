@@ -10,6 +10,7 @@ services:
             - POSTGRES_USER=tandoor
             - POSTGRES_PASSWORD
             - POSTGRES_DB=tandoordb
+            - TZ=Europe/Berlin
         restart: "unless-stopped"
         networks: ["common"]
 
@@ -35,6 +36,7 @@ services:
             - POSTGRES_DB=tandoordb
             - GUNICORN_MEDIA=1
             - DEBUG=0
+            - TZ=Europe/Berlin
 
         depends_on:
             - "TDDatabase"
