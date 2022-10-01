@@ -33,7 +33,7 @@ services:
             - POSTGRES_USER=tandoor
             - POSTGRES_PASSWORD
             - POSTGRES_DB=tandoordb
-            - GUNICORN_MEDIA=0
+            - GUNICORN_MEDIA=1
             - DEBUG=0
 
         depends_on:
