@@ -1,8 +1,9 @@
-version: '3.4'
+version: "3.4"
 
 services:
     MinecraftJava:
         image: ghcr.io/gameservermanagers/linuxgsm-docker:latest
+        container_name: "MinecraftJava_${NAME}"
         environment:
             - GAMESERVER=mcserver
         volumes:
@@ -15,3 +16,20 @@ services:
             # - 25575:25575
         restart: unless-stopped
         # entrypoint: ["bash", "/home/linuxgsm/entrypoint.sh"]
+
+    DockerBorgBackup:
+        image: chrisbesch/docker_borg_backup
+        volumes:
+            - "$MC_JAVA_DIR:/origin:ro"
+            - "$BORG_REPO:/repo"
+            # needs to be able to start and stop other containers
+            - "/var/run/docker.sock:/var/run/docker.sock:rw"
+        environment:
+            - TZ=Europe/Berlin
+            - CRON_TIME=${BACKUP_CRON}
+            - BORG_COMPRESSION
+            - BORG_PREFIX=$NAME
+            - PRUNE_CFG
+            # stop these containers before backup
+            - "CONTAINERS=MinecraftJava_${NAME}"
+
