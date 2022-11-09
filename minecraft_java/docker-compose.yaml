@@ -6,6 +6,7 @@ services:
         container_name: "MinecraftJava_${NAME}"
         environment:
             - GAMESERVER=mcserver
+            - TZ=Europe/Berlin
         volumes:
             - $MC_JAVA_DIR/serverfiles:/home/linuxgsm/serverfiles
             - $MC_JAVA_DIR/log:/home/linuxgsm/log
