@@ -1,0 +1,63 @@
+version: "3.3"
+
+services:
+    FFFrontend:
+        container_name: "$FFFrontend_{name}"
+        image: fireflyiii/core:version-5.7.15
+        restart: always
+        volumes:
+            - ${FF_PATH}/ff_upload:/var/www/html/storage/upload
+        environment:
+            - APP_ENV=local
+            - APP_DEBUG=false
+            - SITE_OWNER=$EMAIL
+            - APP_KEY
+            - DEFAULT_LANGUAGE=en_GB
+            - DEFAULT_LOCALE=en_GB
+            - TZ=Europe/Berlin
+            - TRUSTED_PROXIES
+            - LOG_CHANNEL=stdout
+            - DB_CONNECTION=mysql
+            - DB_HOST=FFDatabase
+            - DB_PORT=3306
+            - DB_DATABASE=FF
+            - DB_USERNAME=firefly
+            - DB_PASSWORD=$MYSQL_PASSWORD
+        depends_on:
+            - FFDatabase
+
+    FFDatabase:
+        image: "mariadb:10.9.3"
+        container_name: "FFDatabase_${NAME}"
+
+        volumes:
+            - "${FF_PATH}/nc_maria_db:/var/lib/mysql"
+
+        environment:
+            - MYSQL_RANDOM_ROOT_PASSWORD=1
+            # - MYSQL_ROOT_PASSWORD
+            - MYSQL_DATABASE=FF
+            - MYSQL_USER=firefly
+            - MYSQL_PASSWORD
+            - MARIADB_AUTO_UPGRADE=true
+            - TZ=Europe/Berlin
+
+        # accept docker stop
+        restart: "unless-stopped"
+        networks: ["common"]
+
+    DockerBorgBackup:
+        image: chrisbesch/docker_borg_backup
+        volumes:
+            - "$FF_PATH:/origin:ro"
+            - "$BORG_REPO:/repo"
+            # needs to be able to start and stop other containers
+            - "/var/run/docker.sock:/var/run/docker.sock:rw"
+        environment:
+            - TZ=Europe/Berlin
+            - CRON_TIME=${BACKUP_CRON}
+            - BORG_COMPRESSION
+            - BORG_PREFIX=$NAME
+            - PRUNE_CFG
+            # stop these containers before backup
+            - "CONTAINERS=FFDatabase_${NAME} FFFrontend_${NAME}"
