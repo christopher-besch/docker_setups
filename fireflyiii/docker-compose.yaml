@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
     FFFrontend:
-        container_name: "$FFFrontend_{name}"
+        container_name: "FFFrontend_${NAME}"
         image: fireflyiii/core:version-5.7.15
         restart: always
         volumes:
@@ -23,8 +23,12 @@ services:
             - DB_DATABASE=FF
             - DB_USERNAME=firefly
             - DB_PASSWORD=$MYSQL_PASSWORD
+            - LETSENCRYPT_HOST=${DOMAIN}
+            - VIRTUAL_HOST=${DOMAIN}
+            - VIRTUAL_PORT=8080
         depends_on:
             - FFDatabase
+        networks: ["common", "net"]
 
     FFDatabase:
         image: "mariadb:10.9.3"
@@ -61,3 +65,9 @@ services:
             - PRUNE_CFG
             # stop these containers before backup
             - "CONTAINERS=FFDatabase_${NAME} FFFrontend_${NAME}"
+
+networks:
+    net:
+        external: true
+    common:
+        internal: true
