@@ -8,6 +8,8 @@ services:
             # all subdirs in /var/lib/borg_client/repos get pulled from the server
             - "$NC_REPO:/var/lib/borg_client/repos/nextcloud_backup"
             - "$TD_REPO:/var/lib/borg_client/repos/tandoor_backup"
+            - "$MC_JAVA_REPO:/var/lib/borg_client/repos/minecraft_backup"
+            - "$FF_REPO:/var/lib/borg_client/repos/firefly_backup"
             - "$GIT_REPO:/var/lib/borg_client/repos/git_backup"
             # temporary dir where to pull archives into
             - "$TEMP_PATH:/origin"

@@ -8,6 +8,8 @@ services:
             # all repos shall be mounted into subdirs of /var/lib/borg_server/repos
             - "$NC_REPO:/var/lib/borg_server/repos/nextcloud_backup"
             - "$TD_REPO:/var/lib/borg_server/repos/tandoor_backup"
+            - "$MC_JAVA_REPO:/var/lib/borg_server/repos/minecraft_backup"
+            - "$FF_REPO:/var/lib/borg_server/repos/firefly_backup"
             - "$GIT_REPO:/var/lib/borg_server/repos/git_backup"
         ports:
             - "$PORT:22"
