@@ -11,6 +11,7 @@ services:
             - "$MC_JAVA_REPO:/var/lib/borg_server/repos/minecraft_backup"
             - "$FF_REPO:/var/lib/borg_server/repos/firefly_backup"
             - "$GIT_REPO:/var/lib/borg_server/repos/git_backup"
+            - "$MUSIC_REPO:/var/lib/borg_server/repos/music"
         ports:
             - "$PORT:22"
         environment:
