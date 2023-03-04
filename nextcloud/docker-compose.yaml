@@ -24,7 +24,7 @@ services:
         networks: ["common"]
 
     NCFrontend:
-        image: "nextcloud:24.0.6"
+        image: "nextcloud:25.0.4"
         container_name: "NCFrontend_${NAME}"
 
         volumes:
