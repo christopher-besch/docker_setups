@@ -52,7 +52,9 @@ services:
 
     FFCron:
         image: alpine
-        command: sh -c "echo \"0 3 * * * wget -qO- http://app:8080/api/v1/cron/${CRON_TOKEN}\" | crontab - && crond -f -L /dev/stdout"
+        command: sh -c "echo \"55 21 * * * wget -qO- http://app:8080/api/v1/cron/${CRON_TOKEN}\" | crontab - && crond -f -L /dev/stdout"
+        environment:
+            - TZ=Europe/Berlin
 
         # accept docker stop
         restart: "unless-stopped"
