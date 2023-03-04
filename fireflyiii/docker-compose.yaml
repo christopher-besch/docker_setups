@@ -31,7 +31,7 @@ services:
         networks: ["common", "net"]
 
     FFDatabase:
-        image: "mariadb:10.9.3"
+        image: "mariadb:10.9.5"
         container_name: "FFDatabase_${NAME}"
 
         volumes:
