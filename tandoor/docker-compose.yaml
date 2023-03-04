@@ -1,19 +1,6 @@
 version: "3.7"
 
 services:
-    TDDatabase:
-        image: postgres:11-alpine
-        container_name: "TDDatabase_${NAME}"
-        volumes:
-            - ${TD_PATH}/td_postgres:/var/lib/postgresql/data
-        environment:
-            - POSTGRES_USER=tandoor
-            - POSTGRES_PASSWORD
-            - POSTGRES_DB=tandoordb
-            - TZ=Europe/Berlin
-        restart: "unless-stopped"
-        networks: ["common"]
-
     TDFrontend:
         image: vabene1111/recipes:latest
         container_name: "TDFrontend_${NAME}"
@@ -42,6 +29,19 @@ services:
             - "TDDatabase"
         restart: "unless-stopped"
         networks: ["net", "common"]
+
+    TDDatabase:
+        image: postgres:11-alpine
+        container_name: "TDDatabase_${NAME}"
+        volumes:
+            - ${TD_PATH}/td_postgres:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_USER=tandoor
+            - POSTGRES_PASSWORD
+            - POSTGRES_DB=tandoordb
+            - TZ=Europe/Berlin
+        restart: "unless-stopped"
+        networks: ["common"]
 
     DockerBorgBackup:
         image: chrisbesch/docker_borg_backup
