@@ -35,7 +35,7 @@ services:
         container_name: "FFDatabase_${NAME}"
 
         volumes:
-            - "${FF_PATH}/nc_maria_db:/var/lib/mysql"
+            - "${FF_PATH}/ff_maria_db:/var/lib/mysql"
 
         environment:
             - MYSQL_RANDOM_ROOT_PASSWORD=1
