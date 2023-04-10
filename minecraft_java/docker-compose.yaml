@@ -10,7 +10,7 @@ services:
         volumes:
             - $MC_JAVA_DIR/serverfiles:/home/linuxgsm/serverfiles
             - $MC_JAVA_DIR/log:/home/linuxgsm/log
-            - $MC_JAVA_DIR/config-lgsm:/home/linuxgsm/config-lgsm
+            - $MC_JAVA_DIR/config-lgsm:/home/linuxgsm/lgsm/config-lgsm
         ports:
             - 25565:25565
             # for RCON
