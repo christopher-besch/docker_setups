@@ -101,6 +101,7 @@ services:
       #- WEBHOOK_CRON=
     volumes:
       - tokens:/tokens           ## volume to save TGTG credentials to reuse on next start up and avoid login mail
+    restart: on-failure
 volumes:
   tokens:
 
