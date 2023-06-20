@@ -3,7 +3,7 @@ version: "3.3"
 services:
     FFFrontend:
         container_name: "FFFrontend_${NAME}"
-        image: "fireflyiii/core:version-6.0.9"
+        image: "fireflyiii/core:version-6.0.13"
         restart: always
         volumes:
             - ${FF_PATH}/ff_upload:/var/www/html/storage/upload
@@ -38,7 +38,7 @@ services:
         networks: ["common", "net"]
 
     FFDatabase:
-        image: "mariadb:10.11.3"
+        image: "mariadb:10.11.4"
         container_name: "FFDatabase_${NAME}"
 
         volumes:
