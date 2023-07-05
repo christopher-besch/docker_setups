@@ -31,7 +31,7 @@ services:
         networks: ["net", "common"]
 
     TDDatabase:
-        # supported version: https://docs.tandoor.dev/install/docker/#docker-compose
+        # https://docs.tandoor.dev/install/docker/#docker-compose
         image: postgres:11-alpine
         container_name: "TDDatabase_${NAME}"
         volumes:
