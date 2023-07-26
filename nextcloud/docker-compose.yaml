@@ -56,6 +56,8 @@ services:
         volumes:
             - "$NC_PATH:/origin:ro"
             - "$BORG_REPO:/repo"
+            # exclude the music dir
+            - "./borg_exclude:/borg_exclude"
             # needs to be able to start and stop other containers
             - "/var/run/docker.sock:/var/run/docker.sock:rw"
         environment:
