@@ -2,15 +2,12 @@ version: "3.4"
 
 services:
     MinecraftJava:
-        image: ghcr.io/gameservermanagers/linuxgsm-docker:latest
+        image: ghcr.io/gameservermanagers/gameserver:mc
         container_name: "MinecraftJava_${NAME}"
         environment:
-            - GAMESERVER=mcserver
             - TZ=Europe/Berlin
         volumes:
-            - $MC_JAVA_DIR/serverfiles:/home/linuxgsm/serverfiles
-            - $MC_JAVA_DIR/log:/home/linuxgsm/log
-            - $MC_JAVA_DIR/config-lgsm:/home/linuxgsm/lgsm/config-lgsm
+            - $MC_JAVA_DIR:/data
         ports:
             - 25565:25565
             # for RCON
