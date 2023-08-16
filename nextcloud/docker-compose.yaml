@@ -73,7 +73,8 @@ services:
         image: alpine
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock:rw"
-        command: apk update && apk install docker-cli && sh -c "echo \"${NEXTCLOUD_CRON} docker exec -u www-data NCDatabase_${NAME} php -f /var/www/html/cron.php\" | crontab - && crond -f -L /dev/stdout"
+        command: apk update && apk install docker-cli -y && sh -c "echo \"${NEXTCLOUD_CRON} docker exec -u www-data NCDatabase_${NAME} php -f /var/www/html/cron.php\" | crontab - && crond -f -L /dev/stdout"
+        restart: "unless-stopped"
 
 networks:
     net:
