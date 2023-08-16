@@ -69,11 +69,12 @@ services:
             # stop these containers before backup
             - "CONTAINERS=NCDatabase_${NAME} NCFrontend_${NAME}"
 
+    # enable cron for background job in administrative basic settings
     NCCron:
         image: alpine
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock:rw"
-        command: sh -c 'apk update && apk add docker-cli && sh -c "echo \"${NEXTCLOUD_CRON} docker exec -u www-data NCDatabase_${NAME} php -f /var/www/html/cron.php\" | crontab - && crond -f -L /dev/stdout"'
+        command: sh -c 'apk update && apk add docker-cli && sh -c "echo \"${NEXTCLOUD_CRON} docker exec -u www-data NCFrontend_${NAME} php -f /var/www/html/cron.php\" | crontab - && crond -f -L /dev/stdout"'
         restart: "unless-stopped"
 
 networks:
