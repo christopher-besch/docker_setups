@@ -2,29 +2,6 @@
 version: "3.7"
 
 services:
-
-    NCDatabase:
-        # https://hub.docker.com/_/mariadb
-        # https://docs.nextcloud.com/server/latest/admin_manual/installation/system_requirements.html
-        image: "mariadb:10.11.5"
-        container_name: "NCDatabase_${NAME}"
-
-        volumes:
-            - "${NC_PATH}/nc_maria_db:/var/lib/mysql"
-
-        environment:
-            - MYSQL_RANDOM_ROOT_PASSWORD=1
-            # - MYSQL_ROOT_PASSWORD
-            - MYSQL_DATABASE=NC
-            - MYSQL_USER=nextcloud
-            - MYSQL_PASSWORD
-            - MARIADB_AUTO_UPGRADE=true
-            - TZ=Europe/Berlin
-
-        # accept docker stop
-        restart: "unless-stopped"
-        networks: ["common"]
-
     NCFrontend:
         # https://hub.docker.com/_/nextcloud
         image: "nextcloud:25.0.10"
@@ -50,6 +27,28 @@ services:
         # accept docker stop
         restart: "unless-stopped"
         networks: ["net", "common"]
+
+    NCDatabase:
+        # https://hub.docker.com/_/mariadb
+        # https://docs.nextcloud.com/server/latest/admin_manual/installation/system_requirements.html
+        image: "mariadb:10.11.5"
+        container_name: "NCDatabase_${NAME}"
+
+        volumes:
+            - "${NC_PATH}/nc_maria_db:/var/lib/mysql"
+
+        environment:
+            - MYSQL_RANDOM_ROOT_PASSWORD=1
+            # - MYSQL_ROOT_PASSWORD
+            - MYSQL_DATABASE=NC
+            - MYSQL_USER=nextcloud
+            - MYSQL_PASSWORD
+            - MARIADB_AUTO_UPGRADE=true
+            - TZ=Europe/Berlin
+
+        # accept docker stop
+        restart: "unless-stopped"
+        networks: ["common"]
 
     DockerBorgBackup:
         image: chrisbesch/docker_borg_backup
