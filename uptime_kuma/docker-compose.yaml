@@ -11,6 +11,7 @@ services:
         restart: unless-stopped
         environment:
             - DOMAIN=${DOMAIN}
+            - VIRTUAL_HOST=${DOMAIN}
             - UPTIME_KUMA_PORT=80
         networks: ["net"]
 
