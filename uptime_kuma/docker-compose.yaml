@@ -6,17 +6,12 @@ services:
         container_name: uptime-kuma
         volumes:
             - "${UPKU_PATH}:/app/data"
-        ports:
-            - "3001:3001"  # <Host Port>:<Container Port>
         restart: unless-stopped
         environment:
             - DOMAIN=${DOMAIN}
             - VIRTUAL_HOST=${DOMAIN}
-            - UPTIME_KUMA_PORT=80
+            - VIRTUAL_PORT=3001
         networks: ["net"]
-
-volumes:
-    uptime-kuma:
 
 networks:
     net:
