@@ -1,0 +1,34 @@
+# from https://github.com/nginx-proxy/acme-companion/blob/main/docs/Docker-Compose.md
+version: "2"
+
+services:
+    NginxProxy:
+        image: nginxproxy/nginx-proxy:latest
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - nginx_config:/etc/nginx/conf.d
+            - vhost:/etc/nginx/vhost.d
+            - html:/usr/share/nginx/html
+            - certs:/etc/nginx/certs:ro
+            - ./my_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+        environment:
+            - TZ=Europe/Berlin
+        restart: "always"
+        networks: ["net"]
+
+volumes:
+    nginx_config:
+        external: true
+    vhost:
+    html:
+    certs:
+    acme:
+
+# used to connect to frontend
+networks:
+    net:
+        external: true
+
