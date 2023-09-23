@@ -16,3 +16,8 @@ services:
 
 volumes:
     uptime-kuma:
+
+networks:
+    net:
+        external: true
+
