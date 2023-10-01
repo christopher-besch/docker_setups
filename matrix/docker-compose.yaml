@@ -6,11 +6,11 @@ services:
         image: matrixconduit/matrix-conduit:latest
         container_name: "MATRIX_${NAME}"
         volumes:
-            - ${MX_PATH}:/var/lib/matrix-conduit/
+            - ${MX_PATH}:/var/lib/matrix-conduit
         environment:
             CONDUIT_SERVER_NAME: $SERVER_DELEGATE_DOMAIN
             VIRTUAL_HOST: $SERVER_DOMAIN
-            CONDUIT_DATABASE_PATH: /var/lib/matrix-conduit/
+            CONDUIT_DATABASE_PATH: /var/lib/matrix-conduit
             CONDUIT_DATABASE_BACKEND: rocksdb
             CONDUIT_PORT: 6167
             VIRTUAL_PORT: 6167
