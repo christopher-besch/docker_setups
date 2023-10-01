@@ -1,0 +1,47 @@
+# https://gitlab.com/famedly/conduit/-/blob/next/docker/docker-compose.yml
+version: '3'
+
+services:
+    Matrix:
+        image: matrixconduit/matrix-conduit:latest
+        container_name: "MATRIX_${NAME}"
+        volumes:
+            - ${MX_PATH}:/var/lib/matrix-conduit/
+        environment:
+            CONDUIT_SERVER_NAME: $SERVER_DELEGATE_DOMAIN
+            VIRTUAL_HOST: $SERVER_DOMAIN
+            CONDUIT_DATABASE_PATH: /var/lib/matrix-conduit/
+            CONDUIT_DATABASE_BACKEND: rocksdb
+            CONDUIT_PORT: 6167
+            VIRTUAL_PORT: 6167
+            CONDUIT_MAX_REQUEST_SIZE: 20_000_000 # in bytes, ~20 MB
+            CONDUIT_ALLOW_REGISTRATION: 'false'
+            CONDUIT_ALLOW_FEDERATION: 'true'
+            CONDUIT_ALLOW_CHECK_FOR_UPDATES: 'true'
+            CONDUIT_TRUSTED_SERVERS: '["matrix.org"]'
+            #CONDUIT_MAX_CONCURRENT_REQUESTS: 100
+            #CONDUIT_LOG: warn,rocket=off,_=off,sled=off
+            CONDUIT_ADDRESS: 0.0.0.0
+            CONDUIT_CONFIG: '' # Ignore this
+        restart: unless-stopped
+        networks: ["net"]
+
+    MatrixBorgBackup:
+        image: chrisbesch/docker_borg_backup
+        volumes:
+            - "$MX_PATH:/origin:ro"
+            - "$BORG_REPO:/repo"
+            # needs to be able to start and stop other containers
+            - "/var/run/docker.sock:/var/run/docker.sock:rw"
+        environment:
+            - TZ=Europe/Berlin
+            - CRON_TIME=${BACKUP_CRON}
+            - BORG_COMPRESSION
+            - BORG_PREFIX=$NAME
+            - PRUNE_CFG
+            # stop these containers before backup
+            - "CONTAINERS=MATRIX_${NAME}"
+
+networks:
+    net:
+        external: true
