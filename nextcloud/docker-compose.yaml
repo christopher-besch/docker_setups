@@ -9,6 +9,7 @@ services:
 
         volumes:
             - "${NC_PATH}/nc_data:/var/www/html"
+            - "${NC_LFS_PATH}:/lfs"
 
         environment:
             - LETSENCRYPT_HOST=${DOMAIN}
