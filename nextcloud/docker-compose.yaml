@@ -54,7 +54,8 @@ services:
     DockerBorgBackup:
         image: chrisbesch/docker_borg_backup
         volumes:
-            - "$NC_PATH:/origin:ro"
+            - "$NC_PATH:/origin/nc:ro"
+            - "$NC_LFS_PATH:/origin/lfs:ro"
             - "$BORG_REPO:/repo"
             # exclude the music dir
             - "./borg_exclude:/borg_exclude"
