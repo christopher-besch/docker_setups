@@ -51,7 +51,7 @@ services:
         restart: "unless-stopped"
         networks: ["common"]
 
-    DockerBorgBackup:
+    NCBorgBackup:
         image: chrisbesch/docker_borg_backup
         volumes:
             - "$NC_PATH:/origin/nc:ro"

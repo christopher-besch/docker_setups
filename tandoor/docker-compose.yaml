@@ -44,7 +44,7 @@ services:
         restart: "unless-stopped"
         networks: ["common"]
 
-    DockerBorgBackup:
+    TDBorgBackup:
         image: chrisbesch/docker_borg_backup
         volumes:
             - "$TD_PATH:/origin:ro"

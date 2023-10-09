@@ -15,7 +15,7 @@ services:
         restart: unless-stopped
         # entrypoint: ["bash", "/home/linuxgsm/entrypoint.sh"]
 
-    DockerBorgBackup:
+    MinecraftJavaBorgBackup:
         image: chrisbesch/docker_borg_backup
         volumes:
             - "$MC_JAVA_DIR:/origin:ro"
