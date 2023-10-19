@@ -7,13 +7,36 @@ services:
         environment:
             - TZ=Europe/Berlin
         volumes:
-            - $MC_JAVA_DIR:/data
+            - $MC_JAVA_DIR/data:/data
         ports:
             - 25565:25565
             # for RCON
             # - 25575:25575
         restart: unless-stopped
-        # entrypoint: ["bash", "/home/linuxgsm/entrypoint.sh"]
+
+    MinecraftStats:
+        image: chrisbesch/minecraft_stats
+        container_name: "MinecraftStats_${NAME}"
+        environment:
+            - TZ=Europe/Berlin
+            # configures the DockerCron container to send a SIGHUP to this container every five minutes
+            - "CRON_TIME=*/5 * * * *"
+        volumes:
+            - $MC_JAVA_DIR/data/serverfiles:/app/serverfiles:ro
+            - ./config.json:/app/config.json:ro
+            - $MC_JAVA_DIR/web:/app/www
+        restart: unless-stopped
+
+    MinecraftWeb:
+        image: nginx
+        container_name: "MinecraftWeb_${NAME}"
+        volumes:
+            - $MC_JAVA_DIR/web:/usr/share/nginx/html:ro
+        environment:
+            - LETSENCRYPT_HOST=${DOMAIN}
+            - VIRTUAL_HOST=${DOMAIN}
+        restart: unless-stopped
+        networks: ["net"]
 
     MinecraftJavaBorgBackup:
         image: chrisbesch/docker_borg_backup
@@ -29,5 +52,8 @@ services:
             - BORG_PREFIX=$NAME
             - PRUNE_CFG
             # stop these containers before backup
-            - "CONTAINERS=MinecraftJava_${NAME}"
+            - "CONTAINERS=MinecraftJava_${NAME} MinecraftStats_${NAME} MinecraftWeb_${NAME}"
 
+networks:
+    net:
+        external: true
