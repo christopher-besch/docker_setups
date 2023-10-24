@@ -57,7 +57,7 @@ services:
             - "$NC_PATH:/origin/nc:ro"
             - "$NC_LFS_PATH:/origin/lfs:ro"
             - "$BORG_REPO:/repo"
-            # exclude the music dir
+            # exclude stuff
             - "./borg_exclude:/borg_exclude"
             # needs to be able to start and stop other containers
             - "/var/run/docker.sock:/var/run/docker.sock:rw"
