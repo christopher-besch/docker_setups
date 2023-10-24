@@ -45,6 +45,7 @@ services:
           PHOTOPRISM_SITE_CAPTION: "$CAPTION"
           PHOTOPRISM_SITE_DESCRIPTION: "$DESCRIPTION"                # meta site description
           PHOTOPRISM_SITE_AUTHOR: "$AUTHOR"                     # meta site author
+          PHOTOPRISM_WORKERS: 2
           TZ: Europe/Berlin
       working_dir: "/photoprism" # do not change or remove
       restart: unless-stopped
