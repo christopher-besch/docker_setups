@@ -17,8 +17,9 @@ services:
           LETSENCRYPT_HOST: $DOMAIN
           VIRTUAL_HOST: $DOMAIN
           VIRTUAL_PORT: 2342
-          PHOTOPRISM_DISABLE_TLS: "false"                # disables HTTPS/TLS even if the site URL starts with https:// and a certificate is available
-          PHOTOPRISM_DEFAULT_TLS: "true"                 # defaults to a self-signed HTTPS/TLS certificate if no other certificate is available
+          # done by reverse proxy
+          PHOTOPRISM_DISABLE_TLS: "true"                # disables HTTPS/TLS even if the site URL starts with https:// and a certificate is available
+          PHOTOPRISM_DEFAULT_TLS: "false"                 # defaults to a self-signed HTTPS/TLS certificate if no other certificate is available
           PHOTOPRISM_ORIGINALS_LIMIT: 5000               # file size limit for originals in MB (increase for high-res video)
           PHOTOPRISM_HTTP_COMPRESSION: "gzip"            # improves transfer speed and bandwidth utilization (none or gzip)
           PHOTOPRISM_LOG_LEVEL: "info"                   # log level: trace, debug, info, warning, error, fatal, or panic
