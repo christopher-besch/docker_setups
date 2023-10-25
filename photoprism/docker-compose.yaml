@@ -71,7 +71,7 @@ services:
     PPBorgBackup:
         image: chrisbesch/docker_borg_backup
         volumes:
-            - "$PP_DATA:/origin/nc:ro"
+            - "$PP_DATA:/origin:ro"
             # don't back up originals
             - "$BORG_REPO:/repo"
             # needs to be able to start and stop other containers
