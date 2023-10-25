@@ -53,6 +53,7 @@ services:
             - PRUNE_CFG
             # stop these containers before backup
             - "CONTAINERS=MinecraftJava_${NAME} MinecraftStats_${NAME} MinecraftWeb_${NAME}"
+        restart: "unless-stopped"
 
 networks:
     net:

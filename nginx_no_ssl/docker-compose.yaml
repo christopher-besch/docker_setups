@@ -16,7 +16,7 @@ services:
             - /var/run/docker.sock:/tmp/docker.sock:ro
         environment:
             - TZ=Europe/Berlin
-        restart: "always"
+        restart: "unless-stopped"
         networks: ["net"]
 
 volumes:

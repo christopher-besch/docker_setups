@@ -84,6 +84,7 @@ services:
             - PRUNE_CFG
             # stop these containers before backup
             - "CONTAINERS=PPDatabase_${NAME} PPFrontend_${NAME}"
+        restart: "unless-stopped"
 
 networks:
     net:

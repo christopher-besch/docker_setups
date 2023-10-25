@@ -59,6 +59,7 @@ services:
             - PRUNE_CFG
             # stop these containers before backup
             - "CONTAINERS=TDDatabase_${NAME} TDFrontend_${NAME}"
+        restart: "unless-stopped"
 
 volumes:
     nginx_config:

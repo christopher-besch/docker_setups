@@ -69,6 +69,7 @@ services:
             - PRUNE_CFG
             # stop these containers before backup
             - "CONTAINERS=NCDatabase_${NAME} NCFrontend_${NAME}"
+        restart: "unless-stopped"
 
     # enable cron for background job in administrative basic settings
     NCCron:
