@@ -10,6 +10,7 @@ services:
         volumes:
             - "${NC_PATH}/nc_data:/var/www/html"
             - "${NC_LFS_PATH}:/lfs"
+            - "${PP_ORIGINALS}:/photo:ro"
 
         environment:
             - LETSENCRYPT_HOST=${DOMAIN}
@@ -54,6 +55,7 @@ services:
     NCBorgBackup:
         image: chrisbesch/docker_borg_backup
         volumes:
+            # don't backup photos
             - "$NC_PATH:/origin/nc:ro"
             - "$NC_LFS_PATH:/origin/lfs:ro"
             - "$BORG_REPO:/repo"
