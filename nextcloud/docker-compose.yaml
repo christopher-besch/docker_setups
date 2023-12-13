@@ -4,7 +4,7 @@ version: "3.7"
 services:
     NCFrontend:
         # https://hub.docker.com/_/nextcloud
-        image: "nextcloud:25.0.13"
+        image: "nextcloud:27.1.4"
         container_name: "NCFrontend_${NAME}"
 
         volumes:
@@ -32,7 +32,7 @@ services:
     NCDatabase:
         # https://hub.docker.com/_/mariadb
         # https://docs.nextcloud.com/server/latest/admin_manual/installation/system_requirements.html
-        image: "mariadb:10.11.5"
+        image: "mariadb:10.11.6"
         container_name: "NCDatabase_${NAME}"
 
         volumes:
