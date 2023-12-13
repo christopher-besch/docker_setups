@@ -1,17 +1,21 @@
-version: "3.4"
+version: "3.8"
 
 services:
     MinecraftJava:
-        image: ghcr.io/gameservermanagers/gameserver:mc
+        image: itzg/minecraft-server
         container_name: "MinecraftJava_${NAME}"
-        environment:
-            - TZ=Europe/Berlin
         volumes:
             - $MC_JAVA_DIR/data:/data
         ports:
-            - 25565:25565
-            # for RCON
-            # - 25575:25575
+            - "25565:25565"
+        environment:
+            - EULA=TRUE
+            - MEMORY=$SERVER_MEMORY
+            - ENABLE_ROLLING_LOGS=TRUE
+            - VERSION=$MINECRAFT_VERION
+            - OVERRIDE_SERVER_PROPERTIES=FALSE
+            - SKIP_SERVER_PROPERTIES=TRUE
+            - TZ=Europe/Berlin
         restart: unless-stopped
 
     MinecraftStats:
