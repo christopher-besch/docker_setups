@@ -8,6 +8,8 @@ services:
             - $MC_JAVA_DIR/data:/data
         ports:
             - "25565:25565"
+        tty: true
+        stdin_open: true
         environment:
             - EULA=TRUE
             - MEMORY=$SERVER_MEMORY
