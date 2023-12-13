@@ -2,7 +2,8 @@ version: "3.7"
 
 services:
     TDFrontend:
-        image: vabene1111/recipes:latest
+        # https://hub.docker.com/r/vabene1111/recipes/tags
+        image: vabene1111/recipes:1.5.6
         container_name: "TDFrontend_${NAME}"
         volumes:
             - ${TD_PATH}/td_data/staticfiles:/opt/recipes/staticfiles
@@ -14,7 +15,6 @@ services:
             - LETSENCRYPT_HOST=${DOMAIN}
             - VIRTUAL_HOST=${DOMAIN}
             - SECRET_KEY
-            - TIMEZONE=Europe/Berlin
             - DB_ENGINE=django.db.backends.postgresql
             - POSTGRES_HOST=TDDatabase
             - POSTGRES_PORT=5432
