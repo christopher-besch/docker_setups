@@ -28,7 +28,7 @@ services:
             # configures the DockerCron container to send a SIGHUP to this container every five minutes
             - "CRON_TIME=*/5 * * * *"
         volumes:
-            - $MC_JAVA_DIR/data/serverfiles:/app/serverfiles:ro
+            - $MC_JAVA_DIR/data/:/app/serverfiles:ro
             - ./config.json:/app/config.json:ro
             - $MC_JAVA_DIR/web:/app/www
         restart: unless-stopped
