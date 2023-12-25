@@ -93,3 +93,10 @@ tandoor             running(3)          /home/chris/docker_setups/tandoor/docker
 
 - from [here](https://openqa-bites.github.io/posts/2023/2023-11-23-upgrade_a_postgresql_container_to_a_new_major_version)
 
+# Resolve Locked Nextcloud Files
+1. `docker exec -ti --user www-data NCFrontend_chris_nextcloud /var/www/html/occ maintenance:mode --on`
+2. `docker exec -it NCDatabase_chris_nextcloud bash`
+3. `mariadb -u nextcloud -p -D NC -e "DELETE FROM oc_file_locks WHERE 1"`
+4. `docker exec -ti --user www-data NCFrontend_chris_nextcloud /var/www/html/occ maintenance:mode --off`
+- https://zedt.eu/tech/linux/how-to-clean-up-nextcloud-stale-locked-files/
+
