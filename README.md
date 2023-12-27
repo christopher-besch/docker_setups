@@ -61,21 +61,24 @@ tandoor             running(3)          /home/chris/docker_setups/tandoor/docker
 2. check `last`
 3. check `df -h`
 4. shut down all docker compose instances
-5. `sudo tar -cvf backup_2023_11_06.tar docker_data` in `/home/chris`
-6. `rsync --delete -avP chris@nextcloud.chris-besch.com:/home/chris/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/`
-7. download archive `scp chris@nextcloud.chris-besch.com:/home/chris/backup_2023_09_06.tar /home/chris/files/backup/server/backup_2023_09_06.tar`
-8. check archive integrity `sha256sum backup_2023_09_06.tar`
-9. `sudo apt update && sudo apt dist-upgrade -y`
-10. `sudo reboot`
-11. `git pull` in `/home/chris/docker_setups`
-12. `docker compose pull && docker compose up -d && docker compose logs --follow` for all services and check they're running
-13. `docker exec -ti --user www-data NCFrontend_chris_nextcloud /var/www/html/occ upgrade`
-14. `docker exec -ti --user www-data NCFrontend_chris_nextcloud /var/www/html/occ db:add-missing-indices`
-15. check https://nextcloud.chris-besch.com/settings/admin/overview
-16. check https://nextcloud.chris-besch.com/settings/admin
-17. `docker system prune -a`
-18. check `df -h`
-19. create backup on external hard drive
+5. `sudo tar -cvf backup_2023_12_27.tar docker_data` in `/home/chris`
+6. check with `rsync --dry-run --delete -avP chris@nextcloud.chris-besch.com:/home/chris/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/`
+7. `rsync --delete -avP chris@nextcloud.chris-besch.com:/home/chris/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/`
+8. `cp /home/chris/files/backup/server/hetzner03_backup_2023_12_13.tar /home/chris/files/backup/server/hetzner03_backup_2023_12_27.tar`
+9. `rsync -avP chris@nextcloud.chris-besch.com:/home/chris/backup_2023_12_27.tar /home/chris/files/backup/server/hetzner03_backup_2023_12_27.tar`
+10. check archive integrity `sha256sum backup_2023_09_06.tar`
+11. `sudo apt update && sudo apt dist-upgrade -y`
+13. `sudo reboot`
+13. `git pull` in `/home/chris/docker_setups`
+14. `docker compose pull && docker compose up -d && docker compose logs --follow` for all services and check they're running
+15. `docker exec -ti --user www-data NCFrontend_chris_nextcloud /var/www/html/occ upgrade`
+16. `docker exec -ti --user www-data NCFrontend_chris_nextcloud /var/www/html/occ db:add-missing-indices`
+17. check https://nextcloud.chris-besch.com/settings/admin/overview
+18. check https://nextcloud.chris-besch.com/settings/admin
+19. update apps at https://nextcloud.chris-besch.com/settings/apps
+20. `docker system prune -a`
+21. check `df -h`
+22. create backup on external hard drive
 
 
 # Upgrade Postgresql for Tandoor
