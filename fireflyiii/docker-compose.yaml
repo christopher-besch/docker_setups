@@ -4,7 +4,7 @@ services:
     FFFrontend:
         # https://hub.docker.com/r/fireflyiii/core/tags
         container_name: "FFFrontend_${NAME}"
-        image: "fireflyiii/core:version-6.0.30"
+        image: "fireflyiii/core:version-6.1.1"
         restart: always
         volumes:
             - ${FF_PATH}/ff_upload:/var/www/html/storage/upload

@@ -57,7 +57,7 @@ tandoor             running(3)          /home/chris/docker_setups/tandoor/docker
 
 
 ## Maintenance Procedure
-1. bump nextcloud and firefly versions to newest minor patch & push changes to github
+1. bump nextcloud, firefly, etc. versions to newest minor patch & push changes to github
 2. check `last`
 3. check `df -h`
 4. shut down all docker compose instances
