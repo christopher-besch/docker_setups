@@ -4,7 +4,7 @@ version: "3.7"
 services:
     NCFrontend:
         # https://hub.docker.com/_/nextcloud
-        image: "nextcloud:27.1.5"
+        image: "nextcloud:27.1.6"
         container_name: "NCFrontend_${NAME}"
 
         volumes:

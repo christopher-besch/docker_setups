@@ -3,7 +3,7 @@ version: "3.7"
 services:
     TDFrontend:
         # https://hub.docker.com/r/vabene1111/recipes/tags
-        image: vabene1111/recipes:1.5.10
+        image: vabene1111/recipes:1.5.12
         container_name: "TDFrontend_${NAME}"
         volumes:
             - ${TD_PATH}/td_data/staticfiles:/opt/recipes/staticfiles
