@@ -1,0 +1,18 @@
+version: '3.5'
+
+services:
+    jellyfin:
+        image: jellyfin/jellyfin
+        container_name: jellyfin_${NAME}
+        volumes:
+            - "${JY_PATH}/config:/config"
+            - "./config.json:/config/config.json:ro"
+            - "${JY_PATH}/cache:/cache"
+            - "${MEDIA_PATH}:/media:ro"
+        environment:
+            - "JELLYFIN_PublishedServerUrl=https://${DOMAIN}"
+            - LETSENCRYPT_HOST=${DOMAIN}
+            - VIRTUAL_HOST=${DOMAIN}
+            - VIRTUAL_PORT=8096
+        restart: 'unless-stopped'
+
