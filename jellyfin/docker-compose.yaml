@@ -15,4 +15,9 @@ services:
             - VIRTUAL_HOST=${DOMAIN}
             - VIRTUAL_PORT=8096
         restart: 'unless-stopped'
+        networks: ["net"]
+
+networks:
+    net:
+        external: true
 
