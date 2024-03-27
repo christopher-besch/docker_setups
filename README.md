@@ -8,6 +8,7 @@ If you have any questions or ideas, open an issue or message me at `mail@chris.b
 NAME                STATUS              CONFIG FILES
 cron                running(1)          /home/chris/docker_setups/cron/docker-compose.yaml
 fireflyiii          running(4)          /home/chris/docker_setups/fireflyiii/docker-compose.yaml
+jellyfin            running(1)          /home/chris/docker_setups/jellyfin/docker-compose.yaml
 minecraft_java      running(4)          /home/chris/docker_setups/minecraft_java/docker-compose.yaml
 nextcloud           running(4)          /home/chris/docker_setups/nextcloud/docker-compose.yaml
 nginx               running(2)          /home/chris/docker_setups/nginx/docker-compose.yaml
@@ -62,8 +63,8 @@ tandoor             running(3)          /home/chris/docker_setups/tandoor/docker
 3. check `df -h`
 4. shut down all docker compose instances
 5. `sudo tar -cvf backup_2024_02_03.tar /home/chris/docker_data` in `/mnt/box03/docker_backup`
-6. check with `rsync --dry-run --delete -avP chris@nextcloud.chris-besch.com:/home/chris/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/`
-7. `rsync --delete -avP chris@nextcloud.chris-besch.com:/home/chris/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/`
+6. check with `rsync --dry-run --delete --exclude selchris_music --exclude jonas_music -avP chris@nextcloud.chris-besch.com:/home/chris/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/`
+7. `rsync --delete --exclude selchris_music --exclude jonas_music -avP chris@nextcloud.chris-besch.com:/home/chris/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/`
 8. `cp /home/chris/files/backup/server/hetzner03_backup_2023_12_13.tar /home/chris/files/backup/server/hetzner03_backup_2023_12_27.tar`
 9. `rsync -avP chris@nextcloud.chris-besch.com:/mnt/box03/docker_backup/backup_2023_12_27.tar /home/chris/files/backup/server/hetzner03_backup_2023_12_27.tar`
 
