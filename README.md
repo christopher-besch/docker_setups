@@ -67,7 +67,6 @@ tandoor             running(3)          /home/chris/docker_setups/tandoor/docker
 7. `rsync --delete --exclude selchris_music --exclude jonas_music -avP chris@nextcloud.chris-besch.com:/home/chris/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/`
 8. `cp /home/chris/files/backup/server/hetzner03_backup_2023_12_13.tar /home/chris/files/backup/server/hetzner03_backup_2023_12_27.tar`
 9. `rsync -avP chris@nextcloud.chris-besch.com:/mnt/box03/docker_backup/backup_2023_12_27.tar /home/chris/files/backup/server/hetzner03_backup_2023_12_27.tar`
-
     or enable external box access and `rsync -avP u370909@u370909.your-storagebox.de:/home/docker_backup/backup_2023_12_27.tar /home/chris/files/backup/server/hetzner03_backup_2023_12_27.tar`
 10. check archive integrity `sha256sum backup_2023_09_06.tar`
 11. `sudo apt update && sudo apt dist-upgrade -y`
