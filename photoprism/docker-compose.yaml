@@ -2,7 +2,6 @@ version: '3.5'
 
 services:
     PPFrontend:
-        # https://hub.docker.com/_/mariadb
         image: photoprism/photoprism:latest
         container_name: "PPFrontend_${NAME}"
         depends_on:
