@@ -1,5 +1,3 @@
-version: "3.3"
-
 services:
     FFFrontend:
         # https://hub.docker.com/r/fireflyiii/core/tags
@@ -9,31 +7,31 @@ services:
         volumes:
             - ${FF_PATH}/ff_upload:/var/www/html/storage/upload
         environment:
-            - APP_ENV=local
-            - APP_DEBUG=false
-            - SITE_OWNER=$EMAIL
-            - APP_KEY
-            - DEFAULT_LANGUAGE=en_GB
-            - DEFAULT_LOCALE=en_GB
-            - TZ=Europe/Berlin
-            - TRUSTED_PROXIES
-            - LOG_CHANNEL=stdout
-            - DB_CONNECTION=mysql
-            - DB_HOST=FFDatabase
-            - DB_PORT=3306
-            - DB_DATABASE=FF
-            - DB_USERNAME=firefly
-            - DB_PASSWORD=$MYSQL_PASSWORD
-            - LETSENCRYPT_HOST=${DOMAIN}
-            - VIRTUAL_HOST=${DOMAIN}
-            - VIRTUAL_PORT=8080
-            - MAIL_MAILER=log
-            - MAIL_HOST=null
-            - MAIL_PORT=2525
-            - MAIL_FROM=changeme@example.com
-            - MAIL_USERNAME=null
-            - MAIL_PASSWORD=null
-            - MAIL_ENCRYPTION=null
+            APP_ENV: local
+            APP_DEBUG: false
+            SITE_OWNER: $EMAIL
+            APP_KEY: $APP_KEY
+            DEFAULT_LANGUAGE: en_GB
+            DEFAULT_LOCALE: en_GB
+            TZ: Europe/Berlin
+            TRUSTED_PROXIES: $TRUSTED_PROXIES
+            LOG_CHANNEL: stdout
+            DB_CONNECTION: mysql
+            DB_HOST: FFDatabase
+            DB_PORT: 3306
+            DB_DATABASE: FF
+            DB_USERNAME: firefly
+            DB_PASSWORD: $MYSQL_PASSWORD
+            LETSENCRYPT_HOST: ${DOMAIN}
+            VIRTUAL_HOST: ${DOMAIN}
+            VIRTUAL_PORT: 8080
+            MAIL_MAILER: log
+            MAIL_HOST: null
+            MAIL_PORT: 2525
+            MAIL_FROM: changeme@example.com
+            MAIL_USERNAME: null
+            MAIL_PASSWORD: null
+            MAIL_ENCRYPTION: null
         depends_on:
             - FFDatabase
         networks: ["common", "net"]
@@ -47,13 +45,13 @@ services:
             - "${FF_PATH}/ff_maria_db:/var/lib/mysql"
 
         environment:
-            - MYSQL_RANDOM_ROOT_PASSWORD=1
-            # - MYSQL_ROOT_PASSWORD
-            - MYSQL_DATABASE=FF
-            - MYSQL_USER=firefly
-            - MYSQL_PASSWORD
-            - MARIADB_AUTO_UPGRADE=true
-            - TZ=Europe/Berlin
+            MYSQL_RANDOM_ROOT_PASSWORD: 1
+            # MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+            MYSQL_DATABASE: FF
+            MYSQL_USER: firefly
+            MYSQL_PASSWORD: MYSQL_PASSWORD
+            MARIADB_AUTO_UPGRADE: true
+            TZ: Europe/Berlin
 
         # accept docker stop
         restart: "unless-stopped"
@@ -63,7 +61,7 @@ services:
         image: alpine
         command: sh -c "echo \"${FIREFLY_CRON} wget -qO- http://FFFrontend_${NAME}:8080/api/v1/cron/${CRON_TOKEN}\" | crontab - && crond -f -L /dev/stdout"
         environment:
-            - TZ=Europe/Berlin
+            TZ: Europe/Berlin
 
         # accept docker stop
         restart: "unless-stopped"
@@ -78,13 +76,13 @@ services:
             # needs to be able to start and stop other containers
             - "/var/run/docker.sock:/var/run/docker.sock:rw"
         environment:
-            - TZ=Europe/Berlin
-            - CRON_TIME=${BACKUP_CRON}
-            - BORG_COMPRESSION
-            - BORG_PREFIX=$NAME
-            - PRUNE_CFG
+            TZ: Europe/Berlin
+            CRON_TIME: ${BACKUP_CRON}
+            BORG_COMPRESSION: $BORG_COMPRESSION
+            BORG_PREFIX: $NAME
+            PRUNE_CFG: $PRUNE_CFG
             # stop these containers before backup
-            - "CONTAINERS=FFDatabase_${NAME} FFFrontend_${NAME}"
+            CONTAINERS: "FFDatabase_${NAME} FFFrontend_${NAME}"
         restart: "unless-stopped"
 
 networks:

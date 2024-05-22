@@ -1,6 +1,4 @@
 # based on https://linuxhandbook.com/install-nextcloud-docker
-version: "3.7"
-
 services:
     NCFrontend:
         # https://hub.docker.com/_/nextcloud
@@ -12,16 +10,16 @@ services:
             - "${NC_LFS_PATH}:/lfs"
 
         environment:
-            - LETSENCRYPT_HOST=${DOMAIN}
-            - VIRTUAL_HOST=${DOMAIN}
-            - TRUSTED_PROXIES
-            - OVERWRITEPROTOCOL
-            - MYSQL_DATABASE=NC
-            - MYSQL_USER=nextcloud
-            - MYSQL_PASSWORD
-            - MYSQL_HOST=NCDatabase
-            - NEXTCLOUD_TRUSTED_DOMAINS=${DOMAIN}
-            - TZ=Europe/Berlin
+            LETSENCRYPT_HOST: ${DOMAIN}
+            VIRTUAL_HOST: ${DOMAIN}
+            TRUSTED_PROXIES: $TRUSTED_PROXIES
+            OVERWRITEPROTOCOL: $OVERWRITEPROTOCOL
+            MYSQL_DATABASE: NC
+            MYSQL_USER: nextcloud
+            MYSQL_PASSWORD: $MYSQL_PASSWORD
+            MYSQL_HOST: NCDatabase
+            NEXTCLOUD_TRUSTED_DOMAINS: ${DOMAIN}
+            TZ: Europe/Berlin
 
         depends_on:
             - "NCDatabase"
@@ -39,13 +37,13 @@ services:
             - "${NC_PATH}/nc_maria_db:/var/lib/mysql"
 
         environment:
-            - MYSQL_RANDOM_ROOT_PASSWORD=1
+            MYSQL_RANDOM_ROOT_PASSWORD: 1
             # - MYSQL_ROOT_PASSWORD
-            - MYSQL_DATABASE=NC
-            - MYSQL_USER=nextcloud
-            - MYSQL_PASSWORD
-            - MARIADB_AUTO_UPGRADE=true
-            - TZ=Europe/Berlin
+            MYSQL_DATABASE: NC
+            MYSQL_USER: nextcloud
+            MYSQL_PASSWORD: $MYSQL_PASSWORD
+            MARIADB_AUTO_UPGRADE: true
+            TZ: Europe/Berlin
 
         # accept docker stop
         restart: "unless-stopped"
@@ -62,13 +60,13 @@ services:
             # needs to be able to start and stop other containers
             - "/var/run/docker.sock:/var/run/docker.sock:rw"
         environment:
-            - TZ=Europe/Berlin
-            - CRON_TIME=${BACKUP_CRON}
-            - BORG_COMPRESSION
-            - BORG_PREFIX=$NAME
-            - PRUNE_CFG
+            TZ: Europe/Berlin
+            CRON_TIME: ${BACKUP_CRON}
+            BORG_COMPRESSION: $BORG_COMPRESSION
+            BORG_PREFIX: $NAME
+            PRUNE_CFG: $PRUNE_CFG
             # stop these containers before backup
-            - "CONTAINERS=NCDatabase_${NAME} NCFrontend_${NAME}"
+            CONTAINERS: "NCDatabase_${NAME} NCFrontend_${NAME}"
         restart: "unless-stopped"
 
     # enable cron for background job in administrative basic settings

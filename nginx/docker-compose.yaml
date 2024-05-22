@@ -1,6 +1,4 @@
 # from https://github.com/nginx-proxy/acme-companion/blob/main/docs/Docker-Compose.md
-version: "2"
-
 services:
     NginxProxy:
         image: nginxproxy/nginx-proxy:latest
@@ -15,15 +13,15 @@ services:
             - ./my_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
             - /var/run/docker.sock:/tmp/docker.sock:ro
         environment:
-            - TZ=Europe/Berlin
+            TZ: Europe/Berlin
         restart: "unless-stopped"
         networks: ["net"]
 
     AcmeCompanion:
         image: nginxproxy/acme-companion:latest
         environment:
-            - DEFAULT_EMAIL
-            - TZ=Europe/Berlin
+            DEFAULT_EMAIL: $DEFAULT_EMAIL
+            TZ: Europe/Berlin
         volumes_from:
             - NginxProxy
         volumes:

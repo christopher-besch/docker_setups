@@ -1,5 +1,3 @@
-version: '3.5'
-
 services:
     jellyfin:
         image: jellyfin/jellyfin
@@ -10,10 +8,10 @@ services:
             - "${JY_PATH}/cache:/cache"
             - "${MEDIA_PATH}:/media:ro"
         environment:
-            - "JELLYFIN_PublishedServerUrl=https://${DOMAIN}"
-            - LETSENCRYPT_HOST=${DOMAIN}
-            - VIRTUAL_HOST=${DOMAIN}
-            - VIRTUAL_PORT=8096
+            JELLYFIN_PublishedServerUrl: "https://${DOMAIN}"
+            LETSENCRYPT_HOST: ${DOMAIN}
+            VIRTUAL_HOST: ${DOMAIN}
+            VIRTUAL_PORT: 8096
         restart: 'unless-stopped'
         networks: ["net"]
 

@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
     TDFrontend:
         # https://hub.docker.com/r/vabene1111/recipes/tags
@@ -11,19 +9,19 @@ services:
             - nginx_config:/opt/recipes/nginx/conf.d:ro
 
         environment:
-            - ALLOWED_HOSTS=${DOMAIN}
-            - LETSENCRYPT_HOST=${DOMAIN}
-            - VIRTUAL_HOST=${DOMAIN}
-            - SECRET_KEY
-            - DB_ENGINE=django.db.backends.postgresql
-            - POSTGRES_HOST=TDDatabase
-            - POSTGRES_PORT=5432
-            - POSTGRES_USER=tandoor
-            - POSTGRES_PASSWORD
-            - POSTGRES_DB=tandoordb
-            - GUNICORN_MEDIA=1
-            - DEBUG=0
-            - TZ=Europe/Berlin
+            ALLOWED_HOSTS: ${DOMAIN}
+            LETSENCRYPT_HOST: ${DOMAIN}
+            VIRTUAL_HOST: ${DOMAIN}
+            SECRET_KEY: $SECRET_KEY
+            DB_ENGINE: django.db.backends.postgresql
+            POSTGRES_HOST: TDDatabase
+            POSTGRES_PORT: 5432
+            POSTGRES_USER: tandoor
+            POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+            POSTGRES_DB: tandoordb
+            GUNICORN_MEDIA: 1
+            DEBUG: 0
+            TZ: Europe/Berlin
 
         depends_on:
             - "TDDatabase"
@@ -37,10 +35,10 @@ services:
         volumes:
             - ${TD_PATH}/td_postgres:/var/lib/postgresql/data
         environment:
-            - POSTGRES_USER=tandoor
-            - POSTGRES_PASSWORD
-            - POSTGRES_DB=tandoordb
-            - TZ=Europe/Berlin
+            POSTGRES_USER: tandoor
+            POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+            POSTGRES_DB: tandoordb
+            TZ: Europe/Berlin
         restart: "unless-stopped"
         networks: ["common"]
 
@@ -52,13 +50,13 @@ services:
             # needs to be able to start and stop other containers
             - "/var/run/docker.sock:/var/run/docker.sock:rw"
         environment:
-            - TZ=Europe/Berlin
-            - CRON_TIME=${BACKUP_CRON}
-            - BORG_COMPRESSION
-            - BORG_PREFIX=$NAME
-            - PRUNE_CFG
+            TZ: Europe/Berlin
+            CRON_TIME: ${BACKUP_CRON}
+            BORG_COMPRESSION: $BORG_COMPRESSION
+            BORG_PREFIX: $NAME
+            PRUNE_CFG: $PRUNE_CFG
             # stop these containers before backup
-            - "CONTAINERS=TDDatabase_${NAME} TDFrontend_${NAME}"
+            CONTAINERS: "TDDatabase_${NAME} TDFrontend_${NAME}"
         restart: "unless-stopped"
 
 volumes:
