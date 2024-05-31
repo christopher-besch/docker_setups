@@ -32,7 +32,7 @@ services:
     NCDatabase:
         # https://hub.docker.com/_/mariadb
         # https://docs.nextcloud.com/server/latest/admin_manual/installation/system_requirements.html
-        image: "mariadb:10.11.7"
+        image: "mariadb:10.11.8"
         container_name: "NCDatabase_${NAME}"
 
         volumes:
