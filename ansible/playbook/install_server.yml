@@ -1,12 +1,14 @@
 # Run this after the server has been prepared (i.e. the freeman user has been created).
 ---
 
-- hosts: all
+- name: Setup Users
+  hosts: all
   remote_user: freeman
   roles:
     - role: setup_users
 
-- hosts: all
+- name: Install Packages
+  hosts: all
   remote_user: freeman
   roles:
     - role: install_packages

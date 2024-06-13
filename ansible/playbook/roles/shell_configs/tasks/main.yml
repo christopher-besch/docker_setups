@@ -1,7 +1,7 @@
 # Install configs from github.com/christopher-besch/configs.
 ---
 
-- name: Download custom configs
+- name: Download custom Configs
   ansible.builtin.git:
     repo: "https://github.com/christopher-besch/configs.git"
     dest: "{{ ansible_facts.user_dir }}/.custom_configs"

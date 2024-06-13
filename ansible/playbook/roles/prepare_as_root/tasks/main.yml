@@ -28,4 +28,3 @@
   ansible.posix.authorized_key:
     user: freeman
     key: "{{ lookup('file', '{{ SSH_PUB_KEY_PATH }}') }}"
-

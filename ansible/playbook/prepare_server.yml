@@ -1,7 +1,8 @@
 # Run this after the server has been created and Debian has been installed.
 ---
 
-- hosts: all
+- name: Prepare as Root
+  hosts: all
   remote_user: root
   roles:
     - role: prepare_as_root

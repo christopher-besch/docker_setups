@@ -11,4 +11,3 @@
     only_upgrade: true
     state: latest
   notify: restart
-

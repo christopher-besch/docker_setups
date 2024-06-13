@@ -3,4 +3,3 @@
 - name: Restart
   ansible.builtin.reboot:
   listen: restart
-  

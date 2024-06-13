@@ -1,17 +1,20 @@
 # Run this when all containers have been shut down.
 ---
 
-- hosts: all
+- name: Update Packages
+  hosts: all
   remote_user: freeman
   roles:
     - role: update_packages
 
-- hosts: all
+- name: Set freeman Shell Configs
+  hosts: all
   remote_user: freeman
   roles:
     - role: shell_configs
 
-- hosts: all
+- name: Set apprun Shell Configs
+  hosts: all
   remote_user: apprun
   roles:
     - role: shell_configs

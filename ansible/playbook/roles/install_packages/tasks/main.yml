@@ -1,7 +1,7 @@
 # Install all the debian packages needed
 ---
 
-- name: Install packages
+- name: Install Packages
   become: true
   ansible.builtin.apt:
     name:
@@ -21,7 +21,7 @@
 # Install Docker #
 - name: Add Docker GPG apt Key
   become: true
-  ansible.builtin.get_url: 
+  ansible.builtin.get_url:
     url: https://download.docker.com/linux/debian/gpg
     dest: /etc/apt/keyrings/docker.asc
     owner: root
@@ -52,7 +52,7 @@
     update_cache: true
     state: latest
 
-- name: Enable Docker Daemon
+- name: Start and Enable Docker Daemon
   become: true
   ansible.builtin.systemd_service:
     name: docker
