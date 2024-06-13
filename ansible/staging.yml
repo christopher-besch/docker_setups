@@ -1,0 +1,8 @@
+---
+
+STAGING:
+  vars:
+    SSH_PUB_KEY_PATH: /home/chris/.ssh/chris.pub
+  hosts:
+    arm64hetzner01:
+      ansible_host: 167.235.241.205

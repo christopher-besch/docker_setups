@@ -1,0 +1,46 @@
+# After the server has been created, this is the first rule to run.
+# It is the only role that is not idempotent (i.e. you won't be able to run it twice).
+# It uses the root user the server starts with, which will be disabled later on.
+---
+
+# this makes prepare_server.yml play impossible
+- name: Disable root SSH login
+  become: true
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin no"
+  notify: restart_sshd
+
+- name: Disable root
+  become: true
+  ansible.builtin.user:
+    name: root
+    shell: /sbin/nologin
+    password_lock: true
+
+# apprun setup #
+- name: Create docker group
+  become: true
+  ansible.builtin.group:
+    name: apprun
+
+- name: Create apprun group
+  become: true
+  ansible.builtin.group:
+    name: docker
+
+- name: Create apprun
+  become: true
+  ansible.builtin.user:
+    name: apprun
+    group: apprun
+    groups: docker
+    password_lock: true
+    shell: /bin/bash
+
+- name: Add SSH authorized key for apprun
+  become: true
+  ansible.posix.authorized_key:
+    user: apprun
+    key: "{{ lookup('file', '{{ SSH_PUB_KEY_PATH }}') }}"

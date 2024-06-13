@@ -1,0 +1,14 @@
+# Update everything.
+---
+
+- name: Updated Debian
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: dist
+    autoclean: true
+    autoremove: true
+    only_upgrade: true
+    state: latest
+  notify: restart
+

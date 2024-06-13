@@ -1,0 +1,31 @@
+# After the server has been created, this is the first rule to run.
+# It is the only role that can't be run again.
+# It uses the root user the server starts with, which will be disabled later on.
+#
+# This role contains only what is absolutely necessary.
+---
+
+- name: Create admin group
+  ansible.builtin.group:
+    name: admin
+
+- name: Create freeman
+  ansible.builtin.user:
+    name: freeman
+    group: admin
+    groups: sudo
+    password_lock: true
+    shell: /bin/bash
+
+- name: Setup sudo
+  community.general.sudoers:
+    name: sudo_group_rule
+    commands: ALL
+    group: sudo
+    nopassword: true
+
+- name: Add SSH authorized key for freeman
+  ansible.posix.authorized_key:
+    user: freeman
+    key: "{{ lookup('file', '{{ SSH_PUB_KEY_PATH }}') }}"
+

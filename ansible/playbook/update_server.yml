@@ -1,0 +1,17 @@
+# Run this when all containers have been shut down.
+---
+
+- hosts: all
+  remote_user: freeman
+  roles:
+    - role: update_packages
+
+- hosts: all
+  remote_user: freeman
+  roles:
+    - role: shell_configs
+
+- hosts: all
+  remote_user: apprun
+  roles:
+    - role: shell_configs

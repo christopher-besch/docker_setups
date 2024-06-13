@@ -1,0 +1,60 @@
+# Install all the debian packages needed
+---
+
+- name: Install packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - git
+      - tree
+      # TODO: only install on hetzner hosts
+      - cifs-utils
+      # needed to get docker subnet
+      - jq
+      # needed for docker
+      - ca-certificates
+      # needed for docker
+      - curl
+    update_cache: true
+    state: latest
+
+# Install Docker #
+- name: Add Docker GPG apt Key
+  become: true
+  ansible.builtin.get_url: 
+    url: https://download.docker.com/linux/debian/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    owner: root
+    group: root
+    mode: "0444"
+
+- name: Add Docker apt Repository (amd64)
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian {{ ansible_facts.distribution_release }} stable
+  when: ansible_architecture == "x86_64"
+
+- name: Add Docker apt Repository (arm64)
+  become: true
+  ansible.builtin.apt_repository:
+    repo: deb [arch=arm64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian {{ ansible_facts.distribution_release }} stable
+  when: ansible_architecture == "aarch64"
+
+- name: Install Docker
+  become: true
+  ansible.builtin.apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    update_cache: true
+    state: latest
+
+- name: Enable Docker Daemon
+  become: true
+  ansible.builtin.systemd_service:
+    name: docker
+    state: started
+    enabled: true

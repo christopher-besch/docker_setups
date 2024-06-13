@@ -18,20 +18,13 @@ tandoor             running(3)          /home/chris/docker_setups/tandoor/docker
 
 
 ## Install Procedure
-1. Create new server
-2. login as root
-3. `adduser chris`
-4. `usermod -aG sudo chris`
-5. add ssh pub key to `/home/chris/.ssh/authorized_keys`
-6. login as chris
-7. `sudo apt update && sudo apt dist-upgrade -y`
-8. `sudo timedatectl set-timezone Europe/Berlin`
-9. reboot
-10. `sudo apt install tree git cifs-utils jq -y`
-11. `git clone https://github.com/christopher-besch/configs .custom_configs`
-12. `~/.custom_configs/install.sh server`
-13. [install docker](https://docs.docker.com/engine/install/debian)
-14. `sudo usermod -aG docker chris`
+- Create new server
+- add new host to inventory
+- `ssh root@[server ip]`
+- `ansible-playbook -i staging.yml playbook/prepare_server.yml`
+- `ansible-playbook -i staging.yml playbook/install_server.yml`
+
+# TODO: convert to ansible
 15. `sudo mkdir /mnt/box03`
 16. `sudo chown chris /mnt/box03`
 17. enable only samba support in storage box

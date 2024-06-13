@@ -1,0 +1,22 @@
+# Install configs from github.com/christopher-besch/configs.
+---
+
+- name: Download custom configs
+  ansible.builtin.git:
+    repo: "https://github.com/christopher-besch/configs.git"
+    dest: "{{ ansible_facts.user_dir }}/.custom_configs"
+
+# the following tasks do the same as the install.sh script in the repo
+- name: Create inputrc Symlink
+  ansible.builtin.file:
+    src: "{{ ansible_facts.user_dir }}/.custom_configs/.inputrc"
+    dest: "{{ ansible_facts.user_dir }}/.inputrc"
+    mode: "0644"
+    state: link
+
+- name: Add Server bashrc
+  ansible.builtin.lineinfile:
+    dest: "{{ ansible_facts.user_dir }}/.bashrc"
+    search_string: "bashrc_server"
+    line: "source {{ ansible_facts.user_dir }}/.custom_configs/bashrc_server"
+    insertafter: "EOF"

@@ -1,3 +1,4 @@
 .env
 .example
 
+ansible/.vault_pass
