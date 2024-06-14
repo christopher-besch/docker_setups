@@ -1,32 +1,32 @@
 ---
 
-- name: Create Docker Tandoor Directory
+- name: Create Docker Firefly Directory
   ansible.builtin.file:
-    dest: "{{ docker_tandoor_dir }}"
+    dest: "{{ docker_firefly_dir }}"
     state: directory
     mode: "0755"
-  notify: docker_tandoor_restart
+  notify: docker_firefly_restart
 
-- name: Create Docker Tandoor Borg Directory
+- name: Create Docker Firefly Borg Directory
   ansible.builtin.file:
-    dest: "{{ docker_tandoor_borg_dir }}"
+    dest: "{{ docker_firefly_borg_dir }}"
     state: directory
     mode: "0755"
-  notify: docker_tandoor_restart
+  notify: docker_firefly_restart
 
 - name: Template docker-compose.yml
   ansible.builtin.template:
     src: "docker-compose.yml.j2"
-    dest: "{{ docker_tandoor_dir }}/docker-compose.yml"
+    dest: "{{ docker_firefly_dir }}/docker-compose.yml"
     mode: "0644"
-  notify: docker_tandoor_restart
+  notify: docker_firefly_restart
 
 - name: Force Pull
   ansible.builtin.command: "true"
   changed_when: force_pull
-  notify: docker_tandoor_restart
+  notify: docker_firefly_restart
 
 - name: Force Stop Container
   ansible.builtin.command: "true"
   changed_when: stop_container
-  notify: docker_tandoor_down
+  notify: docker_firefly_down

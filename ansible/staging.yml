@@ -8,6 +8,8 @@ STAGING:
     domain: staging.chris-besch.com
     docker_socket: "/var/run/docker.sock"
     docker_host: "unix://{{ docker_socket }}"
+    # this is also used as the trusted proxies for firefly and nextcloud
+    docker_net_subnet: 172.20.0.0/16
   hosts:
     amd64hetzner07:
       ansible_host: 167.235.241.205

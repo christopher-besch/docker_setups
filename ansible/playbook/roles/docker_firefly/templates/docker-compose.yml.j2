@@ -1,29 +1,30 @@
 services:
     FFFrontend:
         # https://hub.docker.com/r/fireflyiii/core/tags
-        container_name: "FFFrontend_${NAME}"
+        container_name: "FFFrontend"
         image: "fireflyiii/core:version-6.1.15"
         restart: always
         volumes:
-            - ${FF_PATH}/ff_upload:/var/www/html/storage/upload
+            - {{ docker_firefly_dir }}/ff_upload:/var/www/html/storage/upload
         environment:
             APP_ENV: local
             APP_DEBUG: false
-            SITE_OWNER: $EMAIL
-            APP_KEY: $APP_KEY
+            SITE_OWNER: {{ docker_firefly_owner_email }}
+            # get with `openssl rand -base64 32 | head -c 32`
+            APP_KEY: {{ docker_firefly_app_key }}
             DEFAULT_LANGUAGE: en_GB
             DEFAULT_LOCALE: en_GB
-            TZ: Europe/Berlin
-            TRUSTED_PROXIES: $TRUSTED_PROXIES
+            TRUSTED_PROXIES: {{ docker_net_subnet }}
             LOG_CHANNEL: stdout
             DB_CONNECTION: mysql
             DB_HOST: FFDatabase
             DB_PORT: 3306
             DB_DATABASE: FF
             DB_USERNAME: firefly
-            DB_PASSWORD: $MYSQL_PASSWORD
-            LETSENCRYPT_HOST: ${DOMAIN}
-            VIRTUAL_HOST: ${DOMAIN}
+            # get with `openssl rand -hex 32`
+            DB_PASSWORD: {{ docker_firefly_db_password }}
+            LETSENCRYPT_HOST: {{ docker_firefly_domain }}
+            VIRTUAL_HOST: {{ docker_firefly_domain }}
             VIRTUAL_PORT: 8080
             MAIL_MAILER: log
             MAIL_HOST: null
@@ -39,19 +40,18 @@ services:
     FFDatabase:
         # https://hub.docker.com/_/mariadb
         image: "mariadb:10.11.7"
-        container_name: "FFDatabase_${NAME}"
+        container_name: "FFDatabase"
 
         volumes:
-            - "${FF_PATH}/ff_maria_db:/var/lib/mysql"
+            - "{{ docker_firefly_dir }}/ff_maria_db:/var/lib/mysql"
 
         environment:
             MYSQL_RANDOM_ROOT_PASSWORD: 1
             # MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
             MYSQL_DATABASE: FF
             MYSQL_USER: firefly
-            MYSQL_PASSWORD: MYSQL_PASSWORD
+            MYSQL_PASSWORD: {{ docker_firefly_db_password }}
             MARIADB_AUTO_UPGRADE: true
-            TZ: Europe/Berlin
 
         # accept docker stop
         restart: "unless-stopped"
@@ -59,9 +59,8 @@ services:
 
     FFCron:
         image: alpine
-        command: sh -c "echo \"${FIREFLY_CRON} wget -qO- http://FFFrontend_${NAME}:8080/api/v1/cron/${CRON_TOKEN}\" | crontab - && crond -f -L /dev/stdout"
-        environment:
-            TZ: Europe/Berlin
+        # get token on /profile under the "Command line token" header
+        command: sh -c "echo \"{{ docker_firefly_automation_cron }} wget -qO- http://FFFrontend:8080/api/v1/cron/{{ docker_firefly_automation_cron_token }}\" | crontab - && crond -f -L /dev/stdout"
 
         # accept docker stop
         restart: "unless-stopped"
@@ -71,18 +70,17 @@ services:
     FFBorgBackup:
         image: chrisbesch/docker_borg_backup
         volumes:
-            - "$FF_PATH:/origin:ro"
-            - "$BORG_REPO:/repo"
+            - "{{ docker_firefly_dir }}:/origin:ro"
+            - "{{ docker_firefly_borg_dir }}:/repo"
             # needs to be able to start and stop other containers
             - "/var/run/docker.sock:/var/run/docker.sock:rw"
         environment:
-            TZ: Europe/Berlin
-            CRON_TIME: ${BACKUP_CRON}
-            BORG_COMPRESSION: $BORG_COMPRESSION
-            BORG_PREFIX: $NAME
-            PRUNE_CFG: $PRUNE_CFG
+            CRON_TIME: "{{ docker_firefly_borg_cron }}"
+            BORG_COMPRESSION: zstd,10
+            BORG_PREFIX: firefly
+            PRUNE_CFG: "--keep-last 1 --keep-daily 4 --keep-monthly 3 --keep-yearly 1"
             # stop these containers before backup
-            CONTAINERS: "FFDatabase_${NAME} FFFrontend_${NAME}"
+            CONTAINERS: "FFDatabase FFFrontend"
         restart: "unless-stopped"
 
 networks:

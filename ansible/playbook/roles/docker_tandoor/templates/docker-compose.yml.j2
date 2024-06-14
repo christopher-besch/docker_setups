@@ -19,7 +19,7 @@ services:
             POSTGRES_PORT: 5432
             POSTGRES_USER: tandoor
             # get with `openssl rand -hex 32`
-            POSTGRES_PASSWORD: {{ docker_tandoor_postgres_password }}
+            POSTGRES_PASSWORD: {{ docker_tandoor_db_password }}
             POSTGRES_DB: tandoordb
             GUNICORN_MEDIA: 1
             DEBUG: 0
@@ -37,7 +37,7 @@ services:
             - {{ docker_tandoor_dir }}/td_postgres:/var/lib/postgresql/data
         environment:
             POSTGRES_USER: tandoor
-            POSTGRES_PASSWORD: {{ docker_tandoor_postgres_password }}
+            POSTGRES_PASSWORD: {{ docker_tandoor_db_password }}
             POSTGRES_DB: tandoordb
         restart: "unless-stopped"
         networks: ["common"]
@@ -50,7 +50,7 @@ services:
             # needs to be able to start and stop other containers
             - "/var/run/docker.sock:/var/run/docker.sock:rw"
         environment:
-            CRON_TIME: "30 3 * * *"
+            CRON_TIME: "{{ docker_tandoor_borg_cron }}"
             BORG_COMPRESSION: zstd,10
             BORG_PREFIX: tandoor
             PRUNE_CFG: "--keep-last 1 --keep-daily 4 --keep-monthly 3 --keep-yearly 1"

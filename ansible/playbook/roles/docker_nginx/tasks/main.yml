@@ -5,25 +5,27 @@
     dest: "{{ docker_nginx_dir }}"
     state: directory
     mode: "0755"
-  notify: restart_docker_compose
+  notify: docker_nginx_restart
 
 - name: Template docker-compose.yml
   ansible.builtin.template:
     src: "docker-compose.yml.j2"
     dest: "{{ docker_nginx_dir }}/docker-compose.yml"
     mode: "0644"
-  notify: restart_docker_compose
+  notify: docker_nginx_restart
 
 - name: Copy my_proxy.conf
   ansible.builtin.copy:
     src: "my_proxy.conf"
     dest: "{{ docker_nginx_dir }}/my_proxy.conf"
     mode: "0644"
-  notify: restart_docker_compose
+  notify: docker_nginx_restart
 
 - name: Create Docker net
   community.docker.docker_network:
     name: net
+    ipam_config:
+      - subnet: "{{ docker_net_subnet }}"
 
 - name: Create Docker Volume
   community.docker.docker_volume:
@@ -32,9 +34,9 @@
 - name: Force Pull
   ansible.builtin.command: "true"
   changed_when: force_pull
-  notify: restart_docker_compose
+  notify: docker_nginx_restart
 
 - name: Force Stop Container
   ansible.builtin.command: "true"
   changed_when: stop_container
-  notify: stop_docker_compose
+  notify: docker_nginx_down

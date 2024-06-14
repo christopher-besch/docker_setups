@@ -1,0 +1,7 @@
+---
+
+docker_firefly_dir: "{{ app_dir }}/firefly"
+docker_firefly_borg_dir: "{{ borg_dir }}/firefly"
+docker_firefly_domain: "firefly.{{ domain }}"
+docker_firefly_borg_cron: "0 3 * * *"
+docker_firefly_automation_cron: "0 2 * * *"
