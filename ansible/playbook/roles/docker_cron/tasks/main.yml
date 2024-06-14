@@ -1,0 +1,21 @@
+# Install configs from github.com/christopher-besch/configs.
+---
+
+- name: Create Docker Cron Directory
+  ansible.builtin.file:
+    dest: "{{ docker_cron_dir }}"
+    state: directory
+    mode: "0755"
+  notify: restart_docker_compose
+
+- name: Template docker-compose.yml
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ docker_cron_dir }}/docker-compose.yml"
+    mode: "0644"
+  notify: restart_docker_compose
+
+- name: Force Pull
+  ansible.builtin.command: "true"
+  changed_when: force_pull
+  notify: restart_docker_compose

@@ -1,0 +1,10 @@
+# This installs and starts/restarts all Docker applications.
+---
+
+- name: Install Docker Apps
+  hosts: all
+  remote_user: apprun
+  vars:
+    force_pull: false
+  roles:
+    - role: docker_cron

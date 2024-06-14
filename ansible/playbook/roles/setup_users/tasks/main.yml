@@ -43,4 +43,4 @@
   become: true
   ansible.posix.authorized_key:
     user: apprun
-    key: "{{ lookup('file', '{{ SSH_PUB_KEY_PATH }}') }}"
+    key: "{{ lookup('file', '{{ ssh_pub_key_path }}') }}"

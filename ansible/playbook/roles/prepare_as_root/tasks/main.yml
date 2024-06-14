@@ -27,4 +27,4 @@
 - name: Add SSH authorized key for freeman
   ansible.posix.authorized_key:
     user: freeman
-    key: "{{ lookup('file', '{{ SSH_PUB_KEY_PATH }}') }}"
+    key: "{{ lookup('file', '{{ ssh_pub_key_path }}') }}"

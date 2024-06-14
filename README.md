@@ -2,20 +2,10 @@
 Feel free to use these setups as inspiration for your own servers (i.e. create a fork).
 If you have any questions or ideas, open an issue or message me at `mail@chris.besch.com`.
 
-
-## Running Docker Compose on hetzner03
-```
-NAME                STATUS              CONFIG FILES
-cron                running(1)          /home/chris/docker_setups/cron/docker-compose.yaml
-fireflyiii          running(4)          /home/chris/docker_setups/fireflyiii/docker-compose.yaml
-jellyfin            running(1)          /home/chris/docker_setups/jellyfin/docker-compose.yaml
-minecraft_java      running(4)          /home/chris/docker_setups/minecraft_java/docker-compose.yaml
-nextcloud           running(4)          /home/chris/docker_setups/nextcloud/docker-compose.yaml
-nginx               running(2)          /home/chris/docker_setups/nginx/docker-compose.yaml
-photoprism          running(3)          /home/chris/docker_setups/photoprism/docker-compose.yaml
-tandoor             running(3)          /home/chris/docker_setups/tandoor/docker-compose.yaml
-```
-
+# Users
+- `freeman`: user with passwordless sudo rights
+- `apprun`: user in `docker` group, runs applications
+- `root`: disabled
 
 ## Install Procedure
 - Create new server
@@ -23,6 +13,8 @@ tandoor             running(3)          /home/chris/docker_setups/tandoor/docker
 - `ssh root@[server ip]`
 - `ansible-playbook -i staging.yml playbook/prepare_server.yml`
 - `ansible-playbook -i staging.yml playbook/install_server.yml`
+- `ansible-playbook -i staging.yml playbook/update_server.yml`
+- `ansible-playbook -i staging.yml playbook/update_container.yml`
 
 # TODO: convert to ansible
 15. `sudo mkdir /mnt/box03`
@@ -40,6 +32,7 @@ tandoor             running(3)          /home/chris/docker_setups/tandoor/docker
     ```
 20. `sudo chown root /etc/box03-credentials.txt`
 21. `sudo chmod 0600 /etc/box03-credentials.txt`
+
 22. `git clone https://github.com/christopher-besch/docker_setups` in `~`
 23. `scp /home/chris/files/docker_envs/hetzner01/*.env chris@49.13.65.242:/home/chris` on host
 24. move .env in correct locations
