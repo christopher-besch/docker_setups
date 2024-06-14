@@ -11,7 +11,7 @@ services:
             - html:/usr/share/nginx/html
             - certs:/etc/nginx/certs:ro
             - ./my_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
-            - /var/run/docker.sock:/tmp/docker.sock:ro
+            - "{{ docker_socket }}:/tmp/docker.sock:ro"
         environment:
             TZ: Europe/Berlin
         restart: "unless-stopped"
@@ -28,7 +28,7 @@ services:
         volumes:
             - certs:/etc/nginx/certs:rw
             - acme:/etc/acme.sh
-            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - "{{ docker_socket }}:/var/run/docker.sock:ro"
         restart: "unless-stopped"
         networks: ["net"]
 {% endif %}

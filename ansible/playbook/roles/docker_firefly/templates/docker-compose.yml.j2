@@ -73,7 +73,7 @@ services:
             - "{{ docker_firefly_dir }}:/origin:ro"
             - "{{ docker_firefly_borg_dir }}:/repo"
             # needs to be able to start and stop other containers
-            - "/var/run/docker.sock:/var/run/docker.sock:rw"
+            - "{{ docker_socket }}:/var/run/docker.sock:rw"
         environment:
             CRON_TIME: "{{ docker_firefly_borg_cron }}"
             BORG_COMPRESSION: zstd,10
