@@ -9,3 +9,4 @@
     stop_container: true
   roles:
     - role: docker_cron
+    - role: docker_nginx

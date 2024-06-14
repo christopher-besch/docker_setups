@@ -1,8 +1,8 @@
 ---
 
-- name: Create Docker Cron Directory
+- name: Create Docker nginx Directory
   ansible.builtin.file:
-    dest: "{{ docker_cron_dir }}"
+    dest: "{{ docker_nginx_dir }}"
     state: directory
     mode: "0755"
   notify: restart_docker_compose
@@ -10,9 +10,24 @@
 - name: Template docker-compose.yml
   ansible.builtin.template:
     src: "docker-compose.yml.j2"
-    dest: "{{ docker_cron_dir }}/docker-compose.yml"
+    dest: "{{ docker_nginx_dir }}/docker-compose.yml"
     mode: "0644"
   notify: restart_docker_compose
+
+- name: Copy my_proxy.conf
+  ansible.builtin.copy:
+    src: "my_proxy.conf"
+    dest: "{{ docker_nginx_dir }}/my_proxy.conf"
+    mode: "0644"
+  notify: restart_docker_compose
+
+- name: Create Docker net
+  community.docker.docker_network:
+    name: net
+
+- name: Create Docker Volume
+  community.docker.docker_volume:
+    name: nginx_config
 
 - name: Force Pull
   ansible.builtin.command: "true"

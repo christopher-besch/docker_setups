@@ -1,0 +1,5 @@
+---
+
+docker_nginx_dir: "{{ app_dir }}/nginx"
+docker_nginx_email: "mail@chris-besch.com"
+docker_nginx_ssl: true

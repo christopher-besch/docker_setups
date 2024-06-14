@@ -7,5 +7,5 @@ STAGING:
     docker_socket: "/var/run/docker.sock"
     docker_host: "unix://{{ docker_socket }}"
   hosts:
-    hetzner06:
+    amd64hetzner07:
       ansible_host: 167.235.241.205

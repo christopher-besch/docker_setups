@@ -17,10 +17,11 @@ services:
         restart: "unless-stopped"
         networks: ["net"]
 
+{% if docker_nginx_ssl %}
     AcmeCompanion:
         image: nginxproxy/acme-companion:latest
         environment:
-            DEFAULT_EMAIL: $DEFAULT_EMAIL
+            DEFAULT_EMAIL: "{{ docker_nginx_email }}"
             TZ: Europe/Berlin
         volumes_from:
             - NginxProxy
@@ -30,6 +31,7 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock:ro
         restart: "unless-stopped"
         networks: ["net"]
+{% endif %}
 
 volumes:
     nginx_config:
