@@ -2,26 +2,27 @@ services:
     TDFrontend:
         # https://hub.docker.com/r/vabene1111/recipes/tags
         image: vabene1111/recipes:1.5.17
-        container_name: "TDFrontend_${NAME}"
+        container_name: "TDFrontend"
         volumes:
-            - ${TD_PATH}/td_data/staticfiles:/opt/recipes/staticfiles
-            - ${TD_PATH}/td_data/mediafiles:/opt/recipes/mediafiles
+            - {{ docker_tandoor_dir }}/td_data/staticfiles:/opt/recipes/staticfiles
+            - {{ docker_tandoor_dir }}/td_data/mediafiles:/opt/recipes/mediafiles
             - nginx_config:/opt/recipes/nginx/conf.d:ro
 
         environment:
-            ALLOWED_HOSTS: ${DOMAIN}
-            LETSENCRYPT_HOST: ${DOMAIN}
-            VIRTUAL_HOST: ${DOMAIN}
-            SECRET_KEY: $SECRET_KEY
+            ALLOWED_HOSTS: {{ docker_tandoor_domain }}
+            LETSENCRYPT_HOST: {{ docker_tandoor_domain }}
+            VIRTUAL_HOST: {{ docker_tandoor_domain }}
+            # get with `openssl rand -hex 32`
+            SECRET_KEY: {{ docker_tandoor_secret_key }}
             DB_ENGINE: django.db.backends.postgresql
             POSTGRES_HOST: TDDatabase
             POSTGRES_PORT: 5432
             POSTGRES_USER: tandoor
-            POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+            # get with `openssl rand -hex 32`
+            POSTGRES_PASSWORD: {{ docker_tandoor_postgres_password }}
             POSTGRES_DB: tandoordb
             GUNICORN_MEDIA: 1
             DEBUG: 0
-            TZ: Europe/Berlin
 
         depends_on:
             - "TDDatabase"
@@ -31,32 +32,30 @@ services:
     TDDatabase:
         # https://docs.tandoor.dev/install/docker/#docker-compose
         image: postgres:15-alpine
-        container_name: "TDDatabase_${NAME}"
+        container_name: "TDDatabase"
         volumes:
-            - ${TD_PATH}/td_postgres:/var/lib/postgresql/data
+            - {{ docker_tandoor_dir }}/td_postgres:/var/lib/postgresql/data
         environment:
             POSTGRES_USER: tandoor
-            POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+            POSTGRES_PASSWORD: {{ docker_tandoor_postgres_password }}
             POSTGRES_DB: tandoordb
-            TZ: Europe/Berlin
         restart: "unless-stopped"
         networks: ["common"]
 
     TDBorgBackup:
         image: chrisbesch/docker_borg_backup
         volumes:
-            - "$TD_PATH:/origin:ro"
-            - "$BORG_REPO:/repo"
+            - "{{ docker_tandoor_dir }}:/origin:ro"
+            - "{{ docker_tandoor_borg_dir }}:/repo"
             # needs to be able to start and stop other containers
             - "/var/run/docker.sock:/var/run/docker.sock:rw"
         environment:
-            TZ: Europe/Berlin
-            CRON_TIME: ${BACKUP_CRON}
-            BORG_COMPRESSION: $BORG_COMPRESSION
-            BORG_PREFIX: $NAME
-            PRUNE_CFG: $PRUNE_CFG
+            CRON_TIME: "30 3 * * *"
+            BORG_COMPRESSION: zstd,10
+            BORG_PREFIX: tandoor
+            PRUNE_CFG: "--keep-last 1 --keep-daily 4 --keep-monthly 3 --keep-yearly 1"
             # stop these containers before backup
-            CONTAINERS: "TDDatabase_${NAME} TDFrontend_${NAME}"
+            CONTAINERS: "TDDatabase TDFrontend"
         restart: "unless-stopped"
 
 volumes:
@@ -68,4 +67,3 @@ networks:
         external: true
     common:
         internal: true
-

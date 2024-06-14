@@ -1,0 +1,5 @@
+---
+
+docker_tandoor_dir: "{{ app_dir }}/tandoor"
+docker_tandoor_borg_dir: "{{ borg_dir }}/tandoor"
+docker_tandoor_domain: "recipe.{{ domain }}"

@@ -9,4 +9,8 @@
     stop_container: true
   roles:
     - role: docker_cron
+      tags: cron
     - role: docker_nginx
+      tags: nginx
+    - role: docker_tandoor
+      tags: tandoor

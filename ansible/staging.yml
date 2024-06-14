@@ -4,6 +4,8 @@ STAGING:
   vars:
     ssh_pub_key_path: /home/chris/.ssh/chris.pub
     app_dir: "{{ ansible_facts.user_dir }}/app"
+    borg_dir: "{{ ansible_facts.user_dir }}/borg"
+    domain: staging.chris-besch.com
     docker_socket: "/var/run/docker.sock"
     docker_host: "unix://{{ docker_socket }}"
   hosts:
