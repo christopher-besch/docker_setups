@@ -1,4 +1,4 @@
-# After the server has been created, this is the first rule to run.
+# After the server has been created, this is the first role to run.
 # It is the only role that is not idempotent (i.e. you won't be able to run it twice).
 # It uses the root user the server starts with, which will be disabled later on.
 ---

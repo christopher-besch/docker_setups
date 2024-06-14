@@ -19,3 +19,8 @@
   ansible.builtin.command: "true"
   changed_when: force_pull
   notify: restart_docker_compose
+
+- name: Stop Container
+  ansible.builtin.command: "true"
+  changed_when: stop_container
+  notify: stop_docker_compose

@@ -18,3 +18,11 @@
     recreate: always
     remove_orphans: true
     state: present
+
+- name: Docker Compose Down
+  listen: stop_docker_compose
+  community.docker.docker_compose_v2:
+    docker_host: "{{ docker_host }}"
+    project_src: "{{ docker_cron_dir }}"
+    remove_orphans: true
+    state: absent

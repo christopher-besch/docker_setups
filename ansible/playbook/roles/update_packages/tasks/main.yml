@@ -1,6 +1,16 @@
 # Update everything.
 ---
 
+- name: Get running Containers
+  # freeman isn't in docker group
+  become: true
+  ansible.builtin.command: "docker ps -q"
+  register: docker_containers
+
+- name: Assert there are no running Containers
+  ansible.builtin.assert:
+    that: docker_containers.stdout == ""
+
 - name: Updated Debian
   become: true
   ansible.builtin.apt:

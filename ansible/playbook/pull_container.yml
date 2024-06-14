@@ -6,5 +6,6 @@
   remote_user: apprun
   vars:
     force_pull: true
+    stop_container: true
   roles:
     - role: docker_cron
