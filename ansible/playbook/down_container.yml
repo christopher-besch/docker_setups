@@ -16,3 +16,5 @@
       tags: tandoor
     - role: docker_firefly
       tags: firefly
+    - role: docker_minecraft
+      tags: minecraft

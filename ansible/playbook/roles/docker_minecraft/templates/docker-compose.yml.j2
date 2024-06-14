@@ -1,0 +1,60 @@
+services:
+    Minecraft:
+        image: itzg/minecraft-server
+        container_name: "Minecraft"
+        volumes:
+            - "{{ docker_minecraft_dir }}/data:/data"
+        ports:
+            - "25565:25565"
+        tty: true
+        stdin_open: true
+        environment:
+            EULA: TRUE
+            MEMORY: {{ docker_minecraft_memory }}
+            ENABLE_ROLLING_LOGS: TRUE
+            VERSION: {{ docker_minecraft_version }}
+            OVERRIDE_SERVER_PROPERTIES: FALSE
+        restart: unless-stopped
+
+    MinecraftStats:
+        image: chrisbesch/minecraft_stats
+        container_name: "MinecraftStats"
+        environment:
+            # configures the DockerCron container to send a SIGHUP to this container every five minutes
+            CRON_TIME: "*/5 * * * *"
+        volumes:
+            - "{{ docker_minecraft_dir }}/data/:/app/serverfiles:ro"
+            - ./config.json:/app/config.json:ro
+            - "{{ docker_minecraft_dir }}/web:/app/www"
+        restart: unless-stopped
+
+    MinecraftWeb:
+        image: nginx
+        container_name: "MinecraftWeb"
+        volumes:
+            - "{{ docker_minecraft_dir }}/web:/usr/share/nginx/html:ro"
+        environment:
+            LETSENCRYPT_HOST: {{ docker_minecraft_web_domain }}
+            VIRTUAL_HOST: {{ docker_minecraft_web_domain }}
+        restart: unless-stopped
+        networks: ["net"]
+
+    MinecraftBorgBackup:
+        image: chrisbesch/docker_borg_backup
+        volumes:
+            - "{{ docker_minecraft_dir }}:/origin:ro"
+            - "{{ docker_minecraft_borg_dir }}:/repo"
+            # needs to be able to start and stop other containers
+            - "{{ docker_socket }}:/var/run/docker.sock:rw"
+        environment:
+            CRON_TIME: "{{ docker_minecraft_borg_cron }}"
+            BORG_COMPRESSION: zstd,10
+            BORG_PREFIX: minecraft
+            PRUNE_CFG: "--keep-last 1 --keep-daily 4 --keep-monthly 3 --keep-yearly 1"
+            # stop these containers before backup
+            CONTAINERS: "Minecraft MinecraftStats MinecraftWeb"
+        restart: "unless-stopped"
+
+networks:
+    net:
+        external: true

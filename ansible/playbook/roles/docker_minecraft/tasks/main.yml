@@ -1,0 +1,39 @@
+---
+
+- name: Create Docker Minecraft Directory
+  ansible.builtin.file:
+    dest: "{{ docker_minecraft_dir }}"
+    state: directory
+    mode: "0755"
+  notify: docker_minecraft_restart
+
+- name: Create Docker Minecraft Borg Directory
+  ansible.builtin.file:
+    dest: "{{ docker_minecraft_borg_dir }}"
+    state: directory
+    mode: "0755"
+  notify: docker_minecraft_restart
+
+- name: Copy config.json
+  ansible.builtin.copy:
+    src: "config.json"
+    dest: "{{ docker_minecraft_dir }}/config.json"
+    mode: "0644"
+  notify: docker_minecraft_restart
+
+- name: Template docker-compose.yml
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ docker_minecraft_dir }}/docker-compose.yml"
+    mode: "0644"
+  notify: docker_minecraft_restart
+
+- name: Force Pull
+  ansible.builtin.command: "true"
+  changed_when: force_pull
+  notify: docker_minecraft_restart
+
+- name: Force Stop Container
+  ansible.builtin.command: "true"
+  changed_when: stop_container
+  notify: docker_minecraft_down
