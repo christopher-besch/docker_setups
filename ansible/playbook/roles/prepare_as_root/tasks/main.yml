@@ -8,10 +8,12 @@
 - name: Create admin group
   ansible.builtin.group:
     name: admin
+    gid: 2845
 
 - name: Create freeman
   ansible.builtin.user:
     name: freeman
+    uid: 2845
     group: admin
     groups: sudo
     password_lock: true

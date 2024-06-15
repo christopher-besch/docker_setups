@@ -24,16 +24,19 @@
   become: true
   ansible.builtin.group:
     name: apprun
+    gid: 996
 
 - name: Create apprun group
   become: true
   ansible.builtin.group:
     name: docker
+    gid: 1000
 
 - name: Create apprun
   become: true
   ansible.builtin.user:
     name: apprun
+    uid: 1000
     group: apprun
     groups: docker
     password_lock: true
