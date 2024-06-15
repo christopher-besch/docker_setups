@@ -1,0 +1,20 @@
+services:
+    jellyfin:
+        image: jellyfin/jellyfin:latest
+        container_name: Jellyfin
+        volumes:
+            - "{{ docker_jelly_dir }}/config:/config"
+            - "./config.json:/config/config.json:ro"
+            - "{{ docker_jelly_dir }}/cache:/cache"
+            - "{{ docker_jelly_media_dir }}:/media:ro"
+        environment:
+            JELLYFIN_PublishedServerUrl: "https://{{ docker_jelly_domain }}"
+            LETSENCRYPT_HOST: "{{ docker_jelly_domain }}"
+            VIRTUAL_HOST: "{{ docker_jelly_domain }}"
+            VIRTUAL_PORT: 8096
+        restart: 'unless-stopped'
+        networks: ["net"]
+
+networks:
+    net:
+        external: true

@@ -1,0 +1,5 @@
+---
+
+docker_jelly_dir: "{{ app_dir }}/jelly"
+docker_jelly_media_dir: "{{ box_dir }}/jelly_media"
+docker_jelly_domain: "jelly.{{ domain }}"

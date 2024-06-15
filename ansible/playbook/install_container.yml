@@ -20,3 +20,5 @@
       tags: minecraft
     - role: docker_photo
       tags: photo
+    - role: docker_jelly
+      tags: jelly

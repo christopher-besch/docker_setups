@@ -1,6 +1,7 @@
 ---
 
 docker_photo_dir: "{{ app_dir }}/photo"
+docker_photo_originals_dir: "{{ box_dir }}/images"
 docker_photo_borg_dir: "{{ borg_dir }}/photo"
 docker_photo_domain: "photo.{{ domain }}"
 docker_photo_borg_cron: "0 3 * * *"
