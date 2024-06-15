@@ -9,8 +9,6 @@
       - tree
       # TODO: only install on hetzner hosts
       - cifs-utils
-      # needed to get docker subnet
-      - jq
       # needed for docker
       - ca-certificates
       # needed for docker
