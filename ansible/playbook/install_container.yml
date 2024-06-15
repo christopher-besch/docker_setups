@@ -18,3 +18,5 @@
       tags: firefly
     - role: docker_minecraft
       tags: minecraft
+    - role: docker_photo
+      tags: photo

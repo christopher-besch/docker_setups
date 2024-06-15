@@ -14,9 +14,10 @@ If you have any questions or ideas, open an issue or message me at `mail@chris.b
 - `ansible-playbook -i staging.yml playbook/prepare_server.yml`
 - `ansible-playbook -i staging.yml playbook/install_server.yml`
 - `ansible-playbook -i staging.yml playbook/update_server.yml`
-- `ansible-playbook -i staging.yml playbook/update_container.yml`
+- `ansible-playbook -i staging.yml playbook/install_container.yml`
 
 # TODO: convert to ansible
+- setup swap file
 15. `sudo mkdir /mnt/box03`
 16. `sudo chown chris /mnt/box03`
 17. enable only samba support in storage box

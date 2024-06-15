@@ -1,19 +1,19 @@
 services:
     PPFrontend:
         image: photoprism/photoprism:latest
-        container_name: "PPFrontend_${NAME}"
+        container_name: "PPFrontend"
         depends_on:
             - PPDatabase
         volumes:
-            - "$PP_ORIGINALS:/photoprism/originals:ro"               # Original media files (DO NOT REMOVE)
-            - "$PP_DATA/data:/photoprism/storage"                  # *Writable* storage folder for cache, database, and sidecar files (DO NOT REMOVE)
+            - "{{ docker_photo_originals_dir }}:/photoprism/originals:ro"               # Original media files (DO NOT REMOVE)
+            - "{{ docker_photo_dir }}/data:/photoprism/storage"                  # *Writable* storage folder for cache, database, and sidecar files (DO NOT REMOVE)
         environment:
-            PHOTOPRISM_ADMIN_USER: "$ADMIN_USERNAME"                 # admin login username
-            PHOTOPRISM_ADMIN_PASSWORD: "$ADMIN_PASSWORD"          # initial admin password (8-72 characters)
+            PHOTOPRISM_ADMIN_USER: "{{ docker_photo_admin_name }}"                 # admin login username
+            PHOTOPRISM_ADMIN_PASSWORD: "{{ docker_photo_admin_password }}"          # initial admin password (8-72 characters)
             PHOTOPRISM_AUTH_MODE: "password"               # authentication mode (public, password)
-            PHOTOPRISM_SITE_URL: "http://$DOMAIN"  # server URL in the format "http(s)://domain.name(:port)/(path)"
-            LETSENCRYPT_HOST: $DOMAIN
-            VIRTUAL_HOST: $DOMAIN
+            PHOTOPRISM_SITE_URL: "http://{{ docker_photo_domain }}"  # server URL in the format "http(s)://domain.name(:port)/(path)"
+            LETSENCRYPT_HOST: {{ docker_photo_domain }}
+            VIRTUAL_HOST: {{ docker_photo_domain }}
             VIRTUAL_PORT: 2342
             # done by reverse proxy
             PHOTOPRISM_DISABLE_TLS: "true"                # disables HTTPS/TLS even if the site URL starts with https:// and a certificate is available
@@ -39,12 +39,11 @@ services:
             PHOTOPRISM_DATABASE_SERVER: "PPDatabase:3306"     # MariaDB or MySQL database server (hostname:port)
             PHOTOPRISM_DATABASE_NAME: "photoprism"         # MariaDB or MySQL database schema name
             PHOTOPRISM_DATABASE_USER: "photoprism"         # MariaDB or MySQL database user name
-            PHOTOPRISM_DATABASE_PASSWORD: "$MYSQL_PASSWORD"       # MariaDB or MySQL database user password
-            PHOTOPRISM_SITE_CAPTION: "$CAPTION"
-            PHOTOPRISM_SITE_DESCRIPTION: "$DESCRIPTION"                # meta site description
-            PHOTOPRISM_SITE_AUTHOR: "$AUTHOR"                     # meta site author
+            PHOTOPRISM_DATABASE_PASSWORD: "{{ docker_photo_db_password }}"       # MariaDB or MySQL database user password
+            PHOTOPRISM_SITE_CAPTION: "{{ docker_photo_site_caption }}"
+            PHOTOPRISM_SITE_DESCRIPTION: "{{ docker_photo_site_description }}"                # meta site description
+            PHOTOPRISM_SITE_AUTHOR: "{{ docker_photo_author }}"                     # meta site author
             PHOTOPRISM_WORKERS: 1
-            TZ: Europe/Berlin
         working_dir: "/photoprism" # do not change or remove
         restart: unless-stopped
         networks: ["net", "common"]
@@ -52,37 +51,34 @@ services:
     PPDatabase:
         # https://hub.docker.com/_/mariadb
         image: mariadb:10.11.7
-        container_name: "PPDatabase_${NAME}"
+        container_name: "PPDatabase"
         command: mariadbd --innodb-buffer-pool-size=512M --transaction-isolation=READ-COMMITTED --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=512 --innodb-rollback-on-timeout=OFF --innodb-lock-wait-timeout=120
         volumes:
-            - "$PP_DATA/db:/var/lib/mysql" 
+            - "{{ docker_photo_dir }}/db:/var/lib/mysql" 
         environment:
             MARIADB_AUTO_UPGRADE: "1"
             MARIADB_INITDB_SKIP_TZINFO: "1"
             MARIADB_DATABASE: "photoprism"
             MARIADB_USER: "photoprism"
-            MARIADB_PASSWORD: "$MYSQL_PASSWORD"
+            MARIADB_PASSWORD: "{{ docker_photo_db_password }}"
             MARIADB_ROOT_PASSWORD: "insecure"
-            TZ: Europe/Berlin
         restart: unless-stopped
         networks: ["common"]
 
     PPBorgBackup:
         image: chrisbesch/docker_borg_backup
         volumes:
-            - "$PP_DATA:/origin:ro"
-            # don't back up originals
-            - "$BORG_REPO:/repo"
+            - "{{ docker_photo_dir }}:/origin:ro"
+            - "{{ docker_photo_borg_dir }}:/repo"
             # needs to be able to start and stop other containers
-            - "/var/run/docker.sock:/var/run/docker.sock:rw"
+            - "{{ docker_socket }}:/var/run/docker.sock:rw"
         environment:
-            TZ: Europe/Berlin
-            CRON_TIME: ${BACKUP_CRON}
-            BORG_COMPRESSION: $BORG_COMPRESSION
-            BORG_PREFIX: $NAME
-            PRUNE_CFG: $PRUNE_CFG
+            CRON_TIME: "{{ docker_photo_borg_cron }}"
+            BORG_COMPRESSION: zstd,10
+            BORG_PREFIX: photo
+            PRUNE_CFG: "--keep-last 1 --keep-daily 4 --keep-monthly 3 --keep-yearly 1"
             # stop these containers before backup
-            CONTAINERS: "PPDatabase_${NAME} PPFrontend_${NAME}"
+            CONTAINERS: "PPDatabase PPFrontend"
         restart: "unless-stopped"
 
 networks:
