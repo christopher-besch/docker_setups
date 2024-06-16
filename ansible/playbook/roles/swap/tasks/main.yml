@@ -1,0 +1,28 @@
+# Install all the debian packages needed
+---
+
+- name: Create Swapfile
+  become: true
+  community.general.filesize:
+    path: "{{ swap_path }}"
+    size: "{{ swap_size }}"
+    blocksize: 512B
+    mode: "0644"
+    owner: root
+    group: root
+  notify: mkswap
+
+- name: Enforce mkswap Handler
+  ansible.builtin.meta: flush_handlers
+
+- name: Load Swapfile in fstab
+  become: true
+  ansible.posix.mount:
+    name: swap
+    src: "{{ swap_path }}"
+    fstype: swap
+    opts: sw
+    passno: 0
+    dump: 0
+    state: present
+  notify: swapon

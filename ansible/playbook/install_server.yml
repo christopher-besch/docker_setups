@@ -12,3 +12,10 @@
   remote_user: freeman
   roles:
     - role: install_packages
+
+- name: Create Swapfile
+  hosts: all
+  remote_user: freeman
+  roles:
+    - role: swap
+      tags: swap

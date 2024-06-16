@@ -1,0 +1,11 @@
+---
+
+- name: Make Swap
+  listen: mkswap
+  become: true
+  ansible.builtin.command: "mkswap {{ swap_path }}"
+
+- name: Enable Swap
+  listen: swapon
+  become: true
+  ansible.builtin.command: "swapon -a"

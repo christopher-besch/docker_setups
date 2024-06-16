@@ -1,0 +1,4 @@
+---
+
+swap_path: /var/swapfile
+swap_size: 4G
