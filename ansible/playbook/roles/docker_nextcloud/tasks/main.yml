@@ -1,0 +1,39 @@
+---
+
+- name: Create Docker Nextcloud Directory
+  ansible.builtin.file:
+    dest: "{{ docker_nextcloud_dir }}"
+    state: directory
+    mode: "0755"
+  notify: docker_nextcloud_restart
+
+- name: Create Docker Nextcloud Borg Directory
+  ansible.builtin.file:
+    dest: "{{ docker_nextcloud_borg_dir }}"
+    state: directory
+    mode: "0755"
+  notify: docker_nextcloud_restart
+
+- name: Create Docker Nextcloud LFS Directory
+  ansible.builtin.file:
+    dest: "{{ docker_nextcloud_lfs_dir }}"
+    state: directory
+    mode: "0755"
+  notify: docker_nextcloud_restart
+
+- name: Template docker-compose.yml
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ docker_nextcloud_dir }}/docker-compose.yml"
+    mode: "0644"
+  notify: docker_nextcloud_restart
+
+- name: Force Pull
+  ansible.builtin.command: "true"
+  changed_when: force_pull
+  notify: docker_nextcloud_restart
+
+- name: Force Stop Container
+  ansible.builtin.command: "true"
+  changed_when: stop_container
+  notify: docker_nextcloud_down

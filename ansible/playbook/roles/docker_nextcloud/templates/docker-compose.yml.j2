@@ -3,23 +3,23 @@ services:
     NCFrontend:
         # https://hub.docker.com/_/nextcloud
         image: "nextcloud:28.0.5"
-        container_name: "NCFrontend_${NAME}"
+        container_name: "NCFrontend"
 
         volumes:
-            - "${NC_PATH}/nc_data:/var/www/html"
-            - "${NC_LFS_PATH}:/lfs"
+            - "{{ docker_nextcloud_dir }}/nc_data:/var/www/html"
+            - "{{ docker_nextcloud_lfs_dir }}:/lfs"
 
         environment:
-            LETSENCRYPT_HOST: ${DOMAIN}
-            VIRTUAL_HOST: ${DOMAIN}
-            TRUSTED_PROXIES: $TRUSTED_PROXIES
-            OVERWRITEPROTOCOL: $OVERWRITEPROTOCOL
+            LETSENCRYPT_HOST: "{{ docker_nextcloud_domain }}"
+            VIRTUAL_HOST: "{{ docker_nextcloud_domain }}"
+            TRUSTED_PROXIES: "{{ docker_net_subnet }}"
+            OVERWRITEPROTOCOL: https
             MYSQL_DATABASE: NC
             MYSQL_USER: nextcloud
-            MYSQL_PASSWORD: $MYSQL_PASSWORD
+            # get with `openssl rand -hex 32`
+            MYSQL_PASSWORD: "{{ docker_nextcloud_db_password }}"
             MYSQL_HOST: NCDatabase
-            NEXTCLOUD_TRUSTED_DOMAINS: ${DOMAIN}
-            TZ: Europe/Berlin
+            NEXTCLOUD_TRUSTED_DOMAINS: "{{ docker_nextcloud_domain }}"
 
         depends_on:
             - "NCDatabase"
@@ -31,19 +31,18 @@ services:
         # https://hub.docker.com/_/mariadb
         # https://docs.nextcloud.com/server/latest/admin_manual/installation/system_requirements.html
         image: "mariadb:10.11.8"
-        container_name: "NCDatabase_${NAME}"
+        container_name: "NCDatabase"
 
         volumes:
-            - "${NC_PATH}/nc_maria_db:/var/lib/mysql"
+            - "{{ docker_nextcloud_dir }}/nc_maria_db:/var/lib/mysql"
 
         environment:
             MYSQL_RANDOM_ROOT_PASSWORD: 1
             # - MYSQL_ROOT_PASSWORD
             MYSQL_DATABASE: NC
             MYSQL_USER: nextcloud
-            MYSQL_PASSWORD: $MYSQL_PASSWORD
+            MYSQL_PASSWORD: "{{ docker_nextcloud_db_password }}"
             MARIADB_AUTO_UPGRADE: true
-            TZ: Europe/Berlin
 
         # accept docker stop
         restart: "unless-stopped"
@@ -52,21 +51,18 @@ services:
     NCBorgBackup:
         image: chrisbesch/docker_borg_backup
         volumes:
-            - "$NC_PATH:/origin/nc:ro"
-            - "$NC_LFS_PATH:/origin/lfs:ro"
-            - "$BORG_REPO:/repo"
-            # exclude stuff
-            - "./borg_exclude:/borg_exclude"
+            - "{{ docker_nextcloud_dir }}:/origin/nc:ro"
+            - "{{ docker_nextcloud_lfs_dir }}:/origin/lfs:ro"
+            - "{{ docker_nextcloud_borg_dir }}:/repo"
             # needs to be able to start and stop other containers
-            - "/var/run/docker.sock:/var/run/docker.sock:rw"
+            - "{{ docker_socket }}:/var/run/docker.sock:rw"
         environment:
-            TZ: Europe/Berlin
-            CRON_TIME: ${BACKUP_CRON}
-            BORG_COMPRESSION: $BORG_COMPRESSION
-            BORG_PREFIX: $NAME
-            PRUNE_CFG: $PRUNE_CFG
+            CRON_TIME: "{{ docker_nextcloud_borg_cron }}"
+            BORG_COMPRESSION: zstd,10
+            BORG_PREFIX: nextcloud
+            PRUNE_CFG: "--keep-last 1 --keep-daily 4 --keep-monthly 3 --keep-yearly 1"
             # stop these containers before backup
-            CONTAINERS: "NCDatabase_${NAME} NCFrontend_${NAME}"
+            CONTAINERS: "NCFrontend NCDatabase"
         restart: "unless-stopped"
 
     # enable cron for background job in administrative basic settings
@@ -74,7 +70,7 @@ services:
         image: alpine
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock:rw"
-        command: sh -c 'apk update && apk add docker-cli && sh -c "echo \"${NEXTCLOUD_CRON} docker exec -u www-data NCFrontend_${NAME} php -f /var/www/html/cron.php\" | crontab - && crond -f -L /dev/stdout"'
+        command: sh -c 'apk update && apk add docker-cli && sh -c "echo \"*/5 * * * * docker exec -u www-data NCFrontend php -f /var/www/html/cron.php\" | crontab - && crond -f -L /dev/stdout"'
         restart: "unless-stopped"
 
 networks:
@@ -82,4 +78,3 @@ networks:
         external: true
     common:
         internal: true
-

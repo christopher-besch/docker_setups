@@ -22,3 +22,5 @@
       tags: photo
     - role: docker_jelly
       tags: jelly
+    - role: docker_nextcloud
+      tags: nextcloud

@@ -6,8 +6,6 @@ STAGING:
     box_dir: "{{ ansible_facts.user_dir }}/box"
     app_dir: "{{ ansible_facts.user_dir }}/app"
     borg_dir: "{{ box_dir }}/borg"
-    # TODO: move to docker_nextcloud
-    docker_nextcloud_lfs_dir: "{{ box_dir }}/nextcloud_lfs"
 
     domain: staging.chris-besch.com
     docker_socket: "/var/run/docker.sock"

@@ -92,3 +92,7 @@ If you have any questions or ideas, open an issue or message me at `mail@chris.b
 4. `docker exec -ti --user www-data NCFrontend_chris_nextcloud /var/www/html/occ maintenance:mode --off`
 - https://zedt.eu/tech/linux/how-to-clean-up-nextcloud-stale-locked-files/
 
+
+### Other Nextcloud Commands
+- `sudo docker exec -ti --user www-data NCFrontend_chris_nextcloud /var/www/html/occ files:scan --all`
+- `sudo docker exec -ti --user www-data NCFrontend_chris_nextcloud /var/www/html/occ trashbin:cleanup --all-users`
