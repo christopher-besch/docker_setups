@@ -4,8 +4,10 @@
   listen: mkswap
   become: true
   ansible.builtin.command: "mkswap {{ swap_path }}"
+  changed_when: true
 
 - name: Enable Swap
   listen: swapon
   become: true
   ansible.builtin.command: "swapon -a"
+  changed_when: true

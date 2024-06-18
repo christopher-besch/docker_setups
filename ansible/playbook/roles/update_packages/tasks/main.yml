@@ -6,6 +6,7 @@
   become: true
   ansible.builtin.command: "docker ps -q"
   register: docker_containers
+  changed_when: false
 
 - name: Assert there are no running Containers
   ansible.builtin.assert:
