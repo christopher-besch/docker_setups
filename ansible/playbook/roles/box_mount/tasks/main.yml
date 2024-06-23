@@ -1,0 +1,56 @@
+# Install configs from github.com/christopher-besch/configs.
+---
+
+- name: Create Box Mount Credentials Dir
+  become: true
+  ansible.builtin.file:
+    state: directory
+    dest: "{{ box_mount_credentials_dir }}"
+    mode: "0755"
+    owner: root
+    group: root
+  notify: mount
+
+- name: Template CIFS Credentials
+  become: true
+  ansible.builtin.template:
+    src: "cifs_credentials.txt.j2"
+    dest: "{{ box_mount_box03_credentials }}"
+    mode: "0600"
+    owner: root
+    group: root
+  notify: mount
+
+- name: Create Box Dir
+  become: true
+  ansible.builtin.file:
+    state: directory
+    dest: "{{ apprun_dir }}/box"
+    mode: "0755"
+    owner: apprun
+    group: apprun
+  notify: mount
+
+- name: Create Box Mount Targets
+  become: true
+  ansible.builtin.file:
+    state: directory
+    dest: "{{ item.target }}"
+    mode: "0755"
+    owner: "{{ item.uid }}"
+    group: "{{ item.gid }}"
+  notify: mount
+  loop: "{{ box_mount_box03_mounts }}"
+
+- name: Load box03 Mount in fstab
+  become: true
+  ansible.posix.mount:
+    src: "{{ item.addr }}"
+    path: "{{ item.target }}"
+    fstype: cifs
+    opts: "iocharset=utf8,rw,credentials={{ box_mount_box03_credentials }},uid={{ item.uid }},gid={{ item.gid }},file_mode=0660,dir_mode=0770,_netdev"
+    passno: 0
+    dump: 0
+    state: present
+  notify: mount
+  loop: "{{ box_mount_box03_mounts }}"

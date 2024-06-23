@@ -1,7 +1,3 @@
 ---
 
-docker_nextcloud_dir: "{{ app_dir }}/nextcloud"
-docker_nextcloud_borg_dir: "{{ borg_dir }}/nextcloud"
-docker_nextcloud_lfs_dir: "{{ box_dir }}/nextcloud_lfs"
-docker_nextcloud_domain: "nextcloud.{{ domain }}"
 docker_nextcloud_borg_cron: "30 3 * * *"

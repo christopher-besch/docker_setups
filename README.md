@@ -14,35 +14,8 @@ If you have any questions or ideas, open an issue or message me at `mail@chris.b
 - `ansible-playbook -i staging.yml playbook/prepare_server.yml`
 - `ansible-playbook -i staging.yml playbook/install_server.yml`
 - `ansible-playbook -i staging.yml playbook/update_server.yml`
+- create backup tar on old server, copy over untar in `/home/apprun/app` using `sudo tar --same-owner -xvf file.tar`
 - `ansible-playbook -i staging.yml playbook/install_container.yml`
-
-# TODO: convert to ansible
-- setup swap file
-15. `sudo mkdir /mnt/box03`
-16. `sudo chown chris /mnt/box03`
-17. enable only samba support in storage box
-18. add this line to `/etc/fstab` (get 1000 from `id chris` and `id www-data`, you need to run the nextcloud container first)
-    ```
-    //u370909.your-storagebox.de/backup/docker_backup /mnt/box03/docker_backup cifs iocharset=utf8,rw,credentials=/etc/box03-credentials.txt,uid=1000,gid=1000,file_mode=0660,dir_mode=0770,_netdev 0 0
-    //u370909.your-storagebox.de/backup/nextcloud_lfs /mnt/box03/nextcloud_lfs cifs iocharset=utf8,rw,credentials=/etc/box03-credentials.txt,uid=33,gid=33,file_mode=0660,dir_mode=0770,_netdev 0 0
-    ```
-19. add file `/etc/box03-credentials.txt` owned by root
-    ```
-    username=<username>
-    password=<password>
-    ```
-20. `sudo chown root /etc/box03-credentials.txt`
-21. `sudo chmod 0600 /etc/box03-credentials.txt`
-
-22. `git clone https://github.com/christopher-besch/docker_setups` in `~`
-23. `scp /home/chris/files/docker_envs/hetzner01/*.env chris@49.13.65.242:/home/chris` on host
-24. move .env in correct locations
-25. `ln -s /mnt/box03/nextcloud_lfs/ nextcloud_lfs`
-26. `ln -s /mnt/box03/docker_backup/ docker_backup`
-27. create backup tar on old server, copy over untar in `~/docker_data` using `sudo tar --same-owner -xvf file.tar`
-28. DON'T FORGET THE TRUSTED PROXIES IN THE FIREFLYIII AND NEXTCLOUD DOCKER-COMPOSE.YAML AS WELL AS IN THE NEXTCLOUD CONFIG.PHP (`/home/chris/docker_data/nextcloud/nc_data/config/config.php`)!
-29. start container
-
 
 ## Maintenance Procedure
 1. bump firefly, nextcloud, photoprism, tandoor, uptime-kuma versions to newest minor patch & push changes to github

@@ -19,3 +19,10 @@
   roles:
     - role: swap
       tags: swap
+
+- name: Mount Box
+  hosts: all
+  remote_user: freeman
+  roles:
+    - role: box_mount
+      tags: box

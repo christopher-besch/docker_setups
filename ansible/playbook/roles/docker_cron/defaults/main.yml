@@ -1,3 +1,0 @@
----
-
-docker_cron_dir: "{{ app_dir }}/cron"

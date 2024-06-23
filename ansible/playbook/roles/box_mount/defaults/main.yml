@@ -1,0 +1,23 @@
+---
+
+box_mount_credentials_dir: "/etc/box_mount_credentials"
+box_mount_box03_credentials: "{{ box_mount_credentials_dir }}/box03_credentials.txt"
+box_mount_box03_addr: "//u370909.your-storagebox.de"
+
+box_mount_box03_mounts:
+  - addr: "{{ box_mount_box03_addr }}/backup/docker_backup"
+    target: "{{ borg_dir }}"
+    uid: 1000
+    gid: 1000
+  - addr: "{{ box_mount_box03_addr }}/backup/nextcloud_lfs"
+    target: "{{ docker_nextcloud_lfs_dir }}"
+    uid: 33
+    gid: 33
+  - addr: "{{ box_mount_box03_addr }}/backup/images"
+    target: "{{ docker_photo_originals_dir }}"
+    uid: 1000
+    gid: 1000
+  - addr: "{{ box_mount_box03_addr }}/backup/jelly_media"
+    target: "{{ docker_jelly_media_dir }}"
+    uid: 33
+    gid: 33
