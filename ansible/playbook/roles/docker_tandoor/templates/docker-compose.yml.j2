@@ -55,7 +55,7 @@ services:
             BORG_PREFIX: tandoor
             PRUNE_CFG: "--keep-last 1 --keep-daily 4 --keep-monthly 3 --keep-yearly 1"
             # stop these containers before backup
-            CONTAINERS: "TDDatabase TDFrontend"
+            CONTAINERS: "TDFrontend TDDatabase"
         restart: "unless-stopped"
 
 volumes:

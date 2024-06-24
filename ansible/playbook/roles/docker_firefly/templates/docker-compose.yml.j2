@@ -80,7 +80,7 @@ services:
             BORG_PREFIX: firefly
             PRUNE_CFG: "--keep-last 1 --keep-daily 4 --keep-monthly 3 --keep-yearly 1"
             # stop these containers before backup
-            CONTAINERS: "FFDatabase FFFrontend"
+            CONTAINERS: "FFFrontend FFDatabase"
         restart: "unless-stopped"
 
 networks:
