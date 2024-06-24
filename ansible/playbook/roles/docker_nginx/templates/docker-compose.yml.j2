@@ -12,8 +12,6 @@ services:
             - certs:/etc/nginx/certs:ro
             - ./my_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
             - "{{ docker_socket }}:/tmp/docker.sock:ro"
-        environment:
-            TZ: Europe/Berlin
         restart: "unless-stopped"
         networks: ["net"]
 
@@ -22,7 +20,6 @@ services:
         image: nginxproxy/acme-companion:latest
         environment:
             DEFAULT_EMAIL: "{{ docker_nginx_email }}"
-            TZ: Europe/Berlin
         volumes_from:
             - NginxProxy
         volumes:
