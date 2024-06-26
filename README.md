@@ -11,37 +11,38 @@ If you have any questions or ideas, open an issue or message me at `mail@chris.b
 - Create new server
 - add new host to inventory
 - `ssh root@[server ip]`
-- `ansible-playbook -i staging.yml playbook/prepare_server.yml`
-- `ansible-playbook -i staging.yml playbook/install_server.yml`
-- `ansible-playbook -i staging.yml playbook/update_server.yml`
-- Possibly run `ansible-playbook -i staging.yml playbook/down_container.yml` if you don't have a proper backup to load
+- `ansible-playbook -i production.yml playbook/prepare_server.yml`
+- `ansible-playbook -i production.yml playbook/install_server.yml`
+- `ansible-playbook -i production.yml playbook/update_server.yml`
+- Possibly run `ansible-playbook -i production.yml playbook/down_container.yml` if you don't have a proper backup to load
 - create backup tar on old server, copy over untar in `/home/apprun/app` using `sudo tar --same-owner -xvf file.tar`
-- `ansible-playbook -i staging.yml playbook/install_container.yml`
+- `ansible-playbook -i production.yml playbook/install_container.yml`
 
 ## Maintenance Procedure
-1. bump firefly, nextcloud, photoprism, tandoor, uptime-kuma versions to newest minor patch & push changes to github
-2. check `last`
-3. check `df -h`
-4. shut down all docker compose instances
-5. `sudo tar -cvf backup_2024_02_03.tar /home/chris/docker_data` in `/mnt/box03/docker_backup`
-6. check with `rsync --dry-run --delete --exclude selchris_music --exclude jonas_music -avP chris@nextcloud.chris-besch.com:/home/chris/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/`
-7. `rsync --delete --exclude selchris_music --exclude jonas_music -avP chris@nextcloud.chris-besch.com:/home/chris/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/`
-8. `cp /home/chris/files/backup/server/hetzner03_backup_2023_12_13.tar /home/chris/files/backup/server/hetzner03_backup_2023_12_27.tar`
-9. `rsync -avP chris@nextcloud.chris-besch.com:/mnt/box03/docker_backup/backup_2023_12_27.tar /home/chris/files/backup/server/hetzner03_backup_2023_12_27.tar`
+- bump firefly, nextcloud, photoprism, tandoor, uptime-kuma versions to newest minor patch & push changes to github
+- check `last`
+- check `df -h`
+- `ansible-playbook -i production.yml playbook/down_container.yml`
+- `sudo tar -cvf backup_2024_02_03.tar /home/apprun/app` in `/mnt/box03/docker_backup`
+# TODO: fix these paths
+- check with `rsync --dry-run --delete --exclude selchris_music --exclude jonas_music -avP chris@nextcloud.chris-besch.com:/home/chris/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/`
+- `rsync --delete --exclude selchris_music --exclude jonas_music -avP chris@nextcloud.chris-besch.com:/home/chris/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/`
+- `cp /home/chris/files/backup/server/hetzner03_backup_2023_12_13.tar /home/chris/files/backup/server/hetzner03_backup_2023_12_27.tar`
+- `rsync -avP chris@nextcloud.chris-besch.com:/mnt/box03/docker_backup/backup_2023_12_27.tar /home/chris/files/backup/server/hetzner03_backup_2023_12_27.tar`
     or enable external box access and `rsync -avP u370909@u370909.your-storagebox.de:/home/docker_backup/backup_2023_12_27.tar /home/chris/files/backup/server/hetzner03_backup_2023_12_27.tar`
-10. check archive integrity `sha256sum backup_2023_09_06.tar`
-11. `sudo apt update && sudo apt dist-upgrade -y`
-13. `sudo reboot`
-13. `git pull` in `/home/chris/docker_setups`
-14. `docker compose pull && docker compose up -d && docker compose logs --follow` for all services and check they're running
-15. `docker exec -ti --user www-data NCFrontend_chris_nextcloud /var/www/html/occ upgrade`
-16. `docker exec -ti --user www-data NCFrontend_chris_nextcloud /var/www/html/occ db:add-missing-indices`
-17. check https://nextcloud.chris-besch.com/settings/admin/overview
-18. check https://nextcloud.chris-besch.com/settings/admin
-19. update apps at https://nextcloud.chris-besch.com/settings/apps
-20. `docker system prune -a`
-21. check `df -h`
-22. create backup on external hard drive
+- check archive integrity `sha256sum backup_2023_09_06.tar`
+- `sudo apt update && sudo apt dist-upgrade -y`
+- `sudo reboot`
+- `git pull` in `/home/chris/docker_setups`
+- `docker compose pull && docker compose up -d && docker compose logs --follow` for all services and check they're running
+- `docker exec -ti --user www-data NCFrontend_chris_nextcloud /var/www/html/occ upgrade`
+- `docker exec -ti --user www-data NCFrontend_chris_nextcloud /var/www/html/occ db:add-missing-indices`
+- check https://nextcloud.chris-besch.com/settings/admin/overview
+- check https://nextcloud.chris-besch.com/settings/admin
+- update apps at https://nextcloud.chris-besch.com/settings/apps
+- `docker system prune -a`
+- check `df -h`
+- create backup on external hard drive
 
 
 # Upgrade Postgresql for Tandoor
