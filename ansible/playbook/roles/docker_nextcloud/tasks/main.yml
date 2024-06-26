@@ -14,12 +14,7 @@
     mode: "0755"
   notify: docker_nextcloud_restart
 
-- name: Create Docker Nextcloud LFS Directory
-  ansible.builtin.file:
-    dest: "{{ docker_nextcloud_lfs_dir }}"
-    state: directory
-    mode: "0755"
-  notify: docker_nextcloud_restart
+# the lfs dir is already being created by the box_mount role
 
 - name: Template docker-compose.yml
   ansible.builtin.template:

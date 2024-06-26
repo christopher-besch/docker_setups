@@ -14,6 +14,7 @@ If you have any questions or ideas, open an issue or message me at `mail@chris.b
 - `ansible-playbook -i staging.yml playbook/prepare_server.yml`
 - `ansible-playbook -i staging.yml playbook/install_server.yml`
 - `ansible-playbook -i staging.yml playbook/update_server.yml`
+- Possibly run `ansible-playbook -i staging.yml playbook/down_container.yml` if you don't have a proper backup to load
 - create backup tar on old server, copy over untar in `/home/apprun/app` using `sudo tar --same-owner -xvf file.tar`
 - `ansible-playbook -i staging.yml playbook/install_container.yml`
 
