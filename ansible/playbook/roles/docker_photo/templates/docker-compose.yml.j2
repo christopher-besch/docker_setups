@@ -76,7 +76,7 @@ services:
             CRON_TIME: "{{ docker_photo_borg_cron }}"
             BORG_COMPRESSION: zstd,10
             BORG_PREFIX: photo
-            PRUNE_CFG: "--keep-last 1 --keep-daily 4 --keep-monthly 3 --keep-yearly 1"
+            PRUNE_CFG: "{{ borg_prune_cfg }}"
             # stop these containers before backup
             CONTAINERS: "PPFrontend PPDatabase"
         restart: "unless-stopped"

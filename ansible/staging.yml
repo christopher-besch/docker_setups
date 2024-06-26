@@ -40,6 +40,8 @@ STAGING:
     docker_host: "unix://{{ docker_socket }}"
     # this is also used as the trusted proxies for firefly and nextcloud
     docker_net_subnet: 172.20.0.0/16
+
+    borg_prune_cfg: "--keep-last 1 --keep-daily 4 --keep-monthly 3 --keep-yearly 1"
   hosts:
     amd64hetzner08:
       ansible_host: 167.235.241.205

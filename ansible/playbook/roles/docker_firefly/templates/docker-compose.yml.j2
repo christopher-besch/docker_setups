@@ -78,7 +78,7 @@ services:
             CRON_TIME: "{{ docker_firefly_borg_cron }}"
             BORG_COMPRESSION: zstd,10
             BORG_PREFIX: firefly
-            PRUNE_CFG: "--keep-last 1 --keep-daily 4 --keep-monthly 3 --keep-yearly 1"
+            PRUNE_CFG: "{{ borg_prune_cfg }}"
             # stop these containers before backup
             CONTAINERS: "FFFrontend FFDatabase"
         restart: "unless-stopped"
