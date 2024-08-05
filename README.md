@@ -19,31 +19,28 @@ If you have any questions or ideas, open an issue or message me at `mail@chris.b
 - `ansible-playbook -i production.yml playbook/install_container.yml`
 
 ## Maintenance Procedure
-- bump firefly, nextcloud, photoprism, tandoor, uptime-kuma versions to newest minor patch & push changes to github
+- `cp /home/chris/files/backup/server/hetzner03_backup_2024_03_27.tar /home/chris/files/backup/server/hetzner03_backup_2024_08_05.tar`
 - check `last`
 - check `df -h`
 - `ansible-playbook -i production.yml playbook/down_container.yml`
-- `sudo tar -cvf backup_2024_02_03.tar /home/apprun/app` in `/mnt/box03/docker_backup`
-# TODO: fix these paths
-- check with `rsync --dry-run --delete --exclude selchris_music --exclude jonas_music -avP chris@nextcloud.chris-besch.com:/home/chris/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/`
-- `rsync --delete --exclude selchris_music --exclude jonas_music -avP chris@nextcloud.chris-besch.com:/home/chris/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/`
-- `cp /home/chris/files/backup/server/hetzner03_backup_2023_12_13.tar /home/chris/files/backup/server/hetzner03_backup_2023_12_27.tar`
-- `rsync -avP chris@nextcloud.chris-besch.com:/mnt/box03/docker_backup/backup_2023_12_27.tar /home/chris/files/backup/server/hetzner03_backup_2023_12_27.tar`
-    or enable external box access and `rsync -avP u370909@u370909.your-storagebox.de:/home/docker_backup/backup_2023_12_27.tar /home/chris/files/backup/server/hetzner03_backup_2023_12_27.tar`
-- check archive integrity `sha256sum backup_2023_09_06.tar`
-- `sudo apt update && sudo apt dist-upgrade -y`
-- `sudo reboot`
-- `git pull` in `/home/chris/docker_setups`
-- `docker compose pull && docker compose up -d && docker compose logs --follow` for all services and check they're running
-- `docker exec -ti --user www-data NCFrontend_chris_nextcloud /var/www/html/occ upgrade`
-- `docker exec -ti --user www-data NCFrontend_chris_nextcloud /var/www/html/occ db:add-missing-indices`
+- bump firefly, nextcloud, photoprism, tandoor, uptime-kuma versions to newest minor patch & push changes to github
+- `sudo tar -cvf /home/apprun/box/borg/backup_2024_08_05.tar /home/apprun/app`
+- enable external box access and ssh
+- `rsync --dry-run --delete --exclude selchris_music --exclude jonas_music -avP u370909@u370909.your-storagebox.de:/home/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/` (remove `--dry-run`)
+- `rsync --dry-run -avP u370909@u370909.your-storagebox.de:/home/docker_backup/backup_2024_08_05.tar /home/chris/files/backup/server/hetzner03_backup_2024_08_05.tar` (remove `--dry-run`)
+- maybe delete old backup on server and locally
+- disable external box access and ssh
+- check archive integrity `sha256sum backup_2024_08_05.tar`
+- `ansible-playbook -i production.yml playbook/update_server.yml`
+- `ansible-playbook -i production.yml playbook/pull_container.yml`
+- `docker exec -ti --user www-data NCFrontend /var/www/html/occ upgrade`
+- `docker exec -ti --user www-data NCFrontend /var/www/html/occ db:add-missing-indices`
 - check https://nextcloud.chris-besch.com/settings/admin/overview
 - check https://nextcloud.chris-besch.com/settings/admin
 - update apps at https://nextcloud.chris-besch.com/settings/apps
 - `docker system prune -a`
 - check `df -h`
 - create backup on external hard drive
-
 
 # Upgrade Postgresql for Tandoor
 1. `sudo cp -r /home/chris/docker_data/tandoor/ /home/chris/tandoor.bak`
