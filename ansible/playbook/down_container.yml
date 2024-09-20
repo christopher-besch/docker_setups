@@ -24,3 +24,5 @@
       tags: jelly
     - role: docker_nextcloud
       tags: nextcloud
+    - role: docker_chore_planner
+      tags: chore_planner

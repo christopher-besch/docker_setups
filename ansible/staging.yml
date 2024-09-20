@@ -17,6 +17,7 @@ STAGING:
     docker_nextcloud_borg_dir: "{{ borg_dir }}/nextcloud"
     docker_photo_borg_dir: "{{ borg_dir }}/photo"
     docker_tandoor_borg_dir: "{{ borg_dir }}/tandoor"
+    docker_chore_planner_borg_dir: "{{ borg_dir }}/chore_planner"
 
     app_dir: "{{ apprun_dir }}/app"
     docker_cron_dir: "{{ app_dir }}/cron"
@@ -27,6 +28,7 @@ STAGING:
     docker_nginx_dir: "{{ app_dir }}/nginx"
     docker_photo_dir: "{{ app_dir }}/photo"
     docker_tandoor_dir: "{{ app_dir }}/tandoor"
+    docker_chore_planner_dir: "{{ app_dir }}/chore_planner"
 
     domain: staging.chris-besch.com
     docker_firefly_domain: "firefly.{{ domain }}"

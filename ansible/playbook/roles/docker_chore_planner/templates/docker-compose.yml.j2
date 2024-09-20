@@ -1,0 +1,48 @@
+services:
+    ChorePlanner:
+        image: "chrisbesch/chore_planner:0.2.0"
+        container_name: "ChorePlanner"
+
+        volumes:
+            - "{{ docker_chore_planner_dir }}/data:/var/run/data"
+
+        environment:
+            CHORE_PLANNER_DB_PATH: /var/run/data/chore_planner.sqlite
+            # This advances the current week to the next every time the weekly action is performed.
+            # set to true for actual deployment
+            CHORE_PLANNER_DEBUG: false
+            # how many weeks to plan into the future
+            CHORE_PLANNER_WEEKS_TO_PLAN: "{{ docker_chore_planner_weeks_to_plan }}"
+            # probability distribution parameter between in [0, 1]
+            # The higher gamma the more extremely the score effects the tenants probability of being
+            # chosen for a chore.
+            # 0 results the tenant with the highest score to never be picked (unless all tenants have the
+            #   same score).
+            # 1 results in all tenants having the same probability regardless of their score.
+            #
+            # See the mathematical proof in the repo.
+            CHORE_PLANNER_GAMMA: "{{ docker_chore_planner_gamma }}"
+            # the token of the telegram bot
+            TELEGRAM_BOT_TOKEN: "{{ docker_chore_planner_telegram_token }}"
+            # the id of the chat the bot should listen on
+            TELEGRAM_CHAT_ID: "{{ docker_chore_planner_telegram_chat_id }}"
+            # When should the weekly action be performed?
+            CRON_TIME: "{{ docker_chore_planner_weekly_action_cron }}"
+
+        restart: "unless-stopped"
+
+    ChorePlannerBorgBackup:
+        image: chrisbesch/docker_borg_backup
+        volumes:
+            - "{{ docker_chore_planner_dir }}:/origin:ro"
+            - "{{ docker_chore_planner_borg_dir }}:/repo"
+            # needs to be able to start and stop other containers
+            - "{{ docker_socket }}:/var/run/docker.sock:rw"
+        environment:
+            CRON_TIME: "{{ docker_chore_planner_borg_cron }}"
+            BORG_COMPRESSION: zstd,10
+            BORG_PREFIX: nextcloud
+            PRUNE_CFG: "{{ borg_prune_cfg }}"
+            # stop these containers before backup
+            CONTAINERS: "ChorePlanner"
+        restart: "unless-stopped"
