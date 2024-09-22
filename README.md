@@ -23,18 +23,19 @@ If you have any questions or ideas, open an issue or message me at `mail@chris.b
 - check `last`
 - check `df -h`
 - `ansible-playbook -i production.yml playbook/down_container.yml`
-- bump firefly, nextcloud, photoprism, tandoor, uptime-kuma versions to newest minor patch & push changes to github
+- enable external hetzner box access and ssh
 - `sudo tar -cvf /home/apprun/box/borg/backup_2024_08_05.tar /home/apprun/app`
-- enable external box access and ssh
 - `rsync --dry-run --delete --exclude selchris_music --exclude jonas_music -avP u370909@u370909.your-storagebox.de:/home/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/` (remove `--dry-run`)
+- bump firefly, nextcloud, photoprism, tandoor, uptime-kuma versions to newest minor patch & push changes to github
 - `rsync --dry-run -avP u370909@u370909.your-storagebox.de:/home/docker_backup/backup_2024_08_05.tar /home/chris/files/backup/server/hetzner03_backup_2024_08_05.tar` (remove `--dry-run`)
 - maybe delete old backup on server and locally
+- check archive integrity `sha1sum backup_2024_08_05.tar`
 - disable external box access and ssh
-- check archive integrity `sha256sum backup_2024_08_05.tar`
 - `ansible-playbook -i production.yml playbook/update_server.yml`
 - `ansible-playbook -i production.yml playbook/pull_container.yml`
 - `docker exec -ti --user www-data NCFrontend /var/www/html/occ upgrade`
 - `docker exec -ti --user www-data NCFrontend /var/www/html/occ db:add-missing-indices`
+- `docker exec -ti --user www-data NCFrontend /var/www/html/occ maintenance:repair --include-expensive`
 - check https://nextcloud.chris-besch.com/settings/admin/overview
 - check https://nextcloud.chris-besch.com/settings/admin
 - update apps at https://nextcloud.chris-besch.com/settings/apps
