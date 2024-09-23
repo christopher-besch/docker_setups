@@ -4,4 +4,4 @@ docker_chore_planner_borg_cron: "30 3 * * *"
 # the weekly action is idempotent so perform it twice a day for good measure
 docker_chore_planner_weekly_action_cron: "0,30 6 * * *"
 docker_chore_planner_weeks_to_plan: 5
-docker_chore_planner_gamma: 0.1
+docker_chore_planner_gamma: 0.0
