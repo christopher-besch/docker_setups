@@ -3,6 +3,7 @@ services:
     NginxProxy:
         # https://hub.docker.com/r/nginxproxy/nginx-proxy/tags
         image: nginxproxy/nginx-proxy:1.6.4
+        container_name: NginxProxy
         ports:
             - "80:80"
             - "443:443"
@@ -14,7 +15,9 @@ services:
             - ./my_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
             - "{{ docker_socket }}:/tmp/docker.sock:ro"
         restart: "unless-stopped"
-        networks: ["net"]
+        networks:
+            # the network used to connect
+            - "net"
 
 {% if docker_nginx_ssl %}
     AcmeCompanion:
@@ -40,8 +43,7 @@ volumes:
     certs:
     acme:
 
-# used to connect to frontend
 networks:
+    # used to connect nginx to frontend containers (like nextcloud)
     net:
         external: true
-

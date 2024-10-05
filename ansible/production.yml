@@ -30,6 +30,9 @@ PRODUCTION:
     docker_photo_dir: "{{ app_dir }}/photo"
     docker_tandoor_dir: "{{ app_dir }}/tandoor"
     docker_chore_planner_dir: "{{ app_dir }}/chore_planner"
+    docker_ssh_jump_dir: "{{ app_dir }}/ssh_jump"
+    docker_ssh_jumper_dir: "{{ app_dir }}/ssh_jumper"
+    docker_node_red_dir: "{{ app_dir }}/node_red"
 
     domain: chris-besch.com
     docker_firefly_domain: "firefly.{{ domain }}"
@@ -39,6 +42,7 @@ PRODUCTION:
     docker_nextcloud_domain: "nextcloud.{{ domain }}"
     docker_photo_domain: "photo.{{ domain }}"
     docker_tandoor_domain: "recipe.{{ domain }}"
+    node_red_domain: "node-red.{{ domain }}"
 
     docker_socket: "/var/run/docker.sock"
     docker_host: "unix://{{ docker_socket }}"
@@ -50,7 +54,7 @@ PRODUCTION:
     amd64hetzner10:
       ansible_host: 49.13.65.242
     arm64rasp02:
-      ansible_host: 192.168.188.178
+      ansible_host: 192.168.178.90
 
 hetzner:
   hosts:

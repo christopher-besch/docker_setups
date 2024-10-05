@@ -1,0 +1,52 @@
+---
+
+- name: Create Docker SSH Jumper Directory
+  ansible.builtin.file:
+    dest: "{{ docker_ssh_jumper_dir }}"
+    state: directory
+    mode: "0755"
+  notify: docker_ssh_jumper_restart
+
+- name: Copy known_hosts
+  ansible.builtin.copy:
+    src: "known_hosts"
+    dest: "{{ docker_ssh_jumper_dir }}/known_hosts"
+    mode: "0600"
+  notify: docker_ssh_jumper_restart
+
+- name: Copy ssh_jump_key
+  ansible.builtin.copy:
+    src: "ssh_jump_key"
+    dest: "{{ docker_ssh_jumper_dir }}/ssh_jump_key"
+    mode: "0600"
+  notify: docker_ssh_jumper_restart
+
+- name: Copy entrypoint.sh
+  ansible.builtin.copy:
+    src: "entrypoint.sh"
+    dest: "{{ docker_ssh_jumper_dir }}/entrypoint.sh"
+    mode: "0755"
+  notify: docker_ssh_jumper_restart
+
+- name: Template docker-compose.yml
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ docker_ssh_jumper_dir }}/docker-compose.yml"
+    mode: "0644"
+  notify: docker_ssh_jumper_restart
+
+- name: Create Docker net
+  community.docker.docker_network:
+    name: net
+    ipam_config:
+      - subnet: "{{ docker_net_subnet }}"
+
+- name: Force Pull
+  ansible.builtin.command: "true"
+  changed_when: force_pull
+  notify: docker_ssh_jumper_restart
+
+- name: Force Stop Container
+  ansible.builtin.command: "true"
+  changed_when: stop_container
+  notify: docker_ssh_jumper_down

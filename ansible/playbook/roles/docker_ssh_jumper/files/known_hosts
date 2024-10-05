@@ -1,0 +1,2 @@
+# this needs to be updated when the ssh_jump on hetzner is recreated
+[node-red.chris-besch.com]:42069 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJrLySLP17pZVwmCXV0gwJUsEw4VaPBxdqweFmEaZAar

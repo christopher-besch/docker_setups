@@ -1,0 +1,17 @@
+services:
+    NginxFrontendTest:
+        container_name: NginxFrontendTest
+        image: nginx
+        networks: ["net"]
+        restart: "unless-stopped"
+
+    NodeRed:
+        container_name: NodeRed
+        # TODO: tag
+        image: nodered/node-red
+        networks: ["net"]
+        restart: "unless-stopped"
+
+networks:
+    net:
+        external: true

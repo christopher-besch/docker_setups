@@ -1,0 +1,42 @@
+# the end of the ssh tunnel
+# The ssh tunnel is used to allow public access to the raspberry pi in a firewalled network.
+services:
+    SSHJump:
+        image: debian
+        volumes:
+            - "{{ docker_ssh_jump_dir }}/authorized_keys:/root/.ssh/authorized_keys"
+            - "{{ docker_ssh_jump_dir }}/entrypoint.sh:/root/entrypoint.sh:ro"
+            - "{{ docker_ssh_jump_dir }}/data:/etc/ssh"
+
+        ports:
+            # port for incoming ssh connection from raspberry pi
+            - "42069:42069"
+
+        expose:
+            # port for incoming http connection from nginx container
+            # these ports are only accessible from the network net
+            - 42000
+            - 42001
+
+        environment:
+            # VIRTUAL_HOST: "{{ node_red_domain }}"
+            # VIRTUAL_PORT: 42001
+            # LETSENCRYPT_HOST: "{{ node_red_domain }}"
+
+            LETSENCRYPT_HOST: "test.chris-besch.com,{{ node_red_domain }}"
+            
+            VIRTUAL_HOST_MULTIPORTS: |-
+                "{{ node_red_domain }}":
+                    "/":
+                        port: 42000
+                # TODO: remove
+                "test.chris-besch.com":
+                    "/":
+                        port: 42001
+        entrypoint: ["/root/entrypoint.sh"]
+        networks: ["net"]
+        restart: "unless-stopped"
+
+networks:
+    net:
+        external: true
