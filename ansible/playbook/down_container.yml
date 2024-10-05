@@ -26,3 +26,5 @@
       tags: nextcloud
     - role: docker_chore_planner
       tags: chore_planner
+    - role: docker_ssh_jump
+      tags: ssh_jump

@@ -1,0 +1,14 @@
+services:
+    SSHJump:
+        image: debian
+        volumes:
+            - "{{ docker_ssh_jump_dir }}/authorized_keys:/root/.ssh/authorized_keys"
+            - "{{ docker_ssh_jump_dir }}/entrypoint.sh:/root/entrypoint.sh:ro"
+            - "{{ docker_ssh_jump_dir }}/data:/etc/ssh"
+
+        ports:
+            - "4200:4200"
+            - "6969:6969"
+
+        entrypoint: ["/root/entrypoint.sh"]
+        restart: "unless-stopped"
