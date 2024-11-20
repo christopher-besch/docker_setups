@@ -28,6 +28,7 @@ services:
             - "{{ docker_minecraft_dir }}/web:/app/www"
         restart: unless-stopped
 
+    # web server for minecraft stats
     MinecraftWeb:
         image: nginx
         container_name: "MinecraftWeb"
@@ -38,6 +39,28 @@ services:
             VIRTUAL_HOST: {{ docker_minecraft_web_domain }}
         restart: unless-stopped
         networks: ["net"]
+
+    # web server for minecraft_map_marker
+    MinecraftMapMarkerWeb:
+        image: nginx
+        container_name: "MinecraftMapMarkerWeb"
+        volumes:
+            - "{{ docker_minecraft_dir }}/minecraft_map_marker/:/usr/share/nginx/html:ro"
+        environment:
+            LETSENCRYPT_HOST: {{ docker_minecraft_map_marker_web_domain }}
+            VIRTUAL_HOST: {{ docker_minecraft_map_marker_web_domain }}
+        restart: unless-stopped
+        networks: ["net"]
+
+    MinecraftMapMarkerRenderer:
+        image: chrisbesch/minecraft_map_marker
+        container_name: "MinecraftMapMarker"
+        environment:
+            CRON_TIME: "*/5 * * * *"
+        volumes:
+            - "{{ docker_minecraft_dir }}/data/world:/world:ro"
+            - "{{ docker_minecraft_dir }}/minecraft_map_marker/:/web"
+        restart: unless-stopped
 
     MinecraftBorgBackup:
         image: chrisbesch/docker_borg_backup

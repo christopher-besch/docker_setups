@@ -34,6 +34,7 @@ STAGING:
     docker_firefly_domain: "firefly.{{ domain }}"
     docker_jelly_domain: "jelly.{{ domain }}"
     docker_minecraft_web_domain: "mc.{{ domain }}"
+    docker_minecraft_map_marker_web_domain: "map.{{ docker_minecraft_web_domain }}"
     docker_nextcloud_domain: "nextcloud.{{ domain }}"
     docker_photo_domain: "photo.{{ domain }}"
     docker_tandoor_domain: "recipe.{{ domain }}"
