@@ -75,7 +75,7 @@ services:
             BORG_PREFIX: minecraft
             PRUNE_CFG: "{{ borg_prune_cfg }}"
             # stop these containers before backup
-            CONTAINERS: "Minecraft MinecraftStats MinecraftWeb"
+            CONTAINERS: "Minecraft MinecraftStats MinecraftWeb MinecraftMapMarkerWeb MinecraftMapMarker"
         restart: "unless-stopped"
 
 networks:
