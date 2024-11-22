@@ -69,3 +69,7 @@ If you have any questions or ideas, open an issue or message me at `mail@chris.b
 ### Other Nextcloud Commands
 - `sudo docker exec -ti --user www-data NCFrontend_chris_nextcloud /var/www/html/occ files:scan --all`
 - `sudo docker exec -ti --user www-data NCFrontend_chris_nextcloud /var/www/html/occ trashbin:cleanup --all-users`
+
+### Attach to Minecraft Console
+- `docker attach Minecraft`
+- Ctrl-p Ctrl-q to detach
