@@ -21,6 +21,13 @@
     mode: "0644"
   notify: docker_minecraft_restart
 
+- name: Copy const_pins.json
+  ansible.builtin.copy:
+    src: "const_pins.json"
+    dest: "{{ docker_minecraft_dir }}/minecraft_map_marker/const_pins.json"
+    mode: "0644"
+  notify: docker_minecraft_restart
+
 - name: Template docker-compose.yml
   ansible.builtin.template:
     src: "docker-compose.yml.j2"

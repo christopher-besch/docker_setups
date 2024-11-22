@@ -1,0 +1,52 @@
+[
+    {
+        "coords": {
+            "x": 1752,
+            "y": null,
+            "z": 1350,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Ancient City",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": 234,
+            "y": null,
+            "z": 99,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Iron Farm",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": 672,
+            "y": null,
+            "z": -471,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Burg",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": 675,
+            "y": null,
+            "z": -347,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Fesselballon",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": 547,
+            "y": null,
+            "z": -380,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Werft",
+        "description": ""
+    }
+]
