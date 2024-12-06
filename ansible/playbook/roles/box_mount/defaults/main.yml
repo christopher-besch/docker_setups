@@ -17,6 +17,10 @@ box_mount_box03_mounts:
     target: "{{ docker_photo_originals_dir }}"
     uid: 1000
     gid: 1000
+  - addr: "{{ box_mount_box03_addr }}/backup/photoprism_data"
+    target: "{{ docker_photo_data_dir }}"
+    uid: 0
+    gid: 0
   - addr: "{{ box_mount_box03_addr }}/backup/jelly_media"
     target: "{{ docker_jelly_media_dir }}"
     uid: 33

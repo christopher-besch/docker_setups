@@ -68,7 +68,8 @@ services:
     PPBorgBackup:
         image: chrisbesch/docker_borg_backup
         volumes:
-            - "{{ docker_photo_dir }}:/origin:ro"
+            - "{{ docker_photo_dir }}:/origin/photo_dir:ro"
+            - "{{ docker_photo_data_dir }}:/origin/data:ro"
             - "{{ docker_photo_borg_dir }}:/repo"
             # needs to be able to start and stop other containers
             - "{{ docker_socket }}:/var/run/docker.sock:rw"
