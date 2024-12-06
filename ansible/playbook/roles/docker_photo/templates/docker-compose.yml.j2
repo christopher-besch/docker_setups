@@ -6,7 +6,7 @@ services:
             - PPDatabase
         volumes:
             - "{{ docker_photo_originals_dir }}:/photoprism/originals:ro"               # Original media files (DO NOT REMOVE)
-            - "{{ docker_photo_dir }}/data:/photoprism/storage"                  # *Writable* storage folder for cache, database, and sidecar files (DO NOT REMOVE)
+            - "{{ docker_photo_data_dir }}:/photoprism/storage"                  # *Writable* storage folder for cache, database, and sidecar files (DO NOT REMOVE)
         environment:
             PHOTOPRISM_ADMIN_USER: "{{ docker_photo_admin_name }}"                 # admin login username
             PHOTOPRISM_ADMIN_PASSWORD: "{{ docker_photo_admin_password }}"          # initial admin password (8-72 characters)

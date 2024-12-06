@@ -10,6 +10,8 @@ PRODUCTION:
     docker_jelly_media_dir: "{{ box_dir }}/jelly_media"
     docker_nextcloud_lfs_dir: "{{ box_dir }}/nextcloud_lfs"
     docker_photo_originals_dir: "{{ box_dir }}/images"
+    docker_photo_data_dir: "{{ docker_photo_dir }}/data"
+
 
     borg_dir: "{{ box_dir }}/borg"
     docker_firefly_borg_dir: "{{ borg_dir }}/firefly"
