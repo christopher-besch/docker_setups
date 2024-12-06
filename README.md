@@ -2,6 +2,8 @@
 Feel free to use these setups as inspiration for your own servers (i.e. create a fork).
 If you have any questions or ideas, open an issue or message me at `mail@chris.besch.com`.
 
+Run `ansible-galaxy collection install community.docker` on host.
+
 # Users
 - `freeman`: user with passwordless sudo rights
 - `apprun`: user in `docker` group, runs applications
