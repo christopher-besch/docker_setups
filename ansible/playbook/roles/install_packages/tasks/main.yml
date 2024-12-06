@@ -17,6 +17,11 @@
     state: latest
 
 # Install Docker #
+- name: Check if Docker GPG apt key exists already
+  stat:
+    path: /etc/apt/keyrings/docker.asc
+  register: docker_gpg_key
+
 - name: Add Docker GPG apt Key
   become: true
   ansible.builtin.get_url:
@@ -25,6 +30,7 @@
     owner: root
     group: root
     mode: "0444"
+  when: not docker_gpg_key.stat.exists
 
 - name: Add Docker apt Repository (amd64)
   become: true
