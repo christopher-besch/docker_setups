@@ -1,4 +1,4 @@
-# Install all the debian packages needed
+# Install all the Debian packages needed.
 ---
 
 - name: Install Packages
@@ -30,6 +30,7 @@
     owner: root
     group: root
     mode: "0444"
+  # Only run pull the gpg key when it isn't there already -> Trust On First Use
   when: not docker_gpg_key.stat.exists
 
 - name: Add Docker apt Repository (amd64)

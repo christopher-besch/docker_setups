@@ -6,7 +6,7 @@
     repo: "https://github.com/christopher-besch/configs.git"
     dest: "{{ ansible_facts.user_dir }}/.custom_configs"
 
-# the following tasks do the same as the install.sh script in the repo
+# The following tasks do the same as the install.sh script in the repo.
 - name: Create inputrc Symlink
   ansible.builtin.file:
     src: "{{ ansible_facts.user_dir }}/.custom_configs/.inputrc"
