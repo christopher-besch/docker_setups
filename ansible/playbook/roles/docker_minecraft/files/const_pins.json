@@ -1,52 +1,212 @@
 [
     {
         "coords": {
-            "x": 1752,
+            "x": -9152,
             "y": null,
-            "z": 1350,
+            "z": -17056,
             "__brand": "OverworldCoords"
         },
-        "title": "Ancient City",
+        "title": "Pin1",
         "description": ""
     },
     {
         "coords": {
-            "x": 234,
+            "x": -11808,
             "y": null,
-            "z": 99,
+            "z": -16808,
             "__brand": "OverworldCoords"
         },
-        "title": "Iron Farm",
+        "title": "Pin3",
         "description": ""
     },
     {
         "coords": {
-            "x": 672,
+            "x": -12246,
             "y": null,
-            "z": -471,
+            "z": -17222,
             "__brand": "OverworldCoords"
         },
-        "title": "Burg",
+        "title": "Pin2",
         "description": ""
     },
     {
         "coords": {
-            "x": 675,
+            "x": -12348,
             "y": null,
-            "z": -347,
+            "z": -13556,
             "__brand": "OverworldCoords"
         },
-        "title": "Fesselballon",
+        "title": "Pin4",
         "description": ""
     },
     {
         "coords": {
-            "x": 547,
+            "x": -11288,
             "y": null,
-            "z": -380,
+            "z": -12224,
             "__brand": "OverworldCoords"
         },
-        "title": "Werft",
+        "title": "Pin5",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -5504,
+            "y": null,
+            "z": -9745,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pin6",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -5920,
+            "y": null,
+            "z": -8514,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pin7",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -5704,
+            "y": null,
+            "z": -7584,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pin8",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -9840,
+            "y": null,
+            "z": -8608,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pin9",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": 160,
+            "y": null,
+            "z": -5889,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pin10",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": 3739,
+            "y": null,
+            "z": -3639,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pin11",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": 3960,
+            "y": null,
+            "z": -840,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pin12",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": 3872,
+            "y": null,
+            "z": 2288,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pin13",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -4624,
+            "y": null,
+            "z": 2520,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pin14",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -5808,
+            "y": null,
+            "z": 4528,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pin15",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -4000,
+            "y": null,
+            "z": 7039,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pin16",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": 1824,
+            "y": null,
+            "z": 5280,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pin17",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -6514,
+            "y": null,
+            "z": 7388,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pin18",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -10836,
+            "y": null,
+            "z": 4722,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pin19",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -9324,
+            "y": null,
+            "z": 6310,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pin20",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -24207,
+            "y": null,
+            "z": 19731,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pin21",
         "description": ""
     }
 ]
