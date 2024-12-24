@@ -1,7 +1,8 @@
 # from https://github.com/nginx-proxy/acme-companion/blob/main/docs/Docker-Compose.md
 services:
     NginxProxy:
-        image: nginxproxy/nginx-proxy:latest
+        # https://hub.docker.com/r/nginxproxy/nginx-proxy/tags
+        image: nginxproxy/nginx-proxy:1.6.4
         ports:
             - "80:80"
             - "443:443"
@@ -17,7 +18,8 @@ services:
 
 {% if docker_nginx_ssl %}
     AcmeCompanion:
-        image: nginxproxy/acme-companion:latest
+        # https://hub.docker.com/r/nginxproxy/acme-companion/tags
+        image: nginxproxy/acme-companion:2.5.1
         environment:
             DEFAULT_EMAIL: "{{ docker_nginx_email }}"
         volumes_from:
