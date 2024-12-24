@@ -1,8 +1,8 @@
 # This installs and starts all Docker applications.
 ---
 
-- name: Install Docker Apps
-  hosts: all
+- name: Install Hetzner Docker Apps
+  hosts: hetzner
   remote_user: apprun
   vars:
     force_pull: true
@@ -26,3 +26,13 @@
       tags: nextcloud
     - role: docker_chore_planner
       tags: chore_planner
+
+- name: Install Raspberry Docker Apps
+  hosts: raspberry
+  remote_user: apprun
+  vars:
+    force_pull: true
+    stop_container: false
+  roles:
+    - role: node_red_cron
+      tags: node_red

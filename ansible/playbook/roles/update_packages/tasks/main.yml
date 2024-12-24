@@ -12,7 +12,7 @@
   ansible.builtin.assert:
     that: docker_containers.stdout == ""
 
-- name: Update Debian
+- name: Update with apt
   become: true
   ansible.builtin.apt:
     update_cache: true

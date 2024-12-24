@@ -1,8 +1,15 @@
 # Run this after the server has been created and Debian has been installed.
 ---
 
-- name: Prepare as Root
-  hosts: all
+- name: Hetzner Prepare as Root
+  hosts: hetzner
   remote_user: root
+  roles:
+    - role: prepare_as_root
+
+- name: Raspberry Prepare as Root
+  hosts: raspberry
+  remote_user: pi
+  become: true
   roles:
     - role: prepare_as_root

@@ -1,0 +1,6 @@
+---
+
+- name: Restart
+  become: true
+  ansible.builtin.reboot:
+  listen: restart

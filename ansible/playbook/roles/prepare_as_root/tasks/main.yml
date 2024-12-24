@@ -3,12 +3,15 @@
 # It uses the root user the server starts with, which will be disabled later on.
 #
 # This role contains only what is absolutely necessary.
+#
+# The reboot is needed because of the pi user needs to be logged out completely before deleting it.
 ---
 
 - name: Create admin group
   ansible.builtin.group:
     name: admin
     gid: 2845
+  notify: restart
 
 - name: Create freeman
   ansible.builtin.user:
@@ -18,6 +21,7 @@
     groups: sudo
     password_lock: true
     shell: /bin/bash
+  notify: restart
 
 - name: Setup sudo
   community.general.sudoers:
@@ -25,8 +29,10 @@
     commands: ALL
     group: sudo
     nopassword: true
+  notify: restart
 
 - name: Add SSH authorized key for freeman
   ansible.posix.authorized_key:
     user: freeman
     key: "{{ lookup('file', '{{ ssh_pub_key_path }}') }}"
+  notify: restart

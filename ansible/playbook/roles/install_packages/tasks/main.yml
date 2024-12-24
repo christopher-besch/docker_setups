@@ -1,20 +1,28 @@
 # Install all the Debian packages needed.
 ---
 
-- name: Install Packages
+- name: Install Default Packages
   become: true
   ansible.builtin.apt:
     name:
       - git
       - tree
-      # TODO: only install on hetzner hosts
-      - cifs-utils
       # needed for docker
       - ca-certificates
       # needed for docker
       - curl
     update_cache: true
     state: latest
+
+- name: Install Hetzner Packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      # TODO: only install on hetzner hosts
+      - cifs-utils
+    update_cache: true
+    state: latest
+  when: "'hetzner' in group_names"
 
 # Install Docker #
 - name: Check if Docker GPG apt key exists already

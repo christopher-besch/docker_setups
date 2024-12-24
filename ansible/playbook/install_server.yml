@@ -14,14 +14,14 @@
     - role: install_packages
 
 - name: Create Swapfile
-  hosts: all
+  hosts: hetzner
   remote_user: freeman
   roles:
     - role: swap
       tags: swap
 
 - name: Mount Box
-  hosts: all
+  hosts: hetzner
   remote_user: freeman
   roles:
     - role: box_mount

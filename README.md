@@ -9,10 +9,27 @@ Run `ansible-galaxy collection install community.docker` on host.
 - `apprun`: user in `docker` group, runs applications
 - `root`: disabled
 
-## Install Procedure
+## Install Procedure Hetzner
 - Create new server
-- add new host to inventory
+- add new host to inventory to hetzner group
 - `ssh root@[server ip]`
+- `ansible-playbook -i production.yml playbook/prepare_server.yml`
+- `ansible-playbook -i production.yml playbook/install_server.yml`
+- `ansible-playbook -i production.yml playbook/update_server.yml`
+- Possibly run `ansible-playbook -i production.yml playbook/down_container.yml` if you don't have a proper backup to load
+- create backup tar on old server, copy over untar in `/home/apprun/app` using `sudo tar --same-owner -xvf file.tar`
+- `ansible-playbook -i production.yml playbook/install_container.yml`
+
+## Install Procedure Raspberry Pi
+- install raspbery pi imager
+- install Raspberry Pi OS Lite with
+    - username: pi
+    - password: raspberry
+    - no wifi
+    - locale: timezone Etc/UTC, keyboard: gb
+    - ssh settings: chris.pub key
+- add new host to inventory to raspberry group
+- `ssh pi@[server ip]`
 - `ansible-playbook -i production.yml playbook/prepare_server.yml`
 - `ansible-playbook -i production.yml playbook/install_server.yml`
 - `ansible-playbook -i production.yml playbook/update_server.yml`

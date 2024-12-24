@@ -12,7 +12,6 @@ PRODUCTION:
     docker_photo_originals_dir: "{{ box_dir }}/images"
     docker_photo_data_dir: "{{ box_dir }}/photoprism_data"
 
-
     borg_dir: "{{ box_dir }}/borg"
     docker_firefly_borg_dir: "{{ borg_dir }}/firefly"
     docker_minecraft_borg_dir: "{{ borg_dir }}/minecraft"
@@ -50,3 +49,13 @@ PRODUCTION:
   hosts:
     amd64hetzner10:
       ansible_host: 49.13.65.242
+    arm64rasp02:
+      ansible_host: 192.168.188.178
+
+hetzner:
+  hosts:
+    amd64hetzner10:
+
+raspberry:
+  hosts:
+    arm64rasp02:

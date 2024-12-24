@@ -19,14 +19,33 @@
     shell: /sbin/nologin
     password_lock: true
 
+- name: Delete pi user
+  become: true
+  ansible.builtin.user:
+    name: pi
+    state: absent
+    remove: true
+  when: "'raspberry' in group_names"
+
 # apprun setup #
-- name: Create docker group
+- name: Create apprun group
   become: true
   ansible.builtin.group:
     name: apprun
+    # This gid was used on the first server install and some permissions still use it.
+    # So never change a running system.
     gid: 996
+  when: "'hetzner' in group_names"
 
 - name: Create apprun group
+  become: true
+  ansible.builtin.group:
+    name: apprun
+    # On Raspberry Pi OS the gid 996 is already taken.
+    gid: 1001
+  when: "'raspberry' in group_names"
+
+- name: Create docker group
   become: true
   ansible.builtin.group:
     name: docker
