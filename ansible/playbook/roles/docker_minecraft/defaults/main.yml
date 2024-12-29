@@ -2,4 +2,4 @@
 
 docker_minecraft_borg_cron: "0 4 * * *"
 docker_minecraft_memory: 6G
-docker_minecraft_version: 1.21.1
+docker_minecraft_version: 1.21.4
