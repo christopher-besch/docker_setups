@@ -1,212 +1,72 @@
 [
     {
         "coords": {
-            "x": -9152,
+            "x": -37,
             "y": null,
-            "z": -17056,
+            "z": 20033,
             "__brand": "OverworldCoords"
         },
-        "title": "Pin1",
+        "title": "Expedition Start Base",
         "description": ""
     },
     {
         "coords": {
-            "x": -11808,
+            "x": 108,
             "y": null,
-            "z": -16808,
+            "z": 19869,
             "__brand": "OverworldCoords"
         },
-        "title": "Pin3",
+        "title": "Village Slaughter",
         "description": ""
     },
     {
         "coords": {
-            "x": -12246,
+            "x": 399,
             "y": null,
-            "z": -17222,
+            "z": 19235,
             "__brand": "OverworldCoords"
         },
-        "title": "Pin2",
+        "title": "Plains Tower",
         "description": ""
     },
     {
         "coords": {
-            "x": -12348,
+            "x": -112,
             "y": null,
-            "z": -13556,
+            "z": 17772,
             "__brand": "OverworldCoords"
         },
-        "title": "Pin4",
+        "title": "Grass Bunker",
+        "description": "This is where we all died."
+    },
+    {
+        "coords": {
+            "x": -69,
+            "y": null,
+            "z": 16614,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Bambus Base",
         "description": ""
     },
     {
         "coords": {
-            "x": -11288,
+            "x": 6,
             "y": null,
-            "z": -12224,
+            "z": 16360,
             "__brand": "OverworldCoords"
         },
-        "title": "Pin5",
+        "title": "Iron Summit",
         "description": ""
     },
     {
         "coords": {
-            "x": -5504,
+            "x": 181,
             "y": null,
-            "z": -9745,
+            "z": 16082,
             "__brand": "OverworldCoords"
         },
-        "title": "Pin6",
-        "description": ""
-    },
-    {
-        "coords": {
-            "x": -5920,
-            "y": null,
-            "z": -8514,
-            "__brand": "OverworldCoords"
-        },
-        "title": "Pin7",
-        "description": ""
-    },
-    {
-        "coords": {
-            "x": -5704,
-            "y": null,
-            "z": -7584,
-            "__brand": "OverworldCoords"
-        },
-        "title": "Pin8",
-        "description": ""
-    },
-    {
-        "coords": {
-            "x": -9840,
-            "y": null,
-            "z": -8608,
-            "__brand": "OverworldCoords"
-        },
-        "title": "Pin9",
-        "description": ""
-    },
-    {
-        "coords": {
-            "x": 160,
-            "y": null,
-            "z": -5889,
-            "__brand": "OverworldCoords"
-        },
-        "title": "Pin10",
-        "description": ""
-    },
-    {
-        "coords": {
-            "x": 3739,
-            "y": null,
-            "z": -3639,
-            "__brand": "OverworldCoords"
-        },
-        "title": "Pin11",
-        "description": ""
-    },
-    {
-        "coords": {
-            "x": 3960,
-            "y": null,
-            "z": -840,
-            "__brand": "OverworldCoords"
-        },
-        "title": "Pin12",
-        "description": ""
-    },
-    {
-        "coords": {
-            "x": 3872,
-            "y": null,
-            "z": 2288,
-            "__brand": "OverworldCoords"
-        },
-        "title": "Pin13",
-        "description": ""
-    },
-    {
-        "coords": {
-            "x": -4624,
-            "y": null,
-            "z": 2520,
-            "__brand": "OverworldCoords"
-        },
-        "title": "Pin14",
-        "description": ""
-    },
-    {
-        "coords": {
-            "x": -5808,
-            "y": null,
-            "z": 4528,
-            "__brand": "OverworldCoords"
-        },
-        "title": "Pin15",
-        "description": ""
-    },
-    {
-        "coords": {
-            "x": -4000,
-            "y": null,
-            "z": 7039,
-            "__brand": "OverworldCoords"
-        },
-        "title": "Pin16",
-        "description": ""
-    },
-    {
-        "coords": {
-            "x": 1824,
-            "y": null,
-            "z": 5280,
-            "__brand": "OverworldCoords"
-        },
-        "title": "Pin17",
-        "description": ""
-    },
-    {
-        "coords": {
-            "x": -6514,
-            "y": null,
-            "z": 7388,
-            "__brand": "OverworldCoords"
-        },
-        "title": "Pin18",
-        "description": ""
-    },
-    {
-        "coords": {
-            "x": -10836,
-            "y": null,
-            "z": 4722,
-            "__brand": "OverworldCoords"
-        },
-        "title": "Pin19",
-        "description": ""
-    },
-    {
-        "coords": {
-            "x": -9324,
-            "y": null,
-            "z": 6310,
-            "__brand": "OverworldCoords"
-        },
-        "title": "Pin20",
-        "description": ""
-    },
-    {
-        "coords": {
-            "x": -24207,
-            "y": null,
-            "z": 19731,
-            "__brand": "OverworldCoords"
-        },
-        "title": "Pin21",
+        "title": "Pale Garden Treehouse",
         "description": ""
     }
 ]
