@@ -1,13 +1,153 @@
 [
     {
         "coords": {
+            "x": -14018,
+            "y": null,
+            "z": -187,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Bee Burn Burn",
+        "description": ":("
+    },
+    {
+        "coords": {
+            "x": -432,
+            "y": null,
+            "z": 1117,
+            "__brand": "OverworldCoords"
+        },
+        "title": "PapaChris From Scratch",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -240,
+            "y": null,
+            "z": 262,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Dryed Sea Temple",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -705,
+            "y": null,
+            "z": -33,
+            "__brand": "OverworldCoords"
+        },
+        "title": "First Outpost",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -1082,
+            "y": null,
+            "z": -160,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Stephanas From Scratch",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -7600,
+            "y": null,
+            "z": -57,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Jungle Outpost",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": 1752,
+            "y": null,
+            "z": 1350,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Ancient City",
+        "description": "Thomas died a lot here."
+    },
+    {
+        "coords": {
+            "x": 4018,
+            "y": null,
+            "z": -773,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Josephine Beach Hut",
+        "description": "Papa was around the corner."
+    },
+    {
+        "coords": {
+            "x": -24207,
+            "y": null,
+            "z": 19733,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Jonas Excavation",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": 783,
+            "y": null,
+            "z": 410,
+            "__brand": "OverworldCoords"
+        },
+        "title": "JosephinePapa Lighthouse",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": 288,
+            "y": null,
+            "z": 955,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Josephine Fichtenhütte",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -4000,
+            "y": null,
+            "z": 7039,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Screaming Goat Farm",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": 1000000,
+            "y": null,
+            "z": 1000000,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Capture The Flag Challenge",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -11288,
+            "y": null,
+            "z": -12224,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Jonas Trial Chamber 3",
+        "description": ""
+    },
+    {
+        "coords": {
             "x": -37,
             "y": null,
             "z": 20033,
             "__brand": "OverworldCoords"
         },
         "title": "Expedition Start Base",
-        "description": ""
+        "description": "29.12.2024"
     },
     {
         "coords": {
@@ -17,7 +157,7 @@
             "__brand": "OverworldCoords"
         },
         "title": "Village Slaughter",
-        "description": ""
+        "description": "29.12.2024"
     },
     {
         "coords": {
@@ -27,7 +167,7 @@
             "__brand": "OverworldCoords"
         },
         "title": "Plains Tower",
-        "description": ""
+        "description": "29.12.2024"
     },
     {
         "coords": {
@@ -37,7 +177,7 @@
             "__brand": "OverworldCoords"
         },
         "title": "Grass Bunker",
-        "description": "This is where we all died."
+        "description": "29.12.2024\nThis is where we all died."
     },
     {
         "coords": {
@@ -47,7 +187,7 @@
             "__brand": "OverworldCoords"
         },
         "title": "Bambus Base",
-        "description": ""
+        "description": "29.12.2024"
     },
     {
         "coords": {
@@ -57,7 +197,7 @@
             "__brand": "OverworldCoords"
         },
         "title": "Iron Summit",
-        "description": ""
+        "description": "29.12.2024"
     },
     {
         "coords": {
@@ -66,7 +206,7 @@
             "z": 16082,
             "__brand": "OverworldCoords"
         },
-        "title": "Pale Garden Treehouse",
-        "description": ""
+        "title": "Pale Treehouse",
+        "description": "29.12.2024"
     }
 ]
