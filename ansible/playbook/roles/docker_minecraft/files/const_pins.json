@@ -221,6 +221,46 @@
     },
     {
         "coords": {
+            "x": -5,
+            "y": null,
+            "z": 14437,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Mushroom Base",
+        "description": "30.12.2024\nGetting Stephanie here in one piece took half an hour and three people."
+    },
+    {
+        "coords": {
+            "x": 1215,
+            "y": null,
+            "z": 11672,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Ship Base",
+        "description": "31.12.2024"
+    },
+    {
+        "coords": {
+            "x": 318,
+            "y": null,
+            "z": 7201,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Mountain Base",
+        "description": "31.12.2024\nEveryone died building the bubble elevator without bubbles."
+    },
+    {
+        "coords": {
+            "x": -782,
+            "y": null,
+            "z": 2647,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Ice Base",
+        "description": "31.12.2024\nThe last base on our expedition."
+    },
+    {
+        "coords": {
             "x": -8284,
             "y": null,
             "z": -11130,
