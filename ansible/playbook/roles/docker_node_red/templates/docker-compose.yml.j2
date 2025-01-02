@@ -9,9 +9,38 @@ services:
         container_name: NodeRed
         # TODO: tag
         image: nodered/node-red
-        networks: ["net"]
+        networks: ["net", "mqtt_net"]
         restart: "unless-stopped"
+
+    Mosquitto:
+        container_name: Mosquitto
+        # see: https://hub.docker.com/_/eclipse-mosquitto
+        image: eclipse-mosquitto:2.0.20
+        # TODO: no-auth doesn't sound good
+        command: 'mosquitto -c /mosquitto-no-auth.conf'
+        volumes:
+            - "{{ docker_node_red_dir }}/mosquitto_data:/mosquitto"
+        ports:
+            - '1883:1883'
+            # TODO: what is this port for?
+            - '9001:9001'
+        networks: ["mqtt_net"]
+        restart: unless-stopped
+
+    zigbee2mqtt:
+        container_name: zigbee2mqtt
+        image: koenkk/zigbee2mqtt:1.42.0
+        volumes:
+            - "{{ docker_node_red_dir }}/zigbee2mqtt_data:/app/data"
+            - /run/udev:/run/udev:ro
+        ports:
+            - 8080:8080
+        devices:
+            - /dev/ttyACM0:/dev/ttyACM0
+        restart: unless-stopped
 
 networks:
     net:
         external: true
+    mqtt_net:
+        internal: true

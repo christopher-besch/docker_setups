@@ -14,6 +14,20 @@
     mode: "0644"
   notify: docker_node_red_restart
 
+- name: Create zigbee2mqtt_data Directory
+  ansible.builtin.file:
+    dest: "{{ docker_node_red_dir }}/zigbee2mqtt_data"
+    state: directory
+    mode: "0755"
+  notify: docker_node_red_restart
+
+- name: Copy configuration.yaml
+  ansible.builtin.copy:
+    src: "configuration.yaml"
+    dest: "{{ docker_node_red_dir }}/zigbee2mqtt_data/configuration.yaml"
+    mode: "0644"
+  notify: docker_node_red_restart
+
 - name: Force Pull
   ansible.builtin.command: "true"
   changed_when: force_pull
