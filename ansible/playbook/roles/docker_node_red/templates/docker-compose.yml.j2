@@ -1,16 +1,44 @@
 services:
-    NginxFrontendTest:
-        container_name: NginxFrontendTest
-        image: nginx
+    NodeRed:
+        container_name: NodeRed
+        # https://hub.docker.com/r/nodered/node-red/tags
+        image: nodered/node-red:4.0.8-22
+        volumes:
+            - "{{ docker_node_red_dir }}/node_red_data:/data"
+        environment:
+            VIRTUAL_HOST: "{{ node_red_domain }}"
+            VIRTUAL_PORT: 1880
         networks: ["net"]
         restart: "unless-stopped"
 
-    NodeRed:
-        container_name: NodeRed
-        # TODO: tag
-        image: nodered/node-red
+    Mosquitto:
+        container_name: Mosquitto
+        # see: https://hub.docker.com/_/eclipse-mosquitto
+        image: eclipse-mosquitto:2.0.20
+        # TODO: no-auth doesn't sound good
+        command: 'mosquitto -c /mosquitto.conf'
+        volumes:
+            - "{{ docker_node_red_dir }}/mosquitto_data:/mosquitto"
+            - "{{ docker_node_red_dir }}/mosquitto_passwords.txt:/etc/mosquitto/password_file:ro"
+            - "{{ docker_node_red_dir }}/mosquitto.conf:/mosquitto.conf:ro"
+        ports:
+            - '1883:1883'
+        restart: unless-stopped
+
+    zigbee2mqtt:
+        container_name: zigbee2mqtt
+        # https://hub.docker.com/r/koenkk/zigbee2mqtt/tags
+        image: koenkk/zigbee2mqtt:2.0.0
+        volumes:
+            - "{{ docker_node_red_dir }}/zigbee2mqtt_data:/app/data"
+            - /run/udev:/run/udev:ro
+        environment:
+            VIRTUAL_HOST: "{{ zigbee2mqtt_domain }}"
+            VIRTUAL_PORT: 8080
+        devices:
+            - /dev/ttyACM0:/dev/ttyACM0
         networks: ["net"]
-        restart: "unless-stopped"
+        restart: unless-stopped
 
 networks:
     net:

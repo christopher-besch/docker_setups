@@ -46,7 +46,7 @@ Run `ansible-galaxy collection install community.docker` on host.
 - `sudo tar -cvf /home/apprun/box/borg/backup_2024_08_05.tar /home/apprun/app`
 - `rsync --dry-run --delete --exclude selchris_music --exclude jonas_music -avP u370909@u370909.your-storagebox.de:/home/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/` (remove `--dry-run`)
 - `rsync --dry-run --delete -avP u370909@u370909.your-storagebox.de:/home/photoprism_data/ /home/chris/files/backup/server/photoprism_data/` (remove `--dry-run`)
-- bump firefly, nextcloud, photoprism, tandoor, nginx, uptime-kuma versions to newest minor patch & push changes to github
+- bump firefly, nextcloud, photoprism, tandoor, nginx, node_red, uptime-kuma versions to newest minor patch & push changes to github
 - `rsync --dry-run -avP u370909@u370909.your-storagebox.de:/home/docker_backup/backup_2024_08_05.tar /home/chris/files/backup/server/hetzner03_backup_2024_08_05.tar` (remove `--dry-run`)
 - maybe delete old backup on server and locally
 - check archive integrity `sha1sum backup_2024_08_05.tar`
@@ -93,3 +93,10 @@ Run `ansible-galaxy collection install community.docker` on host.
 ### Attach to Minecraft Console
 - `docker attach Minecraft`
 - Ctrl-p Ctrl-q to detach
+
+### Node-Red
+- configure ansible/playbook/roles/docker_node_red/files/configuration.yaml mqtt server
+- `mkdir /home/apprun/app/node_red/node_red_data`
+- `sudo chown 1000:1000 /home/apprun/app/node_red/node_red_data`
+- set password: https://nodered.org/docs/user-guide/runtime/securing-node-red#http-node-security
+- set mosquitto passwords for all consumers in ansible/playbook/roles/docker_node_red/files/mosquitto_passwords.txt

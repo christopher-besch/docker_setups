@@ -14,6 +14,42 @@
     mode: "0644"
   notify: docker_node_red_restart
 
+- name: Copy mosquitto_passwords.txt
+  ansible.builtin.copy:
+    src: "mosquitto_passwords.txt"
+    dest: "{{ docker_node_red_dir }}/mosquitto_passwords.txt"
+    mode: "0644"
+  notify: docker_node_red_restart
+
+- name: Copy mosquitto.conf
+  ansible.builtin.copy:
+    src: "mosquitto.conf"
+    dest: "{{ docker_node_red_dir }}/mosquitto.conf"
+    mode: "0644"
+  notify: docker_node_red_restart
+
+- name: Create zigbee2mqtt_data Directory
+  ansible.builtin.file:
+    dest: "{{ docker_node_red_dir }}/zigbee2mqtt_data"
+    state: directory
+    mode: "0755"
+  notify: docker_node_red_restart
+
+# This is just the default configuration for new setups.
+# This file is overwritten by the web ui so don't undo changes made there.
+- name: Check configuration.yaml if exists
+  ansible.builtin.stat:
+    path: "{{ docker_node_red_dir }}/zigbee2mqtt_data/configuration.yaml"
+  register: configuration_stat
+
+- name: Copy configuration.yaml
+  ansible.builtin.copy:
+    src: "configuration.yaml"
+    dest: "{{ docker_node_red_dir }}/zigbee2mqtt_data/configuration.yaml"
+    mode: "0644"
+  when: "not configuration_stat.stat.exists"
+  notify: docker_node_red_restart
+
 - name: Force Pull
   ansible.builtin.command: "true"
   changed_when: force_pull
