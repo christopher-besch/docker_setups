@@ -218,5 +218,25 @@
         },
         "title": "Pale Treehouse",
         "description": "29.12.2024"
+    },
+    {
+        "coords": {
+            "x": -8284,
+            "y": null,
+            "z": -11130,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Mushroom Island",
+        "description": "2.1.2024"
+    },
+    {
+        "coords": {
+            "x": -18000,
+            "y": null,
+            "z": -18000,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Great Desert",
+        "description": "2.1.2024"
     }
 ]
