@@ -1,6 +1,16 @@
 [
     {
         "coords": {
+            "x": -1152,
+            "y": null,
+            "z": -883,
+            "__brand": "OverworldCoords"
+        },
+        "title": "End Portal",
+        "description": ""
+    },
+    {
+        "coords": {
             "x": -14018,
             "y": null,
             "z": -187,
