@@ -26,8 +26,6 @@
       tags: nextcloud
     - role: docker_chore_planner
       tags: chore_planner
-    - role: docker_ssh_jump
-      tags: ssh_jump
 
 - name: Install Raspberry Docker Apps
   hosts: raspberry
@@ -36,7 +34,5 @@
     force_pull: false
     stop_container: false
   roles:
-    - role: docker_ssh_jumper
-      tags: ssh_jumper
     - role: docker_node_red
       tags: node_red

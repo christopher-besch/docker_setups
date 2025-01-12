@@ -30,8 +30,6 @@ PRODUCTION:
     docker_photo_dir: "{{ app_dir }}/photo"
     docker_tandoor_dir: "{{ app_dir }}/tandoor"
     docker_chore_planner_dir: "{{ app_dir }}/chore_planner"
-    docker_ssh_jump_dir: "{{ app_dir }}/ssh_jump"
-    docker_ssh_jumper_dir: "{{ app_dir }}/ssh_jumper"
     docker_node_red_dir: "{{ app_dir }}/node_red"
 
     domain: chris-besch.com
