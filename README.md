@@ -41,7 +41,7 @@ Run `ansible-galaxy collection install community.docker` on host.
 - `cp /home/chris/files/backup/server/hetzner03_backup_2024_03_27.tar /home/chris/files/backup/server/hetzner03_backup_2024_08_05.tar`
 - check `last`
 - check `df -h`
-- `ansible-playbook -i production.yml playbook/down_container.yml`
+- `ansible-playbook -i production.yml playbook/down_container.yml -l amd64hetzner10`
 - enable external hetzner box access and ssh
 - `sudo tar -cvf /home/apprun/box/borg/backup_2024_08_05.tar /home/apprun/app`
 - `rsync --dry-run --delete --exclude selchris_music --exclude jonas_music -avP u370909@u370909.your-storagebox.de:/home/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/` (remove `--dry-run`)
@@ -51,8 +51,8 @@ Run `ansible-galaxy collection install community.docker` on host.
 - maybe delete old backup on server and locally
 - check archive integrity `sha1sum backup_2024_08_05.tar`
 - disable external box access and ssh
-- `ansible-playbook -i production.yml playbook/update_server.yml`
-- `ansible-playbook -i production.yml playbook/pull_container.yml`
+- `ansible-playbook -i production.yml playbook/update_server.yml -l amd64hetzner10`
+- `ansible-playbook -i production.yml playbook/pull_container.yml -l amd64hetzner10`
 - `docker exec -ti --user www-data NCFrontend /var/www/html/occ upgrade`
 - `docker exec -ti --user www-data NCFrontend /var/www/html/occ db:add-missing-indices`
 - `docker exec -ti --user www-data NCFrontend /var/www/html/occ maintenance:repair --include-expensive`
