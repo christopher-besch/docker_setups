@@ -41,6 +41,16 @@
     },
     {
         "coords": {
+            "x": -1082,
+            "y": null,
+            "z": -160,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Stephanas From Scratch",
+        "description": ""
+    },
+    {
+        "coords": {
             "x": -705,
             "y": null,
             "z": -33,
@@ -51,12 +61,12 @@
     },
     {
         "coords": {
-            "x": -1082,
+            "x": -4179,
             "y": null,
-            "z": -160,
+            "z": -147,
             "__brand": "OverworldCoords"
         },
-        "title": "Stephanas From Scratch",
+        "title": "Akazienberg Outpost",
         "description": ""
     },
     {
@@ -137,6 +147,26 @@
             "__brand": "OverworldCoords"
         },
         "title": "Capture The Flag Challenge",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": -2308,
+            "y": null,
+            "z": 1475,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Raid Village",
+        "description": "We died a lot here, including Selina who came to just say hi."
+    },
+    {
+        "coords": {
+            "x": -2791,
+            "y": null,
+            "z": 1274,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pillager Outpost",
         "description": ""
     },
     {
