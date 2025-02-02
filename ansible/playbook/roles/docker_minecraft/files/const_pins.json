@@ -308,5 +308,45 @@
         },
         "title": "Great Desert",
         "description": "2.1.2024"
+    },
+    {
+        "coords": {
+            "x": 268,
+            "y": null,
+            "z": 2272,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Ice Highway Test",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": 1863,
+            "y": null,
+            "z": -664,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Pillager Outpost Ravine",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": 170,
+            "y": null,
+            "z": 1940,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Thomas' Wither Skeleton Boats",
+        "description": ""
+    },
+    {
+        "coords": {
+            "x": 67,
+            "y": null,
+            "z": -50042,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Northern Highway",
+        "description": ""
     }
 ]
