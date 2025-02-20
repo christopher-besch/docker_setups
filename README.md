@@ -58,7 +58,7 @@ Run `ansible-galaxy collection install community.docker` on host.
 - `docker exec -ti --user www-data NCFrontend /var/www/html/occ maintenance:repair --include-expensive`
 - check https://nextcloud.chris-besch.com/settings/admin/overview
 - check https://nextcloud.chris-besch.com/settings/admin
-- update apps at https://nextcloud.chris-besch.com/settings/apps
+- update apps at https://nextcloud.chris-besch.com/settings/apps/installed
 - `docker system prune -a`
 - check `df -h`
 - create backup on external hard drive
