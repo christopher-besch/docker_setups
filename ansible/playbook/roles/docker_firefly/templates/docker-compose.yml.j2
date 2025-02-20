@@ -2,7 +2,7 @@ services:
     FFFrontend:
         # https://hub.docker.com/r/fireflyiii/core/tags
         container_name: "FFFrontend"
-        image: "fireflyiii/core:version-6.1.25"
+        image: "fireflyiii/core:version-6.2.7"
         restart: always
         volumes:
             - {{ docker_firefly_dir }}/ff_upload:/var/www/html/storage/upload
@@ -39,7 +39,7 @@ services:
 
     FFDatabase:
         # https://hub.docker.com/_/mariadb
-        image: "mariadb:10.11.10"
+        image: "mariadb:10.11.11"
         container_name: "FFDatabase"
 
         volumes:

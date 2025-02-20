@@ -2,7 +2,7 @@
 services:
     NginxProxy:
         # https://hub.docker.com/r/nginxproxy/nginx-proxy/tags
-        image: nginxproxy/nginx-proxy:1.6.4
+        image: nginxproxy/nginx-proxy:1.7.0
         container_name: NginxProxy
         ports:
             - "80:80"
@@ -22,7 +22,7 @@ services:
 {% if docker_nginx_ssl %}
     AcmeCompanion:
         # https://hub.docker.com/r/nginxproxy/acme-companion/tags
-        image: nginxproxy/acme-companion:2.5.1
+        image: nginxproxy/acme-companion:2.5.2
         environment:
             DEFAULT_EMAIL: "{{ docker_nginx_email }}"
         volumes_from:
