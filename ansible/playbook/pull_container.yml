@@ -14,6 +14,8 @@
       tags: nginx
     - role: docker_tandoor
       tags: tandoor
+    - role: docker_anki
+      tags: anki
     - role: docker_firefly
       tags: firefly
     - role: docker_minecraft

@@ -1,0 +1,25 @@
+---
+
+- name: Create Docker Anki Directory
+  ansible.builtin.file:
+    dest: "{{ docker_anki_dir }}"
+    state: directory
+    mode: "0755"
+  notify: docker_anki_restart
+
+- name: Template docker-compose.yml
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ docker_anki_dir }}/docker-compose.yml"
+    mode: "0644"
+  notify: docker_anki_restart
+
+- name: Force Pull
+  ansible.builtin.command: "true"
+  changed_when: force_pull
+  notify: docker_anki_restart
+
+- name: Force Stop Container
+  ansible.builtin.command: "true"
+  changed_when: stop_container
+  notify: docker_anki_down

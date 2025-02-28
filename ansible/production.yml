@@ -22,6 +22,7 @@ PRODUCTION:
 
     app_dir: "{{ apprun_dir }}/app"
     docker_cron_dir: "{{ app_dir }}/cron"
+    docker_anki_dir: "{{ app_dir }}/anki"
     docker_firefly_dir: "{{ app_dir }}/firefly"
     docker_jelly_dir: "{{ app_dir }}/jelly"
     docker_minecraft_dir: "{{ app_dir }}/minecraft"
@@ -34,6 +35,7 @@ PRODUCTION:
 
     domain: chris-besch.com
     internal_domain: internal.chris-besch.com
+    docker_anki_domain: "anki.{{ domain }}"
     docker_firefly_domain: "firefly.{{ domain }}"
     docker_jelly_domain: "jelly.{{ domain }}"
     docker_minecraft_web_domain: "mc.{{ domain }}"

@@ -1,0 +1,18 @@
+services:
+    Anki:
+        image: "chrisbesch/anki_sync_server:25.02"
+        restart: always
+        volumes:
+            - {{ docker_anki_dir }}/anki_data:/anki_data
+        environment:
+            SYNC_USER1: "{{ docker_anki_user1 }}"
+            SYNC_USER2: "{{ docker_anki_user2 }}"
+            PASSWORDS_HASHED: 1
+            LETSENCRYPT_HOST: {{ docker_anki_domain }}
+            VIRTUAL_HOST: {{ docker_anki_domain }}
+            VIRTUAL_PORT: 8080
+        networks: ["net"]
+
+networks:
+    net:
+        external: true
