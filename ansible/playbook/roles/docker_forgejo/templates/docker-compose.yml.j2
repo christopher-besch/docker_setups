@@ -1,0 +1,51 @@
+services:
+    ForgejoFrontend:
+        # https://codeberg.org/forgejo/-/packages/container/forgejo/versions
+        image: "codeberg.org/forgejo/forgejo:10.0.3"
+        container_name: "ForgejoFrontend"
+
+        volumes:
+            - "{{ docker_forgejo_dir }}/forgejo_data:/data"
+            - "{{ docker_forgejo_box_dir }}/git:/data/git"
+
+        environment:
+            LETSENCRYPT_HOST: "{{ docker_forgejo_domain }}"
+            VIRTUAL_HOST: "{{ docker_forgejo_domain }}"
+            VIRTUAL_PORT: 3000
+            USER_UID: 1000
+            USER_GID: 1000
+            FORGEJO__database__DB_TYPE: postgres
+            FORGEJO__database__HOST: ForgejoDatabase:5432
+            FORGEJO__database__NAME: forgejo
+            FORGEJO__database__USER: forgejo
+            FORGEJO__database__PASSWD: "{{ docker_forgejo_db_password }}"
+
+        ports:
+            - "222:22"
+
+        depends_on:
+            - "ForgejoDatabase"
+        # accept docker stop
+        restart: "unless-stopped"
+        networks: ["net", "common"]
+
+    ForgejoDatabase:
+        image: "postgres:17"
+        container_name: "ForgejoDatabase"
+
+        volumes:
+            - "{{ docker_forgejo_dir }}/forgejo_db:/var/lib/postgresql/data"
+
+        environment:
+            POSTGRES_DB: forgejo
+            POSTGRES_USER: forgejo
+            POSTGRES_PASSWORD: "{{ docker_forgejo_db_password }}"
+
+        restart: "unless-stopped"
+        networks: ["common"]
+
+networks:
+    net:
+        external: true
+    common:
+        internal: true

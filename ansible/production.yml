@@ -11,6 +11,7 @@ PRODUCTION:
     docker_nextcloud_lfs_dir: "{{ box_dir }}/nextcloud_lfs"
     docker_photo_originals_dir: "{{ box_dir }}/images"
     docker_photo_data_dir: "{{ box_dir }}/photoprism_data"
+    docker_forgejo_box_dir: "{{ box_dir }}/forgejo_box"
 
     borg_dir: "{{ box_dir }}/borg"
     docker_firefly_borg_dir: "{{ borg_dir }}/firefly"
@@ -31,6 +32,7 @@ PRODUCTION:
     docker_photo_dir: "{{ app_dir }}/photo"
     docker_tandoor_dir: "{{ app_dir }}/tandoor"
     docker_chore_planner_dir: "{{ app_dir }}/chore_planner"
+    docker_forgejo_dir: "{{ app_dir }}/forgejo"
     docker_node_red_dir: "{{ app_dir }}/node_red"
 
     domain: chris-besch.com
@@ -43,6 +45,7 @@ PRODUCTION:
     docker_nextcloud_domain: "nextcloud.{{ domain }}"
     docker_photo_domain: "photo.{{ domain }}"
     docker_tandoor_domain: "recipe.{{ domain }}"
+    docker_forgejo_domain: "code.{{ domain }}"
     node_red_domain: "node-red.{{ internal_domain }}"
     zigbee2mqtt_domain: "zigbee2mqtt.{{ internal_domain }}"
 
