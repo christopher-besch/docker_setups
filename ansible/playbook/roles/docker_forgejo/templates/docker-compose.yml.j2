@@ -1,6 +1,6 @@
 services:
     ForgejoFrontend:
-        # https://codeberg.org/forgejo/-/packages/container/forgejo/versions
+        # https://code.forgejo.org/forgejo/-/packages/container/runner/versions
         image: "codeberg.org/forgejo/forgejo:10.0.3"
         container_name: "ForgejoFrontend"
 
@@ -43,6 +43,21 @@ services:
 
         restart: "unless-stopped"
         networks: ["common"]
+
+    ForgejoRunner:
+        # https://code.forgejo.org/forgejo/-/packages/container/runner
+        image: "code.forgejo.org/forgejo/runner:6"
+        depends_on:
+            - "ForgejoFrontend"
+        # TODO: find a way to make installing dependencies work without root user
+        user: 0:0
+
+        volumes:
+            - "{{ docker_forgejo_dir }}/forgejo_runner:/data"
+        command: '/bin/sh -c "apk add nodejs npm python3 py3-pip py-virtualenv && forgejo-runner daemon"'
+        # command: '/bin/sh -c "while : ; do sleep 1 ; done ;"'
+
+        restart: "unless-stopped"
 
 networks:
     net:
