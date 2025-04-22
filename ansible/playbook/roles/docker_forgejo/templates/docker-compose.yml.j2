@@ -6,7 +6,8 @@ services:
 
         volumes:
             - "{{ docker_forgejo_dir }}/forgejo_data:/data"
-            - "{{ docker_forgejo_box_dir }}/git:/data/git"
+            - "{{ docker_forgejo_box_dir }}/git/lfs:/data/git/lfs"
+            - "{{ docker_forgejo_box_dir }}/git/repositories:/data/git/repositories"
 
         environment:
             LETSENCRYPT_HOST: "{{ docker_forgejo_domain }}"

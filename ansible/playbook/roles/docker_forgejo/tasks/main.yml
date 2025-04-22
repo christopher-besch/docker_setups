@@ -7,20 +7,6 @@
     mode: "0755"
   notify: docker_forgejo_restart
 
-- name: Create Docker Forgejo Runner Directory
-  ansible.builtin.file:
-    dest: "{{ docker_forgejo_dir }}/forgejo_runner"
-    state: directory
-    mode: "0755"
-  notify: docker_forgejo_restart
-
-- name: Create Docker Forgejo Box Directory
-  ansible.builtin.file:
-    dest: "{{ docker_forgejo_box_dir }}"
-    state: directory
-    mode: "0755"
-  notify: docker_forgejo_restart
-
 - name: Template docker-compose.yml
   ansible.builtin.template:
     src: "docker-compose.yml.j2"
