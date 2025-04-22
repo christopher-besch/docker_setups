@@ -12,6 +12,7 @@ PRODUCTION:
     docker_photo_originals_dir: "{{ box_dir }}/images"
     docker_photo_data_dir: "{{ box_dir }}/photoprism_data"
     docker_forgejo_box_dir: "{{ box_dir }}/forgejo_box"
+    docker_forgejo_runner_dir: "{{ box_dir }}/forgejo_runner"
 
     borg_dir: "{{ box_dir }}/borg"
     docker_firefly_borg_dir: "{{ borg_dir }}/firefly"
