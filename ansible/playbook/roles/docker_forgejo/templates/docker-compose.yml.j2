@@ -53,7 +53,7 @@ services:
         user: 0:0
 
         volumes:
-            - "{{ docker_forgejo_dir }}/forgejo_runner:/data"
+            - "{{ docker_forgejo_box_dir }}/forgejo_runner:/data"
         command: '/bin/sh -c "apk add nodejs npm python3 py3-pip py-virtualenv && forgejo-runner daemon"'
         # command: '/bin/sh -c "while : ; do sleep 1 ; done ;"'
 

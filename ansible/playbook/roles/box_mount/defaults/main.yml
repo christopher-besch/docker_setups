@@ -25,3 +25,7 @@ box_mount_box03_mounts:
     target: "{{ docker_jelly_media_dir }}"
     uid: 33
     gid: 33
+  - addr: "{{ box_mount_box03_addr }}/backup/forgejo_box"
+    target: "{{ docker_forgejo_box_dir }}"
+    uid: 1000
+    gid: 1000
