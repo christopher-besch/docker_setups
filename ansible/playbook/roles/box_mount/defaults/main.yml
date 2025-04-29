@@ -9,27 +9,44 @@ box_mount_box03_mounts:
     target: "{{ borg_dir }}"
     uid: 1000
     gid: 1000
+    file_mode: "0660"
+    dir_mode: "0770"
   - addr: "{{ box_mount_box03_addr }}/backup/nextcloud_lfs"
     target: "{{ docker_nextcloud_lfs_dir }}"
     uid: 33
     gid: 33
+    file_mode: "0660"
+    dir_mode: "0770"
   - addr: "{{ box_mount_box03_addr }}/backup/images"
     target: "{{ docker_photo_originals_dir }}"
     uid: 1000
     gid: 1000
+    file_mode: "0660"
+    dir_mode: "0770"
   - addr: "{{ box_mount_box03_addr }}/backup/photoprism_data"
     target: "{{ docker_photo_data_dir }}"
     uid: 0
     gid: 0
+    file_mode: "0660"
+    dir_mode: "0770"
   - addr: "{{ box_mount_box03_addr }}/backup/jelly_media"
     target: "{{ docker_jelly_media_dir }}"
     uid: 33
     gid: 33
+    file_mode: "0660"
+    dir_mode: "0770"
   - addr: "{{ box_mount_box03_addr }}/backup/forgejo_box"
     target: "{{ docker_forgejo_box_dir }}"
     uid: 1000
     gid: 1000
+    # This dir is used to store the git repositories.
+    # These contain hooks that need to be executable.
+    # Making everything executable solves this issue.
+    file_mode: "0770"
+    dir_mode: "0770"
   - addr: "{{ box_mount_box03_addr }}/backup/forgejo_runner"
     target: "{{ docker_forgejo_runner_dir }}"
     uid: 0
     gid: 0
+    file_mode: "0660"
+    dir_mode: "0770"

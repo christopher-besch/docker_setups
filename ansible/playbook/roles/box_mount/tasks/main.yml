@@ -36,7 +36,7 @@
   ansible.builtin.file:
     state: directory
     dest: "{{ item.target }}"
-    mode: "0755"
+    mode: "{{ item.dir_mode }} "
     owner: "{{ item.uid }}"
     group: "{{ item.gid }}"
   notify: mount
@@ -48,7 +48,7 @@
     src: "{{ item.addr }}"
     path: "{{ item.target }}"
     fstype: cifs
-    opts: "iocharset=utf8,rw,credentials={{ box_mount_box03_credentials }},uid={{ item.uid }},gid={{ item.gid }},file_mode=0660,dir_mode=0770,_netdev"
+    opts: "iocharset=utf8,rw,credentials={{ box_mount_box03_credentials }},uid={{ item.uid }},gid={{ item.gid }},file_mode={{ item.file_mode }},dir_mode={{ item.dir_mode }},_netdev"
     passno: 0
     dump: 0
     state: present
