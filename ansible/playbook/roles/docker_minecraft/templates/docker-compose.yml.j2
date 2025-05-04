@@ -14,7 +14,30 @@ services:
             ENABLE_ROLLING_LOGS: TRUE
             VERSION: {{ docker_minecraft_version }}
             OVERRIDE_SERVER_PROPERTIES: FALSE
+
+            TYPE: FABRIC
+            MODRINTH_PROJECTS: |
+                fabric-api
+
+            # mc_missile settings #
+            MC_MISSILE_GUIDANCE_PORT: "42069"
+            # Prefix of the address used to connect to the guidance and control server.
+            # Set this to something that isn't a prefix of any other address on your network.
+            MC_MISSILE_GUIDANCE_CONTROL_ADDRESS_PREFIX: "MinecraftGuidanceControl"
+            MC_MISSILE_LOCALHOST_GUIDANCE_CONTROL: false
+            MC_MISSILE_GUIDANCE_CONNECTION_IDS: "{{ docker_minecraft_guidance_servers | map(attribute='connection_id') | list | join(',') }}"
+        networks: ["guidance", "mc_server_to_internet"]
         restart: unless-stopped
+
+{% for guidance_server in docker_minecraft_guidance_servers %}
+    MinecraftGuidanceControl{{ guidance_server.connection_id }}:
+        image: {{ guidance_server.image }}
+        container_name: "MinecraftGuidanceControl{{ guidance_server.connection_id }}"
+        networks: ["guidance"]
+        environment:
+            PORT: "42069"
+
+{% endfor %}
 
     MinecraftStats:
         image: chrisbesch/minecraft_stats
@@ -81,3 +104,6 @@ services:
 networks:
     net:
         external: true
+    guidance:
+        internal: true
+    mc_server_to_internet:
