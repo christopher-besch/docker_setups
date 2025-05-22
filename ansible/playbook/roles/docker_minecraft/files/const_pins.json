@@ -348,5 +348,15 @@
         },
         "title": "Northern Highway",
         "description": ""
+    },
+    {
+        "coords": {
+            "x": 663,
+            "y": null,
+            "z": -1430,
+            "__brand": "OverworldCoords"
+        },
+        "title": "Josephine Birthday Building",
+        "description": "22.05.2025"
     }
 ]
