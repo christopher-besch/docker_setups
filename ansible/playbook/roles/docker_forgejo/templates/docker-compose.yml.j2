@@ -1,7 +1,7 @@
 services:
     ForgejoFrontend:
-        # https://code.forgejo.org/forgejo/-/packages/container/runner/versions
-        image: "codeberg.org/forgejo/forgejo:10.0.3"
+        # https://codeberg.org/forgejo/-/packages/container/forgejo/versions
+        image: "codeberg.org/forgejo/forgejo:11.0.1"
         container_name: "ForgejoFrontend"
 
         volumes:
@@ -47,7 +47,7 @@ services:
 
     ForgejoRunner:
         # https://code.forgejo.org/forgejo/-/packages/container/runner
-        image: "code.forgejo.org/forgejo/runner:6"
+        image: "code.forgejo.org/forgejo/runner:6.3.1"
         depends_on:
             - "ForgejoFrontend"
         # TODO: find a way to make installing dependencies work without root user
