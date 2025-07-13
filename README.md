@@ -48,7 +48,7 @@ Run `ansible-galaxy collection install community.docker` on host.
 - `rsync --dry-run --delete --exclude selchris_music --exclude jonas_music -avP u370909@u370909.your-storagebox.de:/home/nextcloud_lfs/ /home/chris/files/backup/server/nextcloud_lfs/` (remove `--dry-run`)
 - `rsync --dry-run --delete -avP u370909@u370909.your-storagebox.de:/home/photoprism_data/ /home/chris/files/backup/server/photoprism_data/` (remove `--dry-run`)
 - `rsync --dry-run --delete -avP u370909@u370909.your-storagebox.de:/home/forgejo_box/ /home/chris/files/backup/server/forgejo_box/` (remove `--dry-run`)
-- bump forgejo, firefly, nextcloud, photoprism, tandoor, nginx, node_red, uptime-kuma versions to newest minor patch & push changes to github
+- bump versions & push changes to github
 - `rsync --dry-run -avP u370909@u370909.your-storagebox.de:/home/docker_backup/backup_2024_08_05.tar /home/chris/files/backup/server/hetzner03_backup_2024_08_05.tar` (remove `--dry-run`)
 - maybe delete old backup on server and locally
 - check archive integrity `sha1sum backup_2024_08_05.tar`

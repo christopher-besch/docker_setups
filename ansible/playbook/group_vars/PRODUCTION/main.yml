@@ -1,54 +1,59 @@
 ---
 
-mariadb_image: mariadb:10.11.13
+# https://hub.docker.com/_/mariadb
+mariadb_image: mariadb:11.8.2-ubi
+alpine_image: alpine:3.22.0
+
 
 docker_anki_anki_image: chrisbesch/anki_sync_server:25.02
 
 docker_chore_planner_chore_planner_image: chrisbesch/chore_planner:2.0.0
-docker_chore_planner_borg_image: chrisbesch/docker_borg_backup
+docker_chore_planner_borg_image: chrisbesch/docker_borg_backup:latest
 
-docker_cron_docker_cron_image: chrisbesch/docker_cron
+docker_cron_docker_cron_image: chrisbesch/docker_cron:latest
 
+# https://hub.docker.com/r/fireflyiii/core/tags
 docker_firefly_firefly_image: fireflyiii/core:version-6.2.16
-# https://hub.docker.com/_/mariadb
 docker_firefly_mariadb_image: "{{ mariadb_image }}"
-docker_firefly_alpine_image: alpine
-docker_firefly_borg_image: chrisbesch/docker_borg_backup
+docker_firefly_alpine_image: "{{ alpine_image }}"
+docker_firefly_borg_image: chrisbesch/docker_borg_backup:latest
 
 # https://codeberg.org/forgejo/-/packages/container/forgejo/versions
-docker_forgejo_forgejo_image: codeberg.org/forgejo/forgejo:11.0.1
-# https://code.forgejo.org/forgejo/-/packages/container/runner
-docker_forgejo_postgres_image: postgres:17
-docker_forgejo_runner_image: code.forgejo.org/forgejo/runner:6.3.1
+docker_forgejo_forgejo_image: codeberg.org/forgejo/forgejo:11.0.3
+# https://hub.docker.com/_/postgres
+docker_forgejo_postgres_image: postgres:17.5-alpine
+# https://code.forgejo.org/forgejo/-/packages/container/runner/versions
+docker_forgejo_runner_image: code.forgejo.org/forgejo/runner:6.4.0
 
-docker_jelly_jellyfin_image: jellyfin/jellyfin:latest
+# https://github.com/jellyfin/jellyfin/releases/tag/v10.10.7
+docker_jelly_jellyfin_image: jellyfin/jellyfin:10.10.7
 
-docker_minecraft_minecraft_image: itzg/minecraft-server
-docker_minecraft_minecraft_stats_image: chrisbesch/minecraft_stats
-docker_minecraft_nginx_image: nginx
-docker_minecraft_minecraft_map_marker: chrisbesch/minecraft_map_marker
-docker_minecraft_borg_image: chrisbesch/docker_borg_backup
+docker_minecraft_minecraft_image: itzg/minecraft-server:java21
+docker_minecraft_minecraft_stats_image: chrisbesch/minecraft_stats:latest
+# https://hub.docker.com/_/nginx
+docker_minecraft_nginx_image: nginx:1.29.0
+docker_minecraft_minecraft_map_marker: chrisbesch/minecraft_map_marker:latest
+docker_minecraft_borg_image: chrisbesch/docker_borg_backup:latest
 
 # https://hub.docker.com/_/nextcloud
-docker_nextcloud_nextcloud_image: nextcloud:29.0.16
-# https://hub.docker.com/_/mariadb
+docker_nextcloud_nextcloud_image: nextcloud:31.0.7
 # https://docs.nextcloud.com/server/latest/admin_manual/installation/system_requirements.html
 docker_nextcloud_mariadb_image: "{{ mariadb_image }}"
-docker_nextcloud_borg_image: chrisbesch/docker_borg_backup
-docker_nextcloud_alpine_image: alpine
+docker_nextcloud_borg_image: chrisbesch/docker_borg_backup:latest
+docker_nextcloud_alpine_image: "{{ alpine_image }}"
 
 # https://hub.docker.com/r/nginxproxy/nginx-proxy/tags
 docker_nginx_nginx_proxy_image: nginxproxy/nginx-proxy:1.7.1
 # https://hub.docker.com/r/nginxproxy/acme-companion/tags
 docker_nginx_acme_image: nginxproxy/acme-companion:2.6.0
 
-docker_photo_photoprism_image: photoprism/photoprism:latest
-# https://hub.docker.com/_/mariadb
+# https://hub.docker.com/r/photoprism/photoprism/tags
+docker_photo_photoprism_image: photoprism/photoprism:250707
 docker_photo_mariadb_image: "{{ mariadb_image }}"
-docker_photo_borg_image: chrisbesch/docker_borg_backup
+docker_photo_borg_image: chrisbesch/docker_borg_backup:latest
 
 # https://hub.docker.com/r/vabene1111/recipes/tags
-docker_tandoor_tandoor_image: vabene1111/recipes:1.5.34
+docker_tandoor_tandoor_image: vabene1111/recipes:1.5.35
 # https://docs.tandoor.dev/install/docker/#docker-compose
-docker_tandoor_postgres_image: postgres:15-alpine
-docker_tandoor_borg_image: chrisbesch/docker_borg_backup
+docker_tandoor_postgres_image: postgres:15.13-alpine
+docker_tandoor_borg_image: chrisbesch/docker_borg_backup:latest
