@@ -39,7 +39,6 @@ Run `ansible-galaxy collection install community.docker` on host.
 
 ## Maintenance Procedure
 - update https://github.com/ankitects/anki/tree/main/docs/syncserver: `sudo docker build --no-cache --build-arg ANKI_VERSION=25.02 -t chrisbesch/anki_sync_server:25.02 . && sudo docker push chrisbesch/anki_sync_server:25.02`
-- `cp /home/chris/files/backup/server/hetzner03_backup_2024_03_27.tar /home/chris/files/backup/server/hetzner03_backup_2024_08_05.tar`
 - check `last`
 - check `df -h`
 - `ansible-playbook -i production.yml playbook/down_container.yml -l amd64hetzner10`
