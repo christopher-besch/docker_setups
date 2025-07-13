@@ -60,6 +60,12 @@ services:
 
         restart: "unless-stopped"
 
+    RenovateBot:
+        # https://hub.docker.com/r/renovate/renovate/tags
+        image: "renovate/renovate:41.20.0"
+        environment:
+            RENOVATE_TOKEN: {{ docker_forgejo_codeberg_renovate_pat }}
+
 networks:
     net:
         external: true
