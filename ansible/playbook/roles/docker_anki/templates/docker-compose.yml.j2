@@ -1,6 +1,6 @@
 services:
     Anki:
-        image: "chrisbesch/anki_sync_server:25.02"
+        image: "{{ docker_anki_anki_image }}"
         restart: always
         volumes:
             - {{ docker_anki_dir }}/anki_data:/anki_data

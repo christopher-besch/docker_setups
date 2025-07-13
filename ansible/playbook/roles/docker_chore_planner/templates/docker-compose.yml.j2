@@ -1,6 +1,6 @@
 services:
     ChorePlanner:
-        image: "chrisbesch/chore_planner:2.0.0"
+        image: "{{ docker_chore_planner_chore_planner_image }}"
         container_name: "ChorePlanner"
 
         volumes:
@@ -58,7 +58,7 @@ services:
         restart: "unless-stopped"
 
     ChorePlannerBorgBackup:
-        image: chrisbesch/docker_borg_backup
+        image: "{{ docker_chore_planner_borg_image }}"
         volumes:
             - "{{ docker_chore_planner_dir }}:/origin:ro"
             - "{{ docker_chore_planner_borg_dir }}:/repo"

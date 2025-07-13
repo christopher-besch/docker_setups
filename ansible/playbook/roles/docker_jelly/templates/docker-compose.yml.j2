@@ -1,6 +1,6 @@
 services:
     jellyfin:
-        image: jellyfin/jellyfin:latest
+        image: "{{ docker_jelly_jellyfin_image }}"
         container_name: Jellyfin
         volumes:
             - "{{ docker_jelly_dir }}/config:/config"

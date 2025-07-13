@@ -1,7 +1,6 @@
 services:
     ForgejoFrontend:
-        # https://codeberg.org/forgejo/-/packages/container/forgejo/versions
-        image: "codeberg.org/forgejo/forgejo:11.0.1"
+        image: "{{ docker_forgejo_forgejo_image }}"
         container_name: "ForgejoFrontend"
 
         volumes:
@@ -31,7 +30,7 @@ services:
         networks: ["net", "common"]
 
     ForgejoDatabase:
-        image: "postgres:17"
+        image: "{{ docker_forgejo_postgres_image }}"
         container_name: "ForgejoDatabase"
 
         volumes:
@@ -45,9 +44,17 @@ services:
         restart: "unless-stopped"
         networks: ["common"]
 
+    # Initial Registration:
+    # docker exec -ti forgejo-ForgejoRunner-1 /bin/bash
+    # forgejo-runner register
+    # https://code.chris-besch.com
+    # [runner token]
+    # runner01
+    # self-hosted:host://-self-hosted
+    # docker compose down
+    # docker compose up -d
     ForgejoRunner:
-        # https://code.forgejo.org/forgejo/-/packages/container/runner
-        image: "code.forgejo.org/forgejo/runner:6.3.1"
+        image: "{{ docker_forgejo_runner_image }}"
         depends_on:
             - "ForgejoFrontend"
         # TODO: find a way to make installing dependencies work without root user

@@ -2,7 +2,7 @@ services:
     FFFrontend:
         # https://hub.docker.com/r/fireflyiii/core/tags
         container_name: "FFFrontend"
-        image: "fireflyiii/core:version-6.2.16"
+        image: "{{ docker_firefly_firefly_image }}"
         restart: always
         volumes:
             - {{ docker_firefly_dir }}/ff_upload:/var/www/html/storage/upload
@@ -38,8 +38,7 @@ services:
         networks: ["common", "net"]
 
     FFDatabase:
-        # https://hub.docker.com/_/mariadb
-        image: "mariadb:10.11.13"
+        image: "{{ docker_firefly_mariadb_image }}"
         container_name: "FFDatabase"
 
         volumes:
@@ -58,7 +57,7 @@ services:
         networks: ["common"]
 
     FFCron:
-        image: alpine
+        image: "{{ docker_firefly_alpine_image }}"
         # get token on /profile under the "Command line token" header
         command: sh -c "echo \"{{ docker_firefly_automation_cron }} wget -qO- http://FFFrontend:8080/api/v1/cron/{{ docker_firefly_automation_cron_token }}\" | crontab - && crond -f -L /dev/stdout"
 
@@ -68,7 +67,7 @@ services:
 
 
     FFBorgBackup:
-        image: chrisbesch/docker_borg_backup
+        image: "{{ docker_firefly_borg_image }}"
         volumes:
             - "{{ docker_firefly_dir }}:/origin:ro"
             - "{{ docker_firefly_borg_dir }}:/repo"

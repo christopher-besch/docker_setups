@@ -1,6 +1,6 @@
 services:
     PPFrontend:
-        image: photoprism/photoprism:latest
+        image: "{{ docker_photo_photoprism_image }}"
         container_name: "PPFrontend"
         depends_on:
             - PPDatabase
@@ -49,8 +49,7 @@ services:
         networks: ["net", "common"]
 
     PPDatabase:
-        # https://hub.docker.com/_/mariadb
-        image: mariadb:10.11.13
+        image: "{{ docker_photo_mariadb_image }}"
         container_name: "PPDatabase"
         command: mariadbd --innodb-buffer-pool-size=512M --transaction-isolation=READ-COMMITTED --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=512 --innodb-rollback-on-timeout=OFF --innodb-lock-wait-timeout=120
         volumes:
@@ -66,7 +65,7 @@ services:
         networks: ["common"]
 
     PPBorgBackup:
-        image: chrisbesch/docker_borg_backup
+        image: "{{ docker_photo_borg_image }}"
         volumes:
             - "{{ docker_photo_dir }}:/origin/photo_dir:ro"
             - "{{ docker_photo_data_dir }}:/origin/data:ro"

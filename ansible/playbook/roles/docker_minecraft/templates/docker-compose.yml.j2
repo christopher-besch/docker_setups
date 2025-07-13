@@ -1,6 +1,6 @@
 services:
     Minecraft:
-        image: itzg/minecraft-server
+        image: "{{ docker_minecraft_minecraft_image }}"
         container_name: "Minecraft"
         volumes:
             - "{{ docker_minecraft_dir }}/data:/data"
@@ -31,7 +31,7 @@ services:
 
 {% for guidance_server in docker_minecraft_guidance_servers %}
     MinecraftGuidanceControl{{ guidance_server.connection_id }}:
-        image: {{ guidance_server.image }}
+        image: "{{ guidance_server.image }}"
         container_name: "MinecraftGuidanceControl{{ guidance_server.connection_id }}"
         networks: ["guidance"]
         environment:
@@ -40,7 +40,7 @@ services:
 {% endfor %}
 
     MinecraftStats:
-        image: chrisbesch/minecraft_stats
+        image: "{{ docker_minecraft_minecraft_stats_image }}"
         container_name: "MinecraftStats"
         environment:
             # configures the DockerCron container to send a SIGHUP to this container every five minutes
@@ -53,7 +53,7 @@ services:
 
     # web server for minecraft stats
     MinecraftWeb:
-        image: nginx
+        image: "{{ docker_minecraft_nginx_image }}"
         container_name: "MinecraftWeb"
         volumes:
             - "{{ docker_minecraft_dir }}/web:/usr/share/nginx/html:ro"
@@ -65,7 +65,7 @@ services:
 
     # web server for minecraft_map_marker
     MinecraftMapMarkerWeb:
-        image: nginx
+        image: "{{ docker_minecraft_nginx_image }}"
         container_name: "MinecraftMapMarkerWeb"
         volumes:
             - "{{ docker_minecraft_dir }}/minecraft_map_marker/:/usr/share/nginx/html:ro"
@@ -76,7 +76,7 @@ services:
         networks: ["net"]
 
     MinecraftMapMarkerRenderer:
-        image: chrisbesch/minecraft_map_marker
+        image: "{{ docker_minecraft_minecraft_map_marker }}"
         container_name: "MinecraftMapMarker"
         environment:
             CRON_TIME: "*/5 * * * *"
@@ -86,7 +86,7 @@ services:
         restart: unless-stopped
 
     MinecraftBorgBackup:
-        image: chrisbesch/docker_borg_backup
+        image: "{{ docker_minecraft_borg_image }}"
         volumes:
             - "{{ docker_minecraft_dir }}:/origin:ro"
             - "{{ docker_minecraft_borg_dir }}:/repo"

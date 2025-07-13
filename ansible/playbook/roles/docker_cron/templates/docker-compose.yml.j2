@@ -1,6 +1,6 @@
 services:
     DockerCron:
-        image: chrisbesch/docker_cron
+        image: "{{ docker_cron_docker_cron_image }}"
         volumes:
             - "{{ docker_socket }}:/var/run/docker.sock:rw"
         restart: "unless-stopped"

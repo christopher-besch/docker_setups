@@ -1,8 +1,7 @@
 # based on https://linuxhandbook.com/install-nextcloud-docker
 services:
     NCFrontend:
-        # https://hub.docker.com/_/nextcloud
-        image: "nextcloud:29.0.16"
+        image: "{{ docker_nextcloud_nextcloud_image }}"
         container_name: "NCFrontend"
 
         volumes:
@@ -28,9 +27,7 @@ services:
         networks: ["net", "common"]
 
     NCDatabase:
-        # https://hub.docker.com/_/mariadb
-        # https://docs.nextcloud.com/server/latest/admin_manual/installation/system_requirements.html
-        image: "mariadb:10.11.13"
+        image: "{{ docker_nextcloud_mariadb_image }}"
         container_name: "NCDatabase"
 
         volumes:
@@ -49,7 +46,7 @@ services:
         networks: ["common"]
 
     NCBorgBackup:
-        image: chrisbesch/docker_borg_backup
+        image: "{{ docker_nextcloud_borg_image }}"
         volumes:
             - "{{ docker_nextcloud_dir }}:/origin/nc:ro"
             - "{{ docker_nextcloud_lfs_dir }}:/origin/lfs:ro"
@@ -67,7 +64,7 @@ services:
 
     # enable cron for background job in administrative basic settings
     NCCron:
-        image: alpine
+        image: "{{ docker_nextcloud_alpine_image }}"
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock:rw"
         command: sh -c 'apk update && apk add docker-cli && sh -c "echo \"*/5 * * * * docker exec -u www-data NCFrontend php -f /var/www/html/cron.php\" | crontab - && crond -f -L /dev/stdout"'

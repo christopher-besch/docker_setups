@@ -1,7 +1,6 @@
 services:
     TDFrontend:
-        # https://hub.docker.com/r/vabene1111/recipes/tags
-        image: vabene1111/recipes:1.5.34
+        image: "{{ docker_tandoor_tandoor_image }}"
         container_name: "TDFrontend"
         volumes:
             - {{ docker_tandoor_dir }}/td_data/staticfiles:/opt/recipes/staticfiles
@@ -30,8 +29,7 @@ services:
         networks: ["net", "common"]
 
     TDDatabase:
-        # https://docs.tandoor.dev/install/docker/#docker-compose
-        image: postgres:15-alpine
+        image: "{{ docker_tandoor_postgres_image }}"
         container_name: "TDDatabase"
         volumes:
             - {{ docker_tandoor_dir }}/td_postgres:/var/lib/postgresql/data
@@ -43,7 +41,7 @@ services:
         networks: ["common"]
 
     TDBorgBackup:
-        image: chrisbesch/docker_borg_backup
+        image: "{{ docker_tandoor_borg_image }}"
         volumes:
             - "{{ docker_tandoor_dir }}:/origin:ro"
             - "{{ docker_tandoor_borg_dir }}:/repo"
