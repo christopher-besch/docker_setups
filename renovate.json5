@@ -1,0 +1,21 @@
+{
+    $schema: "https://docs.renovatebot.com/renovate-schema.json",
+    extends: ["config:best-practices"],
+    // Test this locally with:
+    // sudo docker run --net host --rm -ti -v .:/usr/src/app -e GITHUB_COM_TOKEN=something -e LOG_LEVEL=debug renovate/renovate --platform=local
+    customManagers: [
+        {
+            customType: "regex",
+            managerFilePatterns: [
+                "/^ansible/.*y[a]?ml$/",
+            ],
+            matchStrings: [
+                // matches this (without the //)
+                // # renovate-docker-semver:
+                // mariadb_image: mariadb:11.8.2-ubi
+                '# renovate-docker-(?<versioning>\\S+):\\s+\\S+:\\s"?(?<packageName>.*?):(?<currentValue>[^"\\s]*)"?',
+            ],
+            datasourceTemplate: "docker",
+        }
+    ],
+}

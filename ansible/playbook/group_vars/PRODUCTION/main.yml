@@ -1,59 +1,88 @@
 ---
 
 # https://hub.docker.com/_/mariadb
+# renovate-docker-docker:
 mariadb_image: mariadb:11.8.2-ubi
+# renovate-docker-semver:
 alpine_image: alpine:3.22.0
 
 
+# renovate-docker-semver:
 docker_anki_anki_image: chrisbesch/anki_sync_server:25.02
 
+# renovate-docker-semver:
 docker_chore_planner_chore_planner_image: chrisbesch/chore_planner:2.0.0
+# renovate-docker-loose:
 docker_chore_planner_borg_image: chrisbesch/docker_borg_backup:latest
 
+# renovate-docker-loose:
 docker_cron_docker_cron_image: chrisbesch/docker_cron:latest
 
 # https://hub.docker.com/r/fireflyiii/core/tags
+# renovate-docker-docker:
 docker_firefly_firefly_image: fireflyiii/core:version-6.2.16
 docker_firefly_mariadb_image: "{{ mariadb_image }}"
 docker_firefly_alpine_image: "{{ alpine_image }}"
+# renovate-docker-loose:
 docker_firefly_borg_image: chrisbesch/docker_borg_backup:latest
 
 # https://codeberg.org/forgejo/-/packages/container/forgejo/versions
+# renovate-docker-semver:
 docker_forgejo_forgejo_image: codeberg.org/forgejo/forgejo:11.0.3
 # https://hub.docker.com/_/postgres
+# renovate-docker-docker:
 docker_forgejo_postgres_image: postgres:17.5-alpine
 # https://code.forgejo.org/forgejo/-/packages/container/runner/versions
+# renovate-docker-semver:
 docker_forgejo_runner_image: code.forgejo.org/forgejo/runner:6.4.0
+# https://hub.docker.com/r/renovate/renovate
+# renovate-docker-semver:
+docker_forgejo_renovate_image: renovate/renovate:41.74
 
 # https://github.com/jellyfin/jellyfin/releases/tag/v10.10.7
+# renovate-docker-semver:
 docker_jelly_jellyfin_image: jellyfin/jellyfin:10.10.7
 
+# renovate-docker-loose:
 docker_minecraft_minecraft_image: itzg/minecraft-server:java21
+# renovate-docker-loose:
 docker_minecraft_minecraft_stats_image: chrisbesch/minecraft_stats:latest
 # https://hub.docker.com/_/nginx
+# renovate-docker-semver:
 docker_minecraft_nginx_image: nginx:1.29.0
+# renovate-docker-loose:
 docker_minecraft_minecraft_map_marker: chrisbesch/minecraft_map_marker:latest
+# renovate-docker-loose:
 docker_minecraft_borg_image: chrisbesch/docker_borg_backup:latest
 
 # https://hub.docker.com/_/nextcloud
+# renovate-docker-semver:
 docker_nextcloud_nextcloud_image: nextcloud:31.0.7
 # https://docs.nextcloud.com/server/latest/admin_manual/installation/system_requirements.html
 docker_nextcloud_mariadb_image: "{{ mariadb_image }}"
+# renovate-docker-loose:
 docker_nextcloud_borg_image: chrisbesch/docker_borg_backup:latest
 docker_nextcloud_alpine_image: "{{ alpine_image }}"
 
 # https://hub.docker.com/r/nginxproxy/nginx-proxy/tags
+# renovate-docker-semver:
 docker_nginx_nginx_proxy_image: nginxproxy/nginx-proxy:1.7.1
 # https://hub.docker.com/r/nginxproxy/acme-companion/tags
+# renovate-docker-semver:
 docker_nginx_acme_image: nginxproxy/acme-companion:2.6.0
 
 # https://hub.docker.com/r/photoprism/photoprism/tags
+# renovate-docker-loose:
 docker_photo_photoprism_image: photoprism/photoprism:250707
 docker_photo_mariadb_image: "{{ mariadb_image }}"
+# renovate-docker-loose:
 docker_photo_borg_image: chrisbesch/docker_borg_backup:latest
 
 # https://hub.docker.com/r/vabene1111/recipes/tags
+# renovate-docker-semver:
 docker_tandoor_tandoor_image: vabene1111/recipes:1.5.35
 # https://docs.tandoor.dev/install/docker/#docker-compose
+# renovate-docker-docker:
 docker_tandoor_postgres_image: postgres:15.13-alpine
+# renovate-docker-loose:
 docker_tandoor_borg_image: chrisbesch/docker_borg_backup:latest
